@@ -211,7 +211,7 @@ MenuConfig_Example.json 节选
 
 #### Chameleon Gallery
 
-![ChameleonGallery2](https://raw.githubusercontent.com/cgerchenhp/UE4_Python_Tools_Doc/master/Images/ChameleonGallery2.gif)
+![ChameleonGallery2](https://raw.githubusercontent.com/cgerchenhp/UE4_Python_Tools_Doc/master/Images/ChameleonGallery2.png)
 
 具体链接：
 
