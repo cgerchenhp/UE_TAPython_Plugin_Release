@@ -1,4 +1,4 @@
-# UE4_Python_Tools_Doc
+# UE4 Python Tools Doc
 一款努力让“开发UE4编辑器工具”如同“开发Max脚本工具”一样简单的插件
 
 
@@ -15,7 +15,7 @@
 - 伪Slate语法，动态实时预览界面效果
 - 标准UE工具窗口,支持众多控件类型
 
-动图
+[!Editing](https://github.com/cgerchenhp/UE4_Python_Tools_Doc/blob/master/Images/Editing.gif)
 
 
 ## 安装和使用
