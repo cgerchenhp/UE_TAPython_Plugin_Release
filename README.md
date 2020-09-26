@@ -15,7 +15,7 @@
 - 伪Slate语法，动态实时预览界面效果
 - 标准UE工具窗口,支持众多控件类型
 
-[!Editing](https://github.com/cgerchenhp/UE4_Python_Tools_Doc/blob/master/Images/Editing.gif)
+![Editing](https://github.com/cgerchenhp/UE4_Python_Tools_Doc/blob/master/Images/Editing.gif)
 
 
 ## 安装和使用
