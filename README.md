@@ -2,7 +2,7 @@
 一款努力让“开发UE4编辑器工具”如同“开发Max脚本工具”一样简单的插件
 
 ![ObjectDetailViewer.png](https://raw.githubusercontent.com/cgerchenhp/UE4_Python_Tools_Doc/master/Images/ObjectDetailViewer.png)
-![ObjectDetailViewer.png](https://raw.githubusercontent.com/cgerchenhp/UE4_Python_Tools_Doc/master/Images/PyModelRenderer.png)
+![PyModelRenderer.png](https://raw.githubusercontent.com/cgerchenhp/UE4_Python_Tools_Doc/master/Images/PyModelRenderer.png)
 
 
 
@@ -61,6 +61,7 @@ TA\TAPython\Config\config.ini
 
 ## 功能一： 创建菜单项
 该功能可以在ContentBrower，主菜单，工具栏等处添加菜单项。默认配置文件路径为上文中提到的/TA/TAPython/UI/MenuConfig.json，配置并修改该文件即可创建菜单项
+![MenuOnToolBar.png](https://raw.githubusercontent.com/cgerchenhp/UE4_Python_Tools_Doc/master/Images/MenuOnToolBar.png)
 
 Example：
 MenuConfig_Example.json 节选
@@ -177,6 +178,8 @@ MenuConfig_Example.json 节选
 
 该功能可以根据UI文件（.json）动态创建使用原生Slate代码的UE4编辑器界面。并将界面于Python工具代码绑定，实现数据的双向互通。无需编译，可实时预览。
 
+
+
 ### 支持的控件
 - SBox
 - SBorder
@@ -208,10 +211,10 @@ MenuConfig_Example.json 节选
 
 #### Chameleon Gallery
 
-图
+![ChameleonGallery2](https://raw.githubusercontent.com/cgerchenhp/UE4_Python_Tools_Doc/master/Images/ChameleonGallery2.gif)
 
 具体链接：
-http://confluence.oa.zulong.com/display/EngineHub/Chameleon+Gallery
+
 
 ### Chameleon Tools 入口
 
@@ -246,6 +249,8 @@ MenuConfig_Example.json 中的 OnToolBarChameleon项，支持子菜单
 
 ### ChameleonTools 最小范例
 以上文中的"ChameleonTools": "../Python/Example/ChameleonExample.json" 为例
+
+![AMinimumTool](https://raw.githubusercontent.com/cgerchenhp/UE4_Python_Tools_Doc/master/Images/AMinimumTool.gif)
 
 ChameleonExample.json
 	
@@ -373,7 +378,7 @@ ChameleonExample.py
 ### ChameleonSketch 界面草稿工具
 该工具用于创建界面时快速预览界面参数和效果，入口为图标，图
 
-动图
+![Editing2](https://raw.githubusercontent.com/cgerchenhp/UE4_Python_Tools_Doc/master/Images/Editing2.gif)
 
 用法：
 
@@ -385,296 +390,5 @@ ps. 其他ChameleonTools的json文件，在点击按钮时加载和刷新，亦�
 ### ChameleonData设置界面内容的接口
 以下函数常被用于在Python代码中获取、修改界面中的特定组件的值。具体在ChameleonData.h中
 
-**get_property**
-
-通过变量名，获取UProperty
-
-    get_property(...)
-        x.get_property(property_name) -> Property
-		
-        Args:
-            property_name (Name): 
-        
-        Returns:
-            Property:
-    
-
-
-
-
-**set_visibility**
-
-设置Widget的可见性，通常用于控制动态（可变化）的界面的显隐状态
-
-可选项有：
-- Visible
-- Collapsed
-- Hidden
-- HitTestInvisible
-- SelfHitTestInvisible
-
-py help:
-
-    set_visibility(...)
-    
-        x.set_visibility(aka_name, visibility_str) -> bool
-                
-            Args:
-                aka_name (Name): 
-                visibility_str (str): 
-            
-            Returns:
-                bool:
-
-**set_image_data**
-
-设置SImage组件的Brush内容，参数是uint8
-
-py help:
-				
-    set_image_data(...)
-        x.set_image_data(aka_name, raw_data, width, height) -> None
-        Set Image Data
-        
-        Args:
-            aka_name (Name): 
-            raw_data (Array(uint8)): 
-            width (int32): 
-            height (int32):
-			
-**set_image_pixels**
-			
-设置SImage组件的Brush内容
-
-set_image_pixels(...)
-    x.set_image_pixels(aka_name, pixel_colors, width, height) -> None
-    Set Image Pixels
-    
-    Args:
-        aka_name (Name): 
-        pixel_colors (Array(LinearColor)): 
-        width (int32): 
-        height (int32):
-		
-**set_text**
-
-设置组件中的文本内容，支持的组件类型有：
-- SEditableText
-- SEditableTextBox
-- SMultiLineEditableText
-- SMultiLineEditableTextBox
-		
-py help:
-
-    set_text(...)
-        x.set_text(aka_name, text) -> None
-        Set Text
-        
-        Args:
-            aka_name (Name): 
-            text (str):
-			
-**get_text**
-
-获取组件中的文本内容，支持的组件类型同上
-		
-py help:
-
-    get_text(...)
-        x.get_text(aka_name) -> str or None
-        Get Text
-        
-        Args:
-            aka_name (Name): 
-        
-        Returns:
-            str or None: 
-        
-            out_text (str):
-    						
-**get_combo_box_selected_item**
-
-获取当前SComboBox组件中被选中的选项值
-
-py help:
-
-    get_combo_box_selected_item(...)
-        x.get_combo_box_selected_item(aka_name) -> str or None
-        Get Combo Box Selected Item
-        
-        Args:
-            aka_name (Name): 
-        
-        Returns:
-            str or None: 
-        
-            out_item (str):
-
-
-**set_combo_box_selected_item**
-
-设置当前SComboBox组件中被选中的选项
-			
-py help:    
-
-    set_combo_box_selected_item(...)
-        x.set_combo_box_selected_item(aka_name, index) -> bool
-        Set Combo Box Selected Item
-        
-        Args:
-            aka_name (Name): 
-            index (int32): 
-        
-        Returns:
-            bool:
-    			
-**set_list_view_items**
-				
-设置SListView中的items内容
-	
-py help:   
-	
-    set_list_view_items(...)
-        x.set_list_view_items(aka_name, str_array) -> None
-        Set List View Items
-        
-        Args:
-            aka_name (Name): 
-            str_array (Array(str)):
-
-**get_list_view_items**
-
-获取SListView中的items内容
-			
-    get_list_view_items(...)
-        x.get_list_view_items(aka_name) -> (str_array=Array(str), item_stats=Array(int32))
-        Get List View Items
-        
-        Args:
-            aka_name (Name): 
-        
-        Returns:
-            tuple: 
-        
-            str_array (Array(str)): 
-        
-            item_stats (Array(int32)):
-			
-**set_list_view_selections**
-
-设置SListView中的选中项	
-	
-    set_list_view_selections(...)
-        x.set_list_view_selections(aka_name, indexes) -> None
-        Set List View Selections
-        
-        Args:
-            aka_name (Name): 
-            indexes (Array(int32)):
-			
-**push_breadcrumb_string**
-
-为SBreadcrumbTrail Push一个string项
-
-    push_breadcrumb_string(...)
-        x.push_breadcrumb_string(aka_name, crumb_text, new_crumb_data) -> None
-        Push Breadcrumb String
-        
-        Args:
-            aka_name (Name): 
-            crumb_text (str): 
-            new_crumb_data (str):
-    
-**pop_breadcrumb_string**		
-
-从SBreadcrumbTrail Pop出一个选项
-
-    pop_breadcrumb_string(...)
-        x.pop_breadcrumb_string(aka_name) -> str
-        Pop Breadcrumb String
-        
-        Args:
-            aka_name (Name): 
-        
-        Returns:
-            str:
-
-**clear_breadcrumbs_string**
-
-清空SBreadcrumbTrail中的所有项
-			
-    clear_breadcrumbs_string(...)
-        x.clear_breadcrumbs_string(aka_name, pop_all_crumbs_to_clear=False) -> None
-        Clear Breadcrumbs String
-        
-        Args:
-            aka_name (Name): 
-            pop_all_crumbs_to_clear (bool):	
-
-**get_breadcrumbs_count_string**	
-
-获取SBreadcrumbTrail中的选项数量
-
-    get_breadcrumbs_count_string(...)
-        x.get_breadcrumbs_count_string(aka_name) -> int32
-        Get Breadcrumbs Count String
-        
-        Args:
-            aka_name (Name): 
-        
-        Returns:
-            int32:
-
-**set_grid_panel_column_fill**
-			
-设置SGridPanel中指定Column的fill值
-			
-    set_grid_panel_column_fill(...)
-        x.set_grid_panel_column_fill(aka_name, index, value) -> None
-        Set Grid Panel Column Fill
-        
-        Args:
-            aka_name (Name): 
-            index (int32): 
-            value (float):
-			
-**add_column**
-
-为SHeadRow添加一个Column
-		
-    add_column(...)
-        x.add_column(aka_name, label) -> None
-        Head Row
-        
-        Args:
-            aka_name (Name): 
-            label (str):
-
-**set_column_lable**
-			
-设置SHeadRow中指定Column中的Label文字
-			
-    set_column_lable(...)
-        x.set_column_lable(aka_name, index, label) -> None
-        Set Column Lable
-        
-        Args:
-            aka_name (Name): 
-            index (int32): 
-            label (str):
-
-
-**set_progress_bar_percent**
-
-设置SProgressBar的Percent，范围0~1		
-
-    set_progress_bar_percent(...)
-        x.set_progress_bar_percent(aka_name, percent) -> None
-        Set Progress Bar Percent
-        
-        Args:
-            aka_name (Name): 
-            percent (float):
-    
 
 			
