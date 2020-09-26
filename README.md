@@ -1,7 +1,7 @@
 # UE4 Python Tools Doc
 一款努力让“开发UE4编辑器工具”如同“开发Max脚本工具”一样简单的插件
 
-![ObjectDetailViewer.png](https://githubusercontent.com/cgerchenhp/UE4_Python_Tools_Doc/master/Images/ObjectDetailViewer.png)
+![ObjectDetailViewer.png](https://raw.githubusercontent.com/cgerchenhp/UE4_Python_Tools_Doc/master/Images/ObjectDetailViewer.png)
 ![ObjectDetailViewer.png](https://raw.githubusercontent.com/cgerchenhp/UE4_Python_Tools_Doc/master/Images/PyModelRenderer.png)
 
 
