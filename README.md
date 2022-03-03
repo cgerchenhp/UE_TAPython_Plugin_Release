@@ -51,9 +51,9 @@ This plugin use UE native Python Script Plugin. The [Scripting the Editor using 
 
 2. Laungch project, open Project settings - Plugin Python - additional path, add &lt;Your_UE_Project&gt;/TA/TAPython/Python to additional path. then restart the editor.
 
-3. ![Project Setting Image](Images/004_project_settings_setted.png)
+![Project Setting Image](Images/004_project_settings_setted.png)
 
-4. click the **Gallery** icon on main toolbar, you should see a green check box UI like below.
+3. click the **Gallery** icon on main toolbar, you should see a green check box UI like below.
 
 ![SketchIconOnMainBar](Images/020_gallery_menu.png)
 
