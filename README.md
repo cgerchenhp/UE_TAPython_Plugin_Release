@@ -213,7 +213,7 @@ Chameleon Gallery shows the most common widgets, and how to describe them in a j
 
 ## FAQ
 ### Q0. Can UE4 use this plugin?
-A: Yes, at the beginning this plugin was developed with UE 4.21. We will release this plugin for UE 4.26 and 4.27 very soon.
+A: Yes, at the beginning this plugin was developed with UE 4.21. We have released this plugin for UE 4.26, 4.27, UE5.0EA, UE5.0Preview1.
 
 ### <a href="https://tacolor.xyz/pages/TAPython.html#faq">More FAQ</a>
 
