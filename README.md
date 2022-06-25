@@ -41,7 +41,7 @@ TAPython is a plugin for creating python editor tools for Unreal Engine, which m
 | | |<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#set_property_by_string_at">set_property_by_string_at</a>|
 
 
- In short, we can use Python to do almost everything you did manually in the editor with **User defined ENum, User Defined Struct and DataTable**. More details and examples can be found [here](https://www.tacolor.xyz/How_To_Create_User_Defined_ENum_Struct_DataTable_with_Python_in_UE5.html).
+ In short, we can use Python to do almost everything you did manually in the editor with **User defined ENum, User Defined Struct and DataTable**. More details and examples can be found [here](https://www.tacolor.xyz/Howto/How_To_Create_User_Defined_ENum_Struct_DataTable_with_Python_in_UE5.html).
 
 
 ### v1.0.4
