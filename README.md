@@ -15,7 +15,18 @@ TAPython is a plugin for creating python editor tools for Unreal Engine, which m
 ![Tools Preview](Images/001_tools_preview_small.png)
 
 ## What's New
-### In lastest v1.0.5
+### In lastest v1.0.6
+Added:
+- Support Unreal Engine 5.0.3
+- Support Unreal Engine 4.27.2
+- Add an optional parameter: "friendly name" to PythonStructLib.add_variable and PythonStructLib.add_directory_variable
+- Better warning message for PythonDataTableLib.set_property_by_string when "row_name" or "column_name" not exists in datatable
+  
+Fixed:
+- The Chameleon tab's reference not released when the project closes.
+
+
+### In v1.0.5
 [PythonEnumLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html) and [PythonStructLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html) has been added to [Python Editor Libs](https://www.tacolor.xyz/pages/PythonEditorLib.html), [PythonDataTableLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html) also adds more python/blueprint callable functions.
 
 |PythonEnumLib |PythonStructLib |PythonDataTableLib |
@@ -209,7 +220,7 @@ We can get the EObjectFlags of a UObject.
 Get the actors in Specified folder in outline
 
 - FindActorsByLabelName
-- 
+
 Find the actor by it's "label name" not the "actor name" 
 
 
