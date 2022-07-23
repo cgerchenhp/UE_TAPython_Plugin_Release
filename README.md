@@ -19,6 +19,7 @@ TAPython is a plugin for creating python editor tools for Unreal Engine, which m
 Added:
 - Support Unreal Engine 5.0.3
 - Support Unreal Engine 4.27.2
+- Support Unreal Engine 4.26.2
 - Add an optional parameter: "friendly name" to PythonStructLib.add_variable and PythonStructLib.add_directory_variable
 - Better warning message for PythonDataTableLib.set_property_by_string when "row_name" or "column_name" not exists in datatable
   
