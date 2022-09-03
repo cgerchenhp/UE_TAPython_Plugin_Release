@@ -7,19 +7,290 @@ This is a plugin which tries hard to make Unreal Editor Tools As Easy As Possibl
 
 ## Overview
 
-
-TAPython is a plugin for creating python editor tools for Unreal Engine, which makes creating menus, UE native Slate UI much easier and faster(without any compiling time or restart editor). The plugin also provides 160+ editor tool interfaces to use, making developing UE editor tools very simple and efficient.
-
-
+TAPython is an editor plugin for Unreal Engine. It provides a framework for creating python editor tools in Unreal Engine, and live Slate editing for developers, which makes creating menus and UE native Slate UI much easier and faster(without any compiling time or restart editor). The plugin also provides 200+ editor tool interfaces to use, making developing UE editor tools very simple and efficient.
 
 ![Tools Preview](Images/001_tools_preview_small.png)
 
 ## What's New
-### In lastest v1.0.7 beta
-Added:
-- PythonStructLib.get_variable_default_value. 
-Fixed:
+### In latest v1.0.8
+
+#### Support MacOS
+
+TAPython released its first version of MacOS Monterey (v1.0.8 for UE 5.0.3), although there are far fewer Unreal developers on the MAC than PC.  If you have any problems, please let me know.
+
+![0_49_tapython_osx_small](Images/0_49_tapython_osx_small.png)
+
+#### Context Menu for Chameleon Tools (UE5 only)
+
+##### Global Context Menu
+
+Now, we can add the global context menu of the Chameleon Tool by adding "OnTabContextMenu" in the MenuConfig.json.
+
+For example, the following example adds a menu item named "Reload This Tool" to all Chameleon Tools. The tool will re-launch when the user clicks the menu. If we use [this method](https://www.tacolor.xyz/TipsOfDay/Reload_python_when_launch_Chameleon_Tool.html) to reload the python module when we open the tool, we can quickly reload both the interface and python logic, which is very convenient when developing the tools.
+
+![049_images/reload simple exaple](Images/G_014_ReloadLogic_short.gif)
+
+MenuConfig.json:
+
+```JSON
+"OnTabContextMenu":{
+    "name": "TA Python Tab",
+    "items": [
+        {
+            "name": "Reload This tool",
+            "command": "unreal.ChameleonData.request_close(%tool_path); unreal.ChameleonData.launch_chameleon_tool(%tool_path)"
+        }
+    ]
+}
+```
+
+##### Individual Context for each Chameleon Tool
+
+Each Chameleon Tool can also add its own context menu. The way of adding menu is similar to the [Global Context Menu](#global-context-menu): add the "OnTabContextMenu" subitem in the Json file of tool's json file, and add the menu content to it.
+
+For example, add a custom context menu for MinimalExample
+
+```JSON
+{
+    "TabLabel": "Example",
+    "InitTabSize": [200, 123],
+    "InitTabPosition": [180, 200],
+    "InitPyCmd": "import Example; chameleon_example = Example.MinimalExample.MinimalExample(%JsonPath)",
+    "Root":
+    {
+        ...
+    },
+    "OnTabContextMenu":{
+        "items": [
+            {
+                "name": "Reset Click Count",
+                "command": "chameleon_example.reset_click_count()"
+            }
+        ]
+    }
+}
+```
+
+Or a menu item that switches the tool to "Development Mode" for your tool.
+
+![049_development_mode](Images/049_development_mode.png)
+
+Tips:
+
+- These new context menu only support UE5, now
+- OnTabContextMenu also support sub menu items
+
+##### New Content Menu for **Material Editor**
+
+
+One of the most **important** features in this release is the addition of support for the Material Editor.
+
+Now we can add custom menu items directly to the material editor and pass the material instance that we are currently editing to the python script so that we can "play with" the material nodes directly in python.
+
+The *%asset_paths* in the following example will be replaced by the TAPython with an array of paths to the material currently being edited, which usually has only one element.
+
+
+With the [APIs](#more-pythonmateriallib-apis) added to PythonMaterialLib in this release, we can fully script the material expression nodes via Python.
+
+![G013_get_node_as_r](Images/G013_get_node_as_r.gif)
+
+MenuConfig.json:
+
+```Json
+    "OnMaterialEditorMenu": {
+        "name": "Python Menu On Material Editor",
+        "items":
+        [
+            {
+                "name": "TA Python Material Example",
+                "items": [
+                    {
+                        "name": "Print Editing Material / MF",
+                        "command": "print(%asset_paths)"
+                    },
+                    {
+                        "name": "Log Editing Nodes",
+                        "command": "editing_asset = unreal.load_asset(%asset_paths[0]); unreal.PythonMaterialLib.log_editing_nodes(editing_asset)"
+                    },
+                    {
+                        "name": "Selected Nodes --> global variable _r",
+                        "command": "_r = unreal.PythonMaterialLib.get_selected_nodes_in_material_editor(unreal.load_asset(%asset_paths[0]))"
+                    }
+                ]
+            }
+        ]
+    },
+```
+
+#### Slates
+
+##### SScrollBox
+
+- [get_scroll_box_offsets](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#get_scroll_box_offsets)
+- [set_scroll_box_offsets](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#set_scroll_box_offsets)
+
+
+Now we can calculate the size of all content in the whole ScrollBox from the Offset, ScrollOffsetOfEnd，ViewFraction，ViewOffsetFraction, etc. Then use [SnapshotChameleonWindow](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#snapshot_chameleon_window) to capture the contents of the entire tool window, including the parts of ScrollBox that are **not shown**.
+
+
+##### SButton
+
+Add *%widgetPath* keyword in JSON
+
+It will pass the widget path of the current clicked button to python code, so we can figure out which SButton was clicked, when we import the External JONS file multi-times.
+
+
+#### More Control with Chameleon Tool's Window
+
+- [Flash the Chameleon Tool][2]
+
+  When we need to remind the user to a specified tool, we can use the flash_chameleon_window.
+
+![flash window](Images/G_016_flash_window.gif)
+
+- [get/set Chameleon Tools size](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#get_chameleon_window_size)
+
+- [get/set Chameleon Tools position](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#get_chameleon_window_position)
+
+- [SnapShot The Whole Chameleon Window](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#flash_chameleon_window)
+
+We can capture the contents of the entire chameleon tool window, including the parts of ScrollBox that are not shown.
+
+For example, the ChameleonGallery tool that comes with the plugin is over 3,000 pixels height and wrapped in ScrollBox, which we can also save as an image at once.
+
+![snap gallery](Images/G_015_snapshot.gif)
+
+The following code will calculate the size of the contents in the entire tool window, then take the snapshot.
+
+```Python
+    def get_full_size_of_this_chameleon(self):
+        current_size = unreal.ChameleonData.get_chameleon_window_size(self.jsonPath)
+        scrollbox_offsets = self.data.get_scroll_box_offsets(self.ui_scrollbox)
+        height_full = scrollbox_offsets["ScrollOffsetOfEnd"] / (1.0 - scrollbox_offsets["viewFraction"])
+        height_full += 48   # add title bar
+        return current_size.x, round(height_full)
+
+    def on_button_Snapshot_click(self):
+        full_size = self.get_full_size_of_this_chameleon()
+        saved_file_path = unreal.ChameleonData.snapshot_chameleon_window(self.jsonPath, unreal.Vector2D(*full_size))
+        
+        if saved_file_path:
+            unreal.PythonBPLib.notification(f"UI Snapshot Saved:", hyperlink_text = saved_file_path
+                                            , on_hyperlink_click_command = f'chameleon_gallery.explorer("{saved_file_path}")')
+        else:
+            unreal.PythonBPLib.notification(f"Save UI snapshot failed.", info_level = 1)
+```
+
+#### More [PythonMaterialLib APIs](https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html) 
+
+Now we can iterate, create, and modify **Material Expression** nodes of Material and Material Function with Python. Including the nodes that cannot be created or modified in the MaterialEditingLibrary. For example, connect properties to World Position Offset, add Get/SetMaterialAttribute nodes, etc.
+
+For more details and examples of material expressions can be found here: [How to manipulate Material Expressions Node in Material with Python in Unreal Engine](https://www.tacolor.xyz/Howto/Manipulate_Material_Expressions_Nodes_In_Material_with_Python_In_Unreal_Engine.html)
+
+
+|PythonMaterialLib |Description | Is New added|
+|:--- |:---- | :----|
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_static_switch_parameter_values">get_static_switch_parameter_values</a>|Get the Static Switch Infos of material instance| |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_static_switch_parameter_value">set_static_switch_parameter_value</a>|Set the Static Switch Infos of material instance| |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_static_switch_parameters_values">set_static_switch_parameters_values</a>|Batch set the Static Switch's status of material instance.| |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_mf_static_switch_parameter">get_mf_static_switch_parameter</a>|Get the Static Switch Infos of material function.| |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_static_parameters_summary">get_static_parameters_summary</a>|Get the numbers of each StaticSwitchParameter of material instance.| |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_mat">log_mat</a>|Log out all the connections in the material| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expressions">get_material_expressions</a>|Log out all the Material Expressions in the material| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_all_referenced_expressions">get_all_referenced_expressions</a>|Get Material Expressions in the material with specified feature level| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_connections">get_material_connections</a>|Get all the connections in the material| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_connections">get_material_function_connections</a>|Get all the connections in the material function| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_input_names">get_material_expression_input_names</a>|Get the input pin's names of the material expression| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_output_names">get_material_expression_output_names</a>|Get the output pin's names of the material expression| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_captions">get_material_expression_captions</a>|The captions of the material expression| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_shading_model">set_shading_model</a>|Set the shading model of the material, for the hidden shading model| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_id">get_material_expression_id</a>|Get the ParameterExpressionId of the material expression.| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_mf">log_mf</a>|Log out all the connections in the material function| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_expressions">get_material_function_expressions</a>|Get all the expressions in the Material Function| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_output_expressions">get_material_function_output_expressions</a>|Get all the output expressions in the Material Function| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_selected_material_nodes">get_selected_material_nodes</a>|Get the selected nodes in material editor.| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_material_expression">log_material_expression</a>|Log Detail information of the MaterialExpression, include inputs, outputs etc.| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_editing_nodes">log_editing_nodes</a>|Log Detail information of the Material or Material Function| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_selected_nodes_in_material_editor">get_selected_nodes_in_material_editor</a>|Get the selected nodes in material editor.| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_hlsl_code">get_hlsl_code</a>|Get the HLSL code of the Material| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_shader_map_info">get_shader_map_info</a>|Get the ShaderMaps infos in string format.| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_content">get_material_content</a>|Get the material's content in JSON Format| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_content">get_material_function_content</a>|Get the material function's content in JSON Format| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#connect_material_expressions">connect_material_expressions</a>|Create connection between two material expressions| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#disconnect_expression">disconnect_expression</a>|Disconnection the material expression's input| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#connect_material_property">connect_material_property</a>|Connect a material expression output to one of the material property inputs (e.g. diffuse color,  world position offset etc)| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#disconnect_material_property">disconnect_material_property</a>|Disconnect the material property input| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_proper_str_from_guid">get_material_proper_str_from_guid</a>|Get EMaterialProperty in string format from a guid| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#gen_guid_from_material_property_str">gen_guid_from_material_property_str</a>|Generate a Guid from EMaterialProperty| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#add_input_at_expression_set_material_attributes">add_input_at_expression_set_material_attributes</a>|Add an Attribute Get Type pin for material expression "GetMaterialAttributes"| Yes |
+|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#add_output_at_expression_get_material_attributes">add_output_at_expression_get_material_attributes</a>|Add an Attribute Get Type pin for material expression "GetMaterialAttributes"| Yes |
+
+---
+
+### 1.0.7
+
+#### SImage
+
+Add Mouse Event for SImage
+
+- OnMouseMove
+- OnMouseEnter
+- OnMouseLeave events
+
+​With the three mouse events, our python code can use them to perform more complex operations based on the user's mouse input in SImage.
+
+The %uv, %mouse_flags in the following example will be automatically replaced with the UV coordinates of the mouse in SImage and the pressed state of the left, middle and right mouse button
+
+```JSON
+{
+    "SImage": {
+        "DesiredSizeOverride": [200, 200],
+        "Aka": "ImageCanvas",
+        "OnTick": "your_tool.on_tick()",
+        "OnMouseLeave": "your_tool.on_mouse_leave(%mouse_flags)",
+        "OnMouseMove": "your_tool.on_mouse_move(%uv, %mouse_flags)"
+    }
+}
+```
+
+![Painter图](Images/G011SlatePainter_small.webp)
+
+The user's operation in SImage is taken as Stable Fluid function's input, then using result drive the volume cloud with [set_render_target_data][3] function of PythonTextureLibs.
+
+![PaintCloud](Images/G011_clouds_summary.gif)
+
+#### Add More Editor APIs
+
+[PythonStructLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html)
+
+- [GetVariableDefaultValue](https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#get_variable_default_value)
+
+[PythonBPLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html)
+
+- [BreakSoftObject](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#break_soft_object)
+
+- [在Notification](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#notification)
+
+    ​Two new optional parameters in notifications were added, for adding a specify hyperlinks and the custom python function that executes when click. So we can quickly jump to a specific location or open a hyperlink.
+
+#### [PythonTextureLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTextureLib.html)
+
+- [CreateTexture2DFromRaw](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTextureLib.html#create_texture2d_frow_raw)
+- [SetRenderTargetData](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTextureLib.html#set_render_target_data)
+- [GetRenderTargetRawData](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTextureLib.html#get_render_target_raw_data)
+
+More information and example about modify RenderTexture2D and SImage can be found [here](https://www.tacolor.xyz/Modify_SImage_Content_And_Set_Pixels_to_RenderTarget_in_Unreal_Engine.html).
+
+#### Fixed
+
 - PythonStructLib.get_guid_from_friendly_name not return the correct guid.
+
+[1]: https://www.tacolor.xyz/TipsOfDay/Reload_python_when_launch_Chameleon_Tool.html "Reload_python_when_launch_Chameleon_Tool"
+[2]: https://www.tacolor.xyz/pages/ChameleonDataAPI.html#flash_chameleon_window
+[3]: https://www.tacolor.xyz/pages/PythonEditorLib/PythonTextureLib.html#set_render_target_data
+[4]: https://www.tacolor.xyz/pages/ChameleonDataAPI.html#get_chameleon_window_size
+
+
 
 ### In v1.0.6
 Added:
