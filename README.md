@@ -18,7 +18,7 @@ TAPython is an editor plugin for Unreal Engine. It provides a framework for crea
 
 TAPython released its first version of MacOS Monterey (v1.0.8 for UE 5.0.3), although there are far fewer Unreal developers on the MAC than PC.  If you have any problems, please let me know.
 
-![0_49_tapython_osx_small](Images/0_49_tapython_osx_small.png)
+![0_49_tapython_osx_small](Images/049_tapython_osx_small.png)
 
 #### Context Menu for Chameleon Tools (UE5 only)
 
