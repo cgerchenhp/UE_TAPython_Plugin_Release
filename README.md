@@ -129,7 +129,6 @@ MenuConfig.json:
 - [get_scroll_box_offsets](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#get_scroll_box_offsets)
 - [set_scroll_box_offsets](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#set_scroll_box_offsets)
 
-
 Now we can calculate the size of all content in the whole ScrollBox from the Offset, ScrollOffsetOfEnd，ViewFraction，ViewOffsetFraction, etc. Then use [SnapshotChameleonWindow](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#snapshot_chameleon_window) to capture the contents of the entire tool window, including the parts of ScrollBox that are **not shown**.
 
 
@@ -185,7 +184,7 @@ The following code will calculate the size of the contents in the entire tool wi
 
 Now we can iterate, create, and modify **Material Expression** nodes of Material and Material Function with Python. Including the nodes that cannot be created or modified in the MaterialEditingLibrary. For example, connect properties to World Position Offset, add Get/SetMaterialAttribute nodes, etc.
 
-For more details and examples of material expressions can be found here: [How to manipulate Material Expressions Node in Material with Python in Unreal Engine](https://www.tacolor.xyz/Howto/Manipulate_Material_Expressions_Nodes_In_Material_with_Python_In_Unreal_Engine.html)
+For more details and examples of material expressions can be found here: [How to manipulate Material Expressions Node in Material with Python in Unreal Engine](https://www.tacolor.xyz/Howto/Manipulate_Material_Expression_Nodes_Of_Material_With_Python_In_UE.html)
 
 
 |PythonMaterialLib |Description | Is New added|
@@ -237,7 +236,7 @@ Add Mouse Event for SImage
 - OnMouseEnter
 - OnMouseLeave events
 
-​With the three mouse events, our python code can use them to perform more complex operations based on the user's mouse input in SImage.
+With the three mouse events, our python code can use them to perform more complex operations based on the user's mouse input in SImage.
 
 The %uv, %mouse_flags in the following example will be automatically replaced with the UV coordinates of the mouse in SImage and the pressed state of the left, middle and right mouse button
 
@@ -269,9 +268,9 @@ The user's operation in SImage is taken as Stable Fluid function's input, then u
 
 - [BreakSoftObject](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#break_soft_object)
 
-- [在Notification](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#notification)
+- [Notification](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#notification)
 
-    ​Two new optional parameters in notifications were added, for adding a specify hyperlinks and the custom python function that executes when click. So we can quickly jump to a specific location or open a hyperlink.
+    Two new optional parameters in notifications were added, for adding a specify hyperlinks and the custom python function that executes when click. So we can quickly jump to a specific location or open a hyperlink.
 
 #### [PythonTextureLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTextureLib.html)
 
