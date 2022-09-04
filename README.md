@@ -28,7 +28,7 @@ Now, we can add the global context menu of the Chameleon Tool by adding "OnTabCo
 
 For example, the following example adds a menu item named "Reload This Tool" to all Chameleon Tools. The tool will re-launch when the user clicks the menu. If we use [this method](https://www.tacolor.xyz/TipsOfDay/Reload_python_when_launch_Chameleon_Tool.html) to reload the python module when we open the tool, we can quickly reload both the interface and python logic, which is very convenient when developing the tools.
 
-![049_images/reload simple exaple](Images/G_014_ReloadLogic_short.gif)
+![049_images/reload simple example](Images/G_014_ReloadLogic_short.gif)
 
 MenuConfig.json:
 
@@ -717,7 +717,7 @@ In compare mode, the differences of two UObjects will be highlighted. It's very 
 Chameleon Gallery shows the most common widgets, and how to describe them in a json file. All the supported widgets and API documents can be found [here]({filename}ChameleonGallery.md)
 
 
-![Gallery Gif](Images/G004_gallary_preview.gif)
+![Gallery Gif](Images/G004_gallery_preview.gif)
 
 
 ## <a href="https://tacolor.xyz/pages/TAPython.html#documentation">TAPython How to Use</a>
