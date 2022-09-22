@@ -12,6 +12,8 @@ TAPython is an editor plugin for Unreal Engine. It provides a framework for crea
 
 ![Tools Preview](Images/001_tools_preview_small.png)
 
+Thank you, TAPython's stargazers✨.😄
+
 [![Star History Chart](https://api.star-history.com/svg?repos=cgerchenhp/UE_TAPython_Plugin_Release&type=Date)](https://star-history.com/#cgerchenhp/UE_TAPython_Plugin_Release&Date)
 
 ## What's New
