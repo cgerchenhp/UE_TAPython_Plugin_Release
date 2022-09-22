@@ -5,11 +5,14 @@ This is a plugin which tries hard to make Unreal Editor Tools As Easy As Possibl
 
 <a href="https://tacolor.xyz/pages/TAPython.html">TAPython WebSite</a>
 
+
 ## Overview
 
 TAPython is an editor plugin for Unreal Engine. It provides a framework for creating python editor tools in Unreal Engine, and live Slate editing for developers, which makes creating menus and UE native Slate UI much easier and faster(without any compiling time or restart editor). The plugin also provides 200+ editor tool interfaces to use, making developing UE editor tools very simple and efficient.
 
 ![Tools Preview](Images/001_tools_preview_small.png)
+
+[![Star History Chart](https://api.star-history.com/svg?repos=cgerchenhp/UE_TAPython_Plugin_Release&type=Date)](https://star-history.com/#cgerchenhp/UE_TAPython_Plugin_Release&Date)
 
 ## What's New
 ### In latest v1.0.8
