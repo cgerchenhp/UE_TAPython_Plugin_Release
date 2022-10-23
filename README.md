@@ -24,7 +24,7 @@ Thank you, TAPython's stargazers✨.😄
 
 A new editor lib PythonTestLib has been added to TAPython to complete the test cases of all the [extended APIs](https://www.tacolor.xyz/pages/PythonEditorLib.html).
 
-![gif](./images/G_017_TestCases_short_s.gif)
+![gif](Images/G_017_TestCases_short_s.gif)
 
 In the test cases repo [UE_TAPython_Plugin_TestCases](https://github.com/cgerchenhp/UE_TAPython_Plugin_TestCases), more than 200 PythonLib APIs has been tested.
 
@@ -82,7 +82,7 @@ For example, I fixed the crash when using ObjectDetailViewer tool and then loadi
 
 We can use SDetailViewer for showing the object properties.
 
-![G_015_SDetailsView_s](./images/G_015_SDetailsView_s.gif)
+![G_015_SDetailsView_s](Images/G_015_SDetailsView_s.gif)
 
 - [set_object](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#set_object) to SDetailsView
 
@@ -103,7 +103,7 @@ Add [SetColorAndOpacity](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#set
 - [GetLevelViewportCameraSpeed](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#get_level_viewport_camera_speed)
 - [SetLevelViewportCameraSpeed](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#set_level_viewport_camera_speed)
 
-![SetLevelViewportCameraSpeed](/images/063_camera_speed.png)
+![SetLevelViewportCameraSpeed](Images/063_camera_speed.png)
 
 #### Fix
 
