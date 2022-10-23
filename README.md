@@ -17,7 +17,113 @@ Thank you, TAPython's stargazers✨.😄
 [![Star History Chart](https://api.star-history.com/svg?repos=cgerchenhp/UE_TAPython_Plugin_Release&type=Date)](https://star-history.com/#cgerchenhp/UE_TAPython_Plugin_Release&Date)
 
 ## What's New
-### In latest v1.0.8
+
+### In latest v1.0.9
+
+#### Add PythonTestLib
+
+A new editor lib PythonTestLib has been added to TAPython to complete the test cases of all the [extended APIs](https://www.tacolor.xyz/pages/PythonEditorLib.html).
+
+![gif](./images/G_017_TestCases_short_s.gif)
+
+In the test cases repo [UE_TAPython_Plugin_TestCases](https://github.com/cgerchenhp/UE_TAPython_Plugin_TestCases), more than 200 PythonLib APIs has been tested.
+
+##### Get logs from python
+
+Now we can get the contents of the Output Log, which we can use to validate the operation result from the editor.
+
+Note that Logs are the same content as Output Log in the editor, but they are separate. Clearing Log in Output Log will not affect what PythonTestLib.get_log() returns, and vice visa
+
+- [get_logs](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTestLib.html#get_logs)
+- [clear_log_buffer](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTestLib.html#clear_log_buffer)
+
+A new setting parameters LogNumberLimit in Config.ini will limit the maximum number of log buffers. The default size is 10240.
+
+##### Call python command with delay and repetition
+
+ In the test case, I used [delay_call](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTestLib.html#delay_call), pushing the python scripting, then waiting for the editor to complete its asynchronous tasks, or waiting for the window to refresh, and so on.
+
+- [delay_call](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTestLib.html#delay_call)
+- [cancel_delay_call](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTestLib.html#delay_call)
+
+#### Slates
+
+##### OnMapChangedCmd
+
+Add "OnMapChangedCmd" to the Chameleon tool for executing Python commands when changing maps.
+
+Usage:
+
+- Clean references in Chameleon tool when unload map to avoid memory leaks
+- Sync the UI when changing map
+
+For example, I fixed the crash when using ObjectDetailViewer tool and then loading another level, as the queried object will referenced by ObjectDetailViewer. :-(
+
+``` json
+    "OnMapChangedCmd": "chemeleon_objectDetailViewer.on_map_changed(%map_change_type)",
+```
+
+``` python
+    def on_map_changed(self, map_change_type_str):
+        # remove the reference, avoid memory leaking when load another map.
+        if map_change_type_str == "TearDownWorld":
+            self.reset(bResetParameter=False)
+        else:
+            pass # skip: LoadMap, SaveMap, NewMap
+```
+
+###### parameters
+
+- %world: Get the world of map operation
+
+- %map_change_type: Get the operation type of changing map, "LoadMap", "SaveMap", "NewMap" or "TearDownWorld"
+
+##### SDetailViewer
+
+We can use SDetailViewer for showing the object properties.
+
+![G_015_SDetailsView_s](./images/G_015_SDetailsView_s.gif)
+
+- [set_object](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#set_object) to SDetailsView
+
+##### SMultiLineEditableTextBox
+
+- Add "AlwaysShowScrollbars" bool field in SMultiLineEditableTextBox
+
+- Add [ScrollTo](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#scroll_to) function, for scrolling the scroll bar to the specified location
+
+##### SetColorAndOpacity
+
+Add [SetColorAndOpacity](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#set_color_and_opacity) support for SScrollBox/SImage/STextBlock/SEditableText
+
+### PythonBPLib
+
+- [ClearFolderColor](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#clean_folder_color)
+- [GetTAPythonVersion](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#get_tapython_version)
+- [GetLevelViewportCameraSpeed](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#get_level_viewport_camera_speed)
+- [SetLevelViewportCameraSpeed](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#set_level_viewport_camera_speed)
+
+![SetLevelViewportCameraSpeed](/images/063_camera_speed.png)
+
+#### Fix
+
+- remove incorrect waring logs when OnContextMenuOpening in SEditableTextBox was set.
+- Fix PythonBPLib.SetFolderColor not immediate apply the color with existing directories
+- Add more logs for PythonBPLib.SaveThumbnail.
+- Remove redundant /All/Game", "/All/EngineData/" in the return value from PythonBPLib.GetSelectedFolder
+- Fix PythonBPLib.SetSelectedFolder not work.
+- Fix crash when param "comp" is null when calling PythonBpLib.set_anim_blueprint
+- Fix PythonDataTableLib.SetPropertyByStringAt not work when "quote" in input values.
+- Fix PythonBPLib.FixupRedirectorsInFolder not work when input value is a string.
+- Fix create_landscape_proxy not work when SectionSize = 1
+- Add Optional parameters QuadsSpaceOffsetX/Y for create_landscape_proxy_with_guid
+- Fix crash when input value "asset_input_data" is null when calling PythonMeshLib.get_imported_original_mat_names.
+- Fix crash when input value "socket" is null when calling PythonMeshLib.set_static_mesh_socket_name.
+- Fix typo PythonMeshLib.get_selection_cast_shadow
+- Add Deprecated warning in some PythonLib APIs to warn that some functions can use ue engine native functions instead.
+- Add return value for PythonMeshLib.convert_mesh_to_static_mesh
+
+### v1.0.8
 
 #### Support MacOS
 
@@ -285,7 +391,7 @@ The user's operation in SImage is taken as Stable Fluid function's input, then u
 
 More information and example about modify RenderTexture2D and SImage can be found [here](https://www.tacolor.xyz/Modify_SImage_Content_And_Set_Pixels_to_RenderTarget_in_Unreal_Engine.html).
 
-#### Fixed
+#### Fix
 
 - PythonStructLib.get_guid_from_friendly_name not return the correct guid.
 
@@ -520,7 +626,7 @@ ChameleonTools has a hidden keyword that has not been mentioned: "OnTick". The p
 
 
 
-### Fixed:
+### Fix:
 
 - Fixed RequestClose failing after Chameleon dock to another window.
 
