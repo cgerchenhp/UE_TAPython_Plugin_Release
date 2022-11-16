@@ -18,11 +18,11 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
-### In latest v1.0.10 **beta**
+### [In latest v1.0.10 **beta**](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases/tag/v1.0.10b-ue5.1.0)
 
 #### Support UE 5.1
 
-This is a beta version of TAPython 1.0.10, mainly for UE5.1 users. In the release version, there will be more functions.
+This is a [beta version of TAPython 1.0.10](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases/tag/v1.0.10b-ue5.1.0), mainly for UE5.1 users. In the release version, there will be more functions.
 
 #### Add configurable menu for PhysicsAssetEditor and ControlRigEditor
 
