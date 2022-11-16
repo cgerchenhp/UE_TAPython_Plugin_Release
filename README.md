@@ -18,7 +18,84 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
-### In latest v1.0.9
+### In latest v1.0.10 **beta**
+
+#### Support UE 5.1
+
+This is a beta version of TAPython 1.0.10, mainly for UE5.1 users. In the release version, there will be more functions.
+
+#### Add configurable menu for PhysicsAssetEditor and ControlRigEditor
+
+As the Material Editor, we can add custom menus for Physics Asset Editor and Control Rig Editor now.
+
+```JSON
+    "OnPhysicsAssetEditorMenu": {
+        "name": "Python Menu On Physics Asset Editor",
+        "items":
+        [
+            {
+                "name": "TA Python Physics Asset Example",
+                "items": [
+                    {
+                        "name": "Print Physics Asset",
+                       "command": "print(%f)"
+                    }
+                ]
+           }
+        ]
+     }
+```
+
+#### Add menu in ToolMenus Anchor
+
+So we can add a context menu for the object's component in Detail views. 
+
+```JSON
+    "ControlRigEditor.RigHierarchy.ContextMenu": {
+        "name": "Python Menu On Control Rig Editor",
+        "items": [
+            {
+                "name": "Rigging Tools",
+                "command": "print('Rigging Tools')",
+                "icon": {
+                    "style": "ChameleonStyle",
+                    "name": "Resources.Chameleon_32x_png"
+                }
+            }
+        ]
+    }
+```
+
+So we can add a context menu to  for object's component in Detail views.
+
+```JSON
+    Kismet.SubobjectEditorContextMenu: {
+        ...
+    }
+```
+
+##### Console Command
+
+```
+TAPython.RefreshToolMenus 
+```
+
+"TAPython.RefreshToolMenus" can be used to refresh the "ToolMenus" menus, other menus will be auto-refreshed and not need this command
+
+#### Add More Editor APIs
+
+##### Add PythonControlRigLib
+
+A new editor lib PythonControlRigLib has been added to TAPython; as its name, it's for ControlRig.
+
+- GetControlShapeTransform
+
+##### PythonBPLib
+
+- GetModifierKeyState
+GetModifierKeyState Get the modifier key states(Ctrl, Shift, Alt, etc.), so we used it to display an optional dialog or menu.
+
+### v1.0.9
 
 #### Add PythonTestLib
 
