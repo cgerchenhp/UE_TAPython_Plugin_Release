@@ -22,7 +22,7 @@ Thank you, TAPython's stargazers✨.😄
 
 #### Support UE 5.1
 
-This is a [beta version of TAPython 1.0.10](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases/tag/v1.0.10b-ue5.1.0), mainly for UE5.1 users. In the release version, there will be more functions.
+This is a [**beta** version of TAPython 1.0.10](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases/tag/v1.0.10b-ue5.1.0), mainly for UE5.1 users. In the release version, there will be more functions.
 
 #### Add configurable menu for PhysicsAssetEditor and ControlRigEditor
 
@@ -38,7 +38,7 @@ As the Material Editor, we can add custom menus for Physics Asset Editor and Con
                 "items": [
                     {
                         "name": "Print Physics Asset",
-                       "command": "print(%f)"
+                       "command": "print(%asset_paths)"
                     }
                 ]
            }
@@ -48,7 +48,7 @@ As the Material Editor, we can add custom menus for Physics Asset Editor and Con
 
 #### Add menu in ToolMenus Anchor
 
-So we can add a context menu for the object's component in Detail views. 
+We can add a TAPython menu where the UE ToolMenus can.
 
 ```JSON
     "ControlRigEditor.RigHierarchy.ContextMenu": {
@@ -66,9 +66,9 @@ So we can add a context menu for the object's component in Detail views.
     }
 ```
 
-So we can add a context menu to  for object's component in Detail views.
+And we can add a context menu to  for object's component in Detail views.
 
-```JSON
+```
     Kismet.SubobjectEditorContextMenu: {
         ...
     }
@@ -80,7 +80,7 @@ So we can add a context menu to  for object's component in Detail views.
 TAPython.RefreshToolMenus 
 ```
 
-"TAPython.RefreshToolMenus" can be used to refresh the "ToolMenus" menus, other menus will be auto-refreshed and not need this command
+"TAPython.RefreshToolMenus" can be used to refresh the "ToolMenus-like" menus, other menus will be auto-refreshed and not need this command.
 
 #### Add More Editor APIs
 
@@ -93,6 +93,7 @@ A new editor lib PythonControlRigLib has been added to TAPython; as its name, it
 ##### PythonBPLib
 
 - GetModifierKeyState
+
 GetModifierKeyState Get the modifier key states(Ctrl, Shift, Alt, etc.), so we used it to display an optional dialog or menu.
 
 ### v1.0.9
