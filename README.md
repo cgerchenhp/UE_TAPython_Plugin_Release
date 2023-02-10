@@ -18,13 +18,73 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
-### [In latest v1.0.10 **beta**](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases/tag/v1.0.10b-ue5.1.0)
+### [In latest v1.0.10 ](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases/tag/v1.0.10-ue5.1.1)
 
-#### Support UE 5.1
 
-This is a [**beta** version of TAPython 1.0.10](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases/tag/v1.0.10b-ue5.1.0), mainly for UE5.1 users. In the release version, there will be more functions.
+The Intermediate directory is added to the package and includes UnrealEditor-TAPython.lib (UE4Editor-TAPython.lib in UE4) to make compatibility with the automated build system. At the same time, add the corresponding .dll for DebugGame mode.
 
-#### Add configurable menu for PhysicsAssetEditor and ControlRigEditor
+#### Slate
+
+##### Add support for SWebBrowser
+
+Adding support for SWebBrowser allows you to embed WebBrowser in the tool window, which can be helpful in some situations, such as embedding the internal pipeline tool in the python tool in Unreal Editor.
+
+![Web_browser](Images/066_web_browser.png)
+
+
+Using the SWebBrowser widget, the web browser plug-in is required. It is disabled by default. We must enable the plug-in before using it
+
+![SWebBrowser Plugin](Images/066_web_browser_plugin.png)
+
+
+##### Widgets
+
+- Added "SizeRule" attribute for the SSplitter widget. Optional values are "FractionOfParent" and "SizeToContent",
+
+
+- And more attributes for SColorBlock and SColorPicker 
+
+##### ChameleonData
+
+- GetVisibility
+
+Get the current visibility status of the widget.
+
+- Set/GetColor
+
+They are used for getting and setting the color of the widget.
+
+More APIs for SWebBrowser widget though ChameleonData.
+
+- LoadURL
+- GetURL
+- LoadPageFromString
+- ReloadPage
+- GetTitleTextOfPage
+- IsPageLoaded
+- IsPageLoading
+- CanGoBack
+- GoBack
+- CanGoForward
+- GoForward
+- BindUobjectToBrowser
+- UnbindUobjectToBrowser
+
+
+##### ChameleonTool
+
+- The tool's wind can be set with "IsModalWindow" or "HasMinimizeMaximizeButton" to hide the maximize button.
+
+If IsModalWindow is set to True, Tab is still a nomad type and we can still dock to other Windows.
+
+
+Known issue: the maximize button reappears after the window is floated from the docked window.
+
+#### Menu
+
+- Add "HasSection" attribute, which defaults to True, used to hide the Section text above the menu item when creating a menu with ToolMenus Anchor.
+
+##### Add a configurable menu for PhysicsAssetEditor and ControlRigEditor
 
 As the Material Editor, we can add custom menus for Physics Asset Editor and Control Rig Editor now.
 
@@ -38,7 +98,7 @@ As the Material Editor, we can add custom menus for Physics Asset Editor and Con
                 "items": [
                     {
                         "name": "Print Physics Asset",
-                       "command": "print(%asset_paths)"
+                       "command": "print(%f)"
                     }
                 ]
            }
@@ -46,7 +106,7 @@ As the Material Editor, we can add custom menus for Physics Asset Editor and Con
      }
 ```
 
-#### Add menu in ToolMenus Anchor
+##### Add menu in ToolMenus Anchor
 
 We can add a TAPython menu where the UE ToolMenus can.
 
@@ -66,7 +126,7 @@ We can add a TAPython menu where the UE ToolMenus can.
     }
 ```
 
-And we can add a context menu to  for object's component in Detail views.
+And we can add a context menu for object's component in Detail views.
 
 ```
     Kismet.SubobjectEditorContextMenu: {
@@ -74,27 +134,84 @@ And we can add a context menu to  for object's component in Detail views.
     }
 ```
 
-##### Console Command
+###### Console Command
 
 ```
 TAPython.RefreshToolMenus 
 ```
 
-"TAPython.RefreshToolMenus" can be used to refresh the "ToolMenus-like" menus, other menus will be auto-refreshed and not need this command.
+"TAPython.RefreshToolMenus" can be used to refresh the "ToolMenus" menus, other menus will be auto-refreshed and not need this command
 
-#### Add More Editor APIs
 
-##### Add PythonControlRigLib
-
-A new editor lib PythonControlRigLib has been added to TAPython; as its name, it's for ControlRig.
-
-- GetControlShapeTransform
+#### Editor Lib
 
 ##### PythonBPLib
 
 - GetModifierKeyState
 
 GetModifierKeyState Get the modifier key states(Ctrl, Shift, Alt, etc.), so we used it to display an optional dialog or menu.
+
+- SnapshotDetails
+
+We can tank a snapshot of the entire Details window via 'snapshot_details'. The file will be saved to <Your_project>\Saved\Screenshots\WindowsEditor\ObjectDetailProperties. Note we need to make sure the focus is on the Details window.
+
+
+![object_detail_snapshot](Images/066_object_detail_snapshot.png)
+
+##### PythonTestLib
+
+- CancelDelayCallById 
+
+Cancel the specified DelayCall by ID.
+
+##### Add PhysicsAssetLib
+
+We got a new editor library: PhysicsAssetLib, as its name, it's for PhysicsAsset Editing.
+
+|Function Name |Description | |
+|:--- |:---- | :----|
+|get_selected_bodies_indexes|Get the indexes of the selected bodies in Physics Asset Editor| |
+|rotate_selected_body|Set the rotation of the selected body in Physics Asset Editor| |
+|rotate_selected_constraint|Set the rotation of the selected constraint in Physics Asset Editor| |
+|get_body_center|Get the center value of the specified body| |
+|set_body_center|Set the center value of the specified body| |
+|get_body_rotation|Get the rotation value of the first body| |
+|get_bodies_rotations|Get the rotation value of the first body| |
+|set_body_rotation|Set the rotation value of the specified body| |
+|get_body_radius|Get the Radius value of the body| |
+|set_body_radius|Set the Radius value of the body| |
+|get_body_length|Get the rotation value of the first body| |
+|set_body_length|Get the rotation value of the first body| |
+|get_body_size|Get the Size value of the box body| |
+|set_body_size|Set the Size value of the box body| |
+|scale_body|Scale the specified body| |
+|get_edited_physics_assets|Get all PhysicsAsset currently being tracked with open editors| |
+|get_physics_asset_from_top_window|Get the PhysicsAsset from the top opened editor window.| |
+|get_selected_item_names|Get all the selected items name in PhysicsAsset editor window.| |
+|select_body_by_name|Select the Body by name in PhysicsAsset editor window.| |
+|select_body_by_names|Select the Bodies by name in PhysicsAsset editor window.| |
+|select_shape_by_name|Select the Shape by name in PhysicsAsset editor window.| |
+|select_shape_by_names|Select the Shapes by name in PhysicsAsset editor window.| |
+|select_constraint_by_name|Select the constraint by name in PhysicsAsset editor window.| |
+|select_constraint_by_names|Select the constraints by name in PhysicsAsset editor window.| |
+|add_constraints|Add constraint to specified bodies| |
+|get_skeleton_hierarchy|Get the bones hierarchy| |
+|get_bodies_hierarchy|Get all the bodies names and their parent bone's index| |
+|get_constraints_names|Get all the constraint's display names of PhysicsAsset| |
+|get_bone_indexes_of_constraint|Get the parent and child bone's indexes of the specified Constraint| |
+|get_bone_index_from_body|Get the first Body under the specified bone| |
+|get_bodies_from_bone|Get the Bodies under the specified bone| |
+|get_constraint_instance_accessor|Get the ConstraintInstanceAccessor from PhysicsAsset| |
+|reset_constraint_properties|Reset the specified Constraint's values| |
+|update_profile_instance|Update the Profile according to the specified Constraint| |
+|break_constraint_accessor|Get the Owner and Constraint Index from ConstraintInstanceAccessor| |
+
+### Fixed 
+
+- The "Margin" of STextBlock is not working.
+- The "OnTextChanged" and "OnTextCommitted" callback are not working when the input text is empty. (delete the text with backspace)
+
+
 
 ### v1.0.9
 
