@@ -5,6 +5,7 @@ This is a plugin which tries hard to make Unreal Editor Tools As Easy As Possibl
 
 <a href="https://tacolor.xyz/pages/TAPython.html">TAPython WebSite</a>
 
+<a href="https://www.tacolor.xyz/tapython/welcome_to_tapython.html">TAPython Documentation</a>
 
 ## Overview
 
