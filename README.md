@@ -19,7 +19,69 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
-### [In latest v1.0.10 ](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases/tag/v1.0.10-ue5.1.1)
+
+### In latest v1.0.11
+
+#### Documentation
+
+In the past two months, TAPython has completed the update of the initial version of the document, and the subsequent documents will be iterated on the existing basis.
+
+The document address in the plugin is updated to the new url: https://www.tacolor.xyz/tapython/welcome_to_tapython.html
+
+
+#### Slate
+
+- Add "Modal Window", available options: InitTabSize, SizingRule (UserSized, FixedSize, Autosized), TabLabel, SupportsMinimize, SupportsMaximize, IsFloatingWindow. For details, please refer to: [Modal Window](https://www.tacolor.xyz/tapython/modal_window.html)
+
+##### Add
+
+- Add the "%SelectionType" field to the OnSelectionChanged of SComboBox. Valid values for the field are: "OnKeyPress", "OnNavigation", "OnMouseClick", "Direct"
+- Add support for Font in SMultiLineEditableTextBox
+- Add support for ForegroundColor in SMultiLineEditableTextBox
+- Add support for ColorAndOpacity in SMultiLineEditableText
+- Add support for Font in SEditableTextBox
+- Add support for ColorAndOpacity in SEditableTextBox
+- Add support for TextStyle in SEditableText, SEditableTextBox, SMultiLineEditableText, and SMultiLineEditableTextBox
+- Add support for VAlign and HAlign in SGridPanel
+- Add support for BackgroundColor in SEditableTextBox and SMultiLineEditableTextBox
+
+##### Fix
+
+- Set the default `VAlign` of the middle element in SHeader to `Center`
+- Set the maximum refresh rate for `OnTick` to 60hz
+- Modify the log level when some Widget properties are missing
+- Fix the false warning of unhandled `VAlign` and `HAlign` in SCanvas
+
+#### Default Resources
+
+- Add ModalWindow example resource "./ChameleonGallery/example_modal_window.json"
+- Remove the "IsModalWindow" field originally in "ChameleonGallery.json". This field will be exclusively used for "ModalWindow"
+- Add "DisUnrealStub.py" to separate the huge unreal.py Stub file into individual files by class for easier viewing and code completion in PyCharm and similar tools, see [here](http://tacolor.xyz/tapython/auto_complete_for_tapython.html#python-code)
+- Modify the default size of Chameleon Sketch to avoid scrollbar's flicker in some cases
+
+#### ChameleonData
+
+- Add `unreal.ChameleonData.snapshot_sketch` command for capturing the current Sketch panel
+- Add `chameleon_data_instance.get_top_scroll_box_offsets(json_path)` for getting the offset of the top scroll box in Chameleon Tool.
+- Add `chameleon_data_instance.get_scroll_box_offsets(aka_name)` for getting the offset of the scroll box in Chameleon Tool with the given name.
+
+- `chameleon_data_instance::set_image_from_path(aka_name, image_file_path)` supports using absolute paths
+- Add SetMinAspectRatio/SetMaxAspectRatio for SBox
+- Add `chameleon_data_instance.set_min_aspect_ratio` and `chameleon_data_instance.set_max_aspect_ratio` for setting the min/max aspect ratio of the given SBox
+
+#### Python Editor API
+
+##### Add
+
+- Add `unreal.PythonBPLib.get_class_path_name` for getting the path name of the given object's class
+- Add `unreal.PythonBPLib.get_viewport_linear_color_pixels` for getting the pixels of the viewport as a linear color array
+- `unreal.PythonBPLib.exec_python_command`, add `force_game_thread` option to allow Python code to execute on the main thread. When we execute code in a sub-thread, if we need to modify the UI content, we can specify to modify it in the main thread through the `force_game_thread` option (the UI content can only be modified in the Game thread).
+
+##### Fix
+
+- Fix the issue with the incorrect IsAltDown behavior in `unreal.PythonBPLib.get_modifier_keys_state()`
+
+### In v1.0.10
 
 
 The Intermediate directory is added to the package and includes UnrealEditor-TAPython.lib (UE4Editor-TAPython.lib in UE4) to make compatibility with the automated build system. At the same time, add the corresponding .dll for DebugGame mode.
