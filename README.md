@@ -20,7 +20,9 @@ Thank you, TAPython's stargazers✨.😄
 ## What's New
 
 
-### In latest v1.0.11
+### [In latest v1.0.11](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases/tag/v1.0.11-ue5.2.0)
+
+#### Add Support for UE 5.2
 
 #### Documentation
 
