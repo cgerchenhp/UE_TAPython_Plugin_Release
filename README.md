@@ -19,6 +19,27 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
+### In latest v1.1.0
+
+#### Dynamic Creating Slate
+
+![G33_Splinter_Button](Images/G33_Splinter_Button.gif)
+
+The biggest change in TAPython v1.1 is the addition of a feature that allows widgets to be directly added, inserted, and deleted through Python code. With this feature, we can dynamically add widgets to the tool during runtime. This function is particularly useful for displaying widgets of an unknown quantity.
+
+![G34_dynamic_widgets](Images/G34_dynamic_widgets.gif)
+
+
+#### ChameleonData
+
+- Added `chameleon_data_instance.set_content_from_json`, which is used to set sub-widgets for `SBox`, `SBorder`, `SCheckBox`, `SBox`, and `SButton` components.
+- Added `chameleon_data_instance.append_slot_from_json`, which is used to add sub-widgets to Slots for `SHorizontalBox`, `SVerticalBox`, `SScrollBox`, `SGridPanel`, `SUniformGridPanel`, `SUniformWrapPanel`, `SOverlay`, `SCanvas`, and `SSplitter`.
+- Added `chameleon_data_instance.insert_slot_from_json`, which is used to add sub-widgets at a specified Slot index for `SHorizontalBox`, `SVerticalBox`.
+- Added `chameleon_data_instance.remove_widget_at`, which is used to remove the widget at the specified location. This is applicable to all the widgets mentioned above.
+- Added `chameleon_data_instance.get_all_akas`, which is used to get all Aka names in the chameleon tool.
+- Added `chameleon_data_instance.get_widget_path`, which is used to get the Slate path of the widget through its Aka name.
+
+
 
 ### [In latest v1.0.11](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases/tag/v1.0.11-ue5.2.0)
 
