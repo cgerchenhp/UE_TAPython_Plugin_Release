@@ -25,6 +25,11 @@ Thank you, TAPython's stargazers✨.😄
 
 ![G33_Splinter_Button](Images/G33_Splinter_Button.gif)
 
+The expample project of the "Splinter_Button" above is here: 
+
+https://github.com/cgerchenhp/TAPython_ButtonDivision_Example
+
+
 The biggest change in TAPython v1.1 is the addition of a feature that allows widgets to be directly added, inserted, and deleted through Python code. With this feature, we can dynamically add widgets to the tool during runtime. This function is particularly useful for displaying widgets of an unknown quantity.
 
 ![G34_dynamic_widgets](Images/G34_dynamic_widgets.gif)
