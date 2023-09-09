@@ -125,8 +125,8 @@ Add menu items for Blueprint Editor
                     }
                 ]
             }
+        ]
     }
-    ...
 ```
 
 The configuration items in Config.ini: `MenuConfigFilePath` and `PythonContentFolder` support absolute paths [Request from](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/discussions/18). Now we can share Chameleon Tools in different projects.
