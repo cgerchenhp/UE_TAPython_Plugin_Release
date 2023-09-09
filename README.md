@@ -19,7 +19,177 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
-### In latest v1.1.0
+### In latest v1.2.0
+
+#### Add Support for UE 5.2
+
+
+
+#### ChameleonData
+
+- `set_image_data` The first parameter raw_data of set_image_data supports compressed data in Zlib format
+
+For example, the code used to fill SImage before is:
+
+```Python
+self.data.set_image_data(self.ui_image, img.data.tobytes(), width, height, channel_num)
+```
+
+change to:
+
+```Python
+self.data.set_image_data(self.ui_image, zlib.compress(img.data.tobytes()), w, h, channel_num)
+```
+with the same result, you will get a faster execution speed, which will be 1/3~20 times faster, depending on the image content.
+
+
+Note:
+
+- Use the compressed data, you need to specify the number of channels of the image.
+- It is recommended to use a lower compression rate to avoid the negative benefits caused by the increase in time consumption during the compression process.
+
+```Python
+    compressor = zlib.compressobj(level=1)  # use fast compression or use zlib.compress()
+    compressed_data = compressor.compress(im.tobytes()) + compressor.flush()
+    self.data.set_image_data(self.ui_image, compressed_data, w, h, channel_num)
+```
+
+
+#### PythonBPLib
+
+Add more viewport and projection matrix related interfaces
+
+- Add `set_level_viewport_camera_fov`    Set the fov of level viewport camera
+- Add `get_level_viewport_camera_aspect`    Get the aspect of level viewport camera
+- Add `get_level_viewport_size` Get the size of level viewport
+- Add `get_viewport_pixels_as_texture`  Get the content of first active viewport as Texture2D. UE5 only.
+- Add `get_viewport_pixels_as_data` Get the raw pixels from first active viewport as RawData
+- Add `calculate_projection_matrix` Calculate the Projection Matrix by fov and near plane
+- Add `calculate_view_matrix`   Calculate the View Matrix by ViewLocation and ViewRotation.
+- Add `calculate_vp_matrix`     Calculate the ViewProjection Matrix by ViewLocation, ViewRotation, fov and near plane.
+- Add `calculate_inv_view_projection_matrix`    Calculate the inverse ViewProjection Matrix by ViewLocation, ViewRotation, fov and near plane.
+- Add `project_world_to_view`   Project world position to view position.
+- Add `frustum_trace`   Trace rays against the world using a specific profile in a gird in Frustum and return the hits. UE5 only.
+
+
+##### Add Struct： TAPythonPrimitiveHitResult
+
+unreal.TAPythonPrimitiveHitResult is used to add more return data for HitResult. 
+
+- ``component`` (PrimitiveComponent):  [Read-Write]
+- ``hit_locations`` (Array[Vector]):  [Read-Write]
+- ``hit_normals`` (Array[Vector]):  [Read-Write]
+- ``is_this_triangles_vertex_all_visible`` (Array[bool]):  [Read-Write]
+- ``screen_normals`` (Array[Vector]):  [Read-Write]
+- ``screen_positions`` (Array[Vector2D]):  [Read-Write]
+- ``transform`` (Transform):  [Read-Write]
+- ``triangle_ids`` (Array[int32]):  [Read-Write] The index of output in the expression
+
+#### PythonMeshLib
+
+Add more interfaces for DynamicMesh
+
+- Add `set_uvs_from_camera_projection` Project the DynamicMesh to specified UVSet in current view. UE5 only.
+- Add `get_visible_triangles`   Get the visible triangles of DynamicMesh in current view. UE5 only.
+- Add `rasterize_and_trace_triangles_uv`    Trace the visibility of DynamicMesh in current view.(Experimental). UE5 only.
+- Add `trace_dynamic_mesh_triangles_visibility` Trace the visibility of DynamicMesh's triangles in current view. UE5 only.
+- Add `get_triangles_face_normal_in_view`   Get the face normal of DynamicMesh in current view.  (Experimental).  UE5 only.
+- Add `cal_triangles_derivatives`   Calculate the merged ddxy of DynamicMesh's triangles in current view.  UE5 only.
+- Add `export_normal_and_derivatives`  Export the current normal and mip of DynamicMesh in current view as raw data. (Experimental). UE5 only.
+
+
+#### PythonTextureLib
+
+- Add `create_texture2d`    Create a Texture2D with specified size which has no uasset file. UE5 only.
+- Add `finish_compilation_texture`  Wait for the texture to finish compiling. UE5 only.
+- Add parameter FlipY to `create_texture2d_from_raw`, default is False
+
+#### Menus
+
+Add menu items for Blueprint Editor
+
+- `OnBlueprintEditorMenu` Add menu items to Blueprint Editor
+
+
+```json
+    "OnBlueprintEditorMenu": {
+        "name": "Python Menu On Control BP",
+        "items":
+        [
+            {
+                "name": "TA Python Blurprint Example",
+                "items": [
+                    {
+                        "name": "Print Blueprint",
+                        "command": "print(%asset_paths)"
+                    }
+                ]
+            }
+        ]
+    }
+```
+
+The configuration items in Config.ini: `MenuConfigFilePath` and `PythonContentFolder` support absolute paths [Request from](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/discussions/18). Now we can share Chameleon Tools in different projects.
+
+#### Default Resource
+
+Add two default menu items to the global Context menu of the Chameleon tool. (UE5 only)
+
+- "Log tool's json path" Log the json path of the current Chameleon tool's UI
+- "Log instance variable name" Log the instance variable name of the current Chameleon tool in Python
+
+##### Utils.py
+
+Add `guess_instance_name` method to guess the instance variable name of the current Chameleon tool in Python
+
+
+#### Fix
+
+- Fix the warning of unreal.PythonBPLib.find_actor_by_name in UE5
+- Fix the problem that the right-click menu item of Outline cannot be created in UE4
+- Fix typo in some logs
+- Remove some redundant logs
+
+### Experimental
+
+
+Below is Experimental. It is only recorded here. There may be major changes later, and it is not recommended to use it in official tools.
+
+#### Slate
+
+Add support for SGraphPanel (Experimental), and EdGraphSchema_K2 is used by default.
+
+#### ChameleonData
+
+Add SGraphPanel related methods (Experimental):
+
+Note: The following methods are "Experimental" functions, which may be removed later. It is only recorded here.
+
+- Add `spawn_to_graph_by_class`
+- Add `spawn_function_to_graph` Spawn a specified function of a module in SGraphPanel.
+- Add `spawn_function_to_graph_with_spawner` Spawn a specified function of a module in SGraphPanel through a BPFunctionSpawner.
+- Add `get_graph_panel_nodes`   Get all nodes in SGraphPanel.
+- Add `clear_graph_panel`   Clear all nodes in SGraphPanel.
+- Add `get_graph_selected_node` Get the selected nodes in SGraphPanel.
+- Add `get_graph_panel_content_as_json` Get the content of SGraphPanel as JSON string
+- Add `set_graph_panel_content_from_json`   Set the content of SGraphPanel from JSON string.
+
+Add a new BPLib to process Blueprint related content
+
+#### PythonBPAssetLib(Experimental)
+
+- Add `get_selected_nodes` 
+- Add `log_schema`
+- Add `log_all_k2_nodes`
+- Add `log_all_schemas` Log all available Schemas, and return UClass array
+- Add `get_graph_node_by_name`
+- Add `get_all_k2_nodes`
+- Add `get_children_classes`    Get the children classes from the specified UClass
+- Add `get_classes_from_module` Get the UClass from the specified module name
+- Add `get_bp_functions_spawners`   Get the UFunction from the specified UClass
+- Add `get_bp_function_spawner` Get the Spawner of the specified Blueprint function name, used to create nodes in SGraphPanel
+
+### In v1.1.0
 
 #### Dynamic Creating Slate
 
@@ -649,7 +819,7 @@ The %uv, %mouse_flags in the following example will be automatically replaced wi
 }
 ```
 
-![Painter图](Images/G011SlatePainter_small.webp)
+![Painter](Images/G011SlatePainter_small.webp)
 
 The user's operation in SImage is taken as Stable Fluid function's input, then using result drive the volume cloud with [set_render_target_data][3] function of PythonTextureLibs.
 
