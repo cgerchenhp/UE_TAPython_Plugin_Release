@@ -19,11 +19,22 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
+### v.1.2.1 Beta
+
+#### ChameleonData
+
+- Add `unreal.ChameleonData.set_image_data_base64` Set the SImage's image data from base64 string
+- Add `unreal.ChameleonData.set_image_data_from_memory` Set the SImage's image data from memory
+- Optimize the performance of `unreal.ChameleonData.set_image_data`
+- 
+#### Config.ini
+
+- Set `LogOnTickWarnings` default value to False
+
+
 ### In latest v1.2.0
 
 #### Add Support for UE 5.2
-
-
 
 #### ChameleonData
 
