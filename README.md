@@ -26,6 +26,10 @@ Thank you, TAPython's stargazers✨.😄
 - Add `unreal.ChameleonData.set_image_data_base64` Set the SImage's image data from base64 string
 - Add `unreal.ChameleonData.set_image_data_from_memory` Set the SImage's image data from memory
 - Optimize the performance of `unreal.ChameleonData.set_image_data`
+
+More about modifying SImage content, please refer to: https://github.com/cgerchenhp/TAPython_Modify_SImage
+
+
  
 #### Config.ini
 
