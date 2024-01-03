@@ -19,21 +19,161 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
-### v.1.2.1 Beta
 
-#### ChameleonData
+### In latest v1.2.1
 
-- Add `unreal.ChameleonData.set_image_data_base64` Set the SImage's image data from base64 string
-- Add `unreal.ChameleonData.set_image_data_from_memory` Set the SImage's image data from memory
-- Optimize the performance of `unreal.ChameleonData.set_image_data`
+#### New Features
 
-More about modifying SImage content, please refer to: https://github.com/cgerchenhp/TAPython_Modify_SImage
+##### Define menu entry directly in Chameleon Tool's Json file
+
+Add `Define menu entry directly in Chameleon Tool's Json file` feature. (In contrast, previous versions required defining menu entries in `MenuConfig.json`)
+
+This feature is similar to the way Unity's MenuItem works, eliminating the need to define menu entries in `MenuConfig.json`. It is undoubtedly a great help for the migration and merging of tools. 
 
 
- 
-#### Config.ini
+###### How to use
 
-- Set `LogOnTickWarnings` default value to False
+Add menu entries for the tool through the `MenuEntries` field in the ChameleonTools json file. For example, in the following example, a menu entry `Tools/Image Compare` is defined for "Chameleon Tool". Clicking this menu entry will open the `Image Compare` tool.
+
+
+![138_ChameleonAutoMenu](Images/138_ChameleonAutoMenu.png)
+
+
+```json
+{
+	"TabLabel": "Image Compare",
+	"InitTabSize": [1000, 650],
+	"InitTabPosition": [200, 100],
+    "MenuEntries": ["Tools/Image Compare"],
+    "Icon": {"style": "ChameleonStyle", "name": "Picture" },
+    "InitPyCmd": "..."
+}
+```
+
+![139_image_compare](Images/139_image_compare.png)
+
+This tool has been added to [Default Python Source](#default-python-source) and can be used directly.
+
+###### Notes on menu
+
+The menu items are separated by `/`, for example `Tools/Image Comparison`, which means that `Tools` is a menu group and `Image Compare` is a menu item under the menu group.
+
+The MenuEntries field supports multiple menu entries, although in most cases, a tool only needs one menu entry. Currently, this feature supports adding menu items to the blue Chameleon button in the toolbar, and will support adding menu items to other locations in the future.
+
+###### Add icon
+
+The `Icon` field can be used to add icons to menu items, and the specific method is similar to the method of adding icons to menu items in `MenuConfig.json`.
+
+###### Feature enable switch
+
+A new configuration item `MenuFromToolsJsonEnabled` has been added to Config.ini to control whether to enable the function of reading menu entries from Json files. The default value is `True`.
+
+##### Slate
+
+###### Added support for `SDPIScaler`.
+
+The `SDPIScaler` widget can control the scaling ratio of its child components. The usage is as follows:
+
+```python
+    "SDPIScaler": 
+    {
+        "Aka": "Scaler",
+        "DPIScaler": 1.0,
+        "Content": {
+            ...
+        }
+}
+```
+
+- `SDIPScaler` is similar to widgets such as `SBox` that have a child widget, and also has a `Content` field to specify its child widget.
+
+- Within `ChameleonData`, the scaling ratio of the SDPIScaler widget can be set through the newly added `set_dpi_scale` method.
+
+###### Other widgets
+
+- `SDropTarget` adds the `OverrideBackgroundImagePadding` field to set the Padding of the `SDropTarget` background image.
+
+- `SComboBox` adds the keyword: `InitiallySelectedItem`, which specifies the initially selected item of the `SCoboBox`.
+
+-  `SEditableText`, `SEditableTextBox` adds the `IsPassword` field to specify whether it is a password input box.
+
+
+- `SImage` adds support for the `Tile` field to specify the SImage in repeat mode. The optional values are:
+  - NoTile no repeat, default behavior
+  - Horizontal horizontal repeat
+  - Vertical vertical repeat
+  - Both horizontal and vertical repeat
+
+##### ChameleonData
+
+- Add `set_image_data_base64` Set the SImage's image data from base64 string
+
+- Add `set_image_data_from_memory` Set the SImage's image data from memory
+
+- Optimize the performance of `set_image_data` in UE5
+
+- `set_image_data`, `set_image_data_from_memory`, `set_image_from_path`, `set_image_from` and other methods add two new parameters: Tint and Tiling, used to set the color and repeat mode of SImage
+
+- Add `set_image_data_from_texture2d` to directly set the image of the `SImage` in the UI through the `Texture2D` in the project
+- Added `set_desired_size_override` to set the desired size of SImage
+- Added `get_chameleon_desired_size` to get the desired size of the entire interface of Chameleon Tool.
+
+##### PythonRBFLib (Experimental)
+
+A new module has been added to use RBF (Radial Basis Function) interpolation in Python
+
+- unreal.PythonBPLib.rbf
+- unreal.PythonBPLib.set_rbf_params_deminsion
+- unreal.PythonBPLib.rbf_fun
+- Added UObject: unreal.PythonRBFTarget
+- Added UObject: unreal.PythonRBFFunction
+- Added UObject: unreal.UPythonRBFValues
+
+  
+##### PythonTextureLib
+
+- Add `get_texture2d_content` to get the content of the 8-bit texture and return a byte array
+
+##### Console Command
+Add debug command `TAPython.OverrideEnable 1`
+
+Enter this command in the CMD debug window, and the contents of the `DefaultResource` directory in the default resource of the plugin will replace the contents of the `TA/TAPython` directory in the current project.
+
+
+<b>CAUTION</b><br>This command will overwrite the contents of the `TA/Python` directory and will not delete the contents of the directory. Please make a backup before using it.
+{: .alert .alert-warning}
+
+##### Default Python Source
+
+###### Add example tool Image Compare
+
+![139_image_compare](Images/139_image_compare.png)
+
+Compare the differences between two images, such as comparing the rendering content of the scene and the rendering content of the wireframe mode
+
+![G41_image_compare_scene](Images/G41_image_compare_scene.webp)
+
+Or compare two different textures
+
+![G42_image_compare_texture](Images/G42_image_compare_texture.webp)
+
+###### The Widget Gallery adds examples of `SSplitter` and `SDPI` widgets
+
+Add icons
+- BackgroundGrid.png
+- BackgroundGridRed.png
+
+#### Changes
+
+##### Config.ini
+Set `LogOnTickWarnings` of `config.ini` default value to False
+
+
+#### Fixed
+
+- Fix potential issues with SImage in SetColorAndOpacity
+- Fix the problem that json is not imported in Utilities/Utils.py
+- Fix the error of ResizeWindow when the interface cannot be found
 
 
 ### In latest v1.2.0
@@ -231,7 +371,7 @@ The biggest change in TAPython v1.1 is the addition of a feature that allows wid
 
 
 
-### [In latest v1.0.11](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases/tag/v1.0.11-ue5.2.0)
+### [In v1.0.11](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases/tag/v1.0.11-ue5.2.0)
 
 #### Add Support for UE 5.2
 
@@ -482,7 +622,7 @@ We got a new editor library: PhysicsAssetLib, as its name, it's for PhysicsAsset
 |update_profile_instance|Update the Profile according to the specified Constraint| |
 |break_constraint_accessor|Get the Owner and Constraint Index from ConstraintInstanceAccessor| |
 
-### Fixed 
+#### Fixed 
 
 - The "Margin" of STextBlock is not working.
 - The "OnTextChanged" and "OnTextCommitted" callback are not working when the input text is empty. (delete the text with backspace)
@@ -567,7 +707,7 @@ We can use SDetailViewer for showing the object properties.
 
 Add [SetColorAndOpacity](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#set_color_and_opacity) support for SScrollBox/SImage/STextBlock/SEditableText
 
-### PythonBPLib
+#### PythonBPLib
 
 - [ClearFolderColor](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#clean_folder_color)
 - [GetTAPythonVersion](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#get_tapython_version)
@@ -950,7 +1090,7 @@ data.get_is_expanded(aka_name) -> bool
 	        animated (bool): Expanded with animation or not.
 ```
 
-### Add Context menu in Outline window
+#### Add Context menu in Outline window
 
 Now we can add context menu in Outline window, with the "OnOutlineMenu" field in MenuConfig.ini.  
 
@@ -970,7 +1110,7 @@ Now we can add context menu in Outline window, with the "OnOutlineMenu" field in
 
 ![G009_context_menu_in_outline](Images/G009_context_menu_in_outline.gif)
 
-### Add configurable icons in front the menu item 
+#### Add configurable icons in front the menu item 
 
 ![024_icons_in_menus](Images/024_icons_in_menus.png)
 
@@ -999,7 +1139,7 @@ The .png and.svg files in the plugin resource directory will be added to "Chamel
     }
 ```
 
-### The Chameleon UI .json file can reference other json files.
+#### The Chameleon UI .json file can reference other json files.
  
 Now the Chameleon UI json file can reference other Json files. Nested references are supported, but circular references need to be avoided
 
@@ -1030,13 +1170,13 @@ Now the Chameleon UI json file can reference other Json files. Nested references
 
 
 
-### The number of shortcut keys has been increased to 10
+#### The number of shortcut keys has been increased to 10
   
 The number of shortcuts that can be configured in ExitorSettings has now been increased to 10. It will be a configurable number in later version.
 
  
 
-### Add "BorderBackgroundColor" of SBorder
+##### Add "BorderBackgroundColor" of SBorder
  ```json
     {
         "SBorder": {
@@ -1050,7 +1190,7 @@ The number of shortcuts that can be configured in ExitorSettings has now been in
     }
 ```
 
-### Add More API in PythonBPLib:
+#### Add More API in PythonBPLib:
 
 - GetViewportPixels
 Now we can grab and get the content of viewport. Use it in tools widgets:
@@ -1083,7 +1223,7 @@ Get the actors in Specified folder in outline
 Find the actor by it's "label name" not the "actor name" 
 
 
-### Config.ini
+#### Config.ini
 - add LogOnTickWarnings in config.ini
 ```ini
   LogOnTickWarnings=True
@@ -1097,7 +1237,7 @@ ChameleonTools has a hidden keyword that has not been mentioned: "OnTick". The p
 
 
 
-### Fix:
+#### Fix:
 
 - Fixed RequestClose failing after Chameleon dock to another window.
 
