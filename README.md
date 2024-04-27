@@ -19,6 +19,41 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
+### In latest v1.2.2
+
+Support UE5.4
+
+#### Note for UE5.4
+
+**Unreal Engine 5.4 uses Python 3.11.8, so we need to install the third-party library of Python 3.11.8. **
+
+If you are using the default resources provided by the old TAPython, some of the code in the old ObjectDetailViewer is incompatible with 3.11.8. You can find the corresponding file in the DefaultResources of TAPython v1.2.2 and replace the original file. Or you can also find the corresponding file [here](https://github.com/cgerchenhp/TAPython_DefaultResources)
+
+##### PythonTextureLib
+
+- GetTexture2DContent Get Specified Mip Level Content of Texture2D
+
+##### Menus
+
+The menu items created through the "MenuEntries" field will be automatically sorted
+
+##### Fix
+
+- fix `SOverlay` field 'unhandled' message
+- fix some warning message output incorrect value
+
+#### Experimental
+
+Below is Experimental. It is only recorded here. There may be major changes later, and it is not recommended to use it in official tools.
+
+Add the ability to modify the content of TextureArray (Experimental)
+
+- GetTexture2DArrayContent Get Specified Slice Content of Texture2DArray
+- SetTexture2DArraySlice Set Specified Slice Content of Texture2DArray
+- SetImageDataFromMemory Set Specified Slice Content of Texture2DArray
+- SetTexture2DArrayDataAt Set Specified Slice Local Content of Texture2DArray
+- GetPixelAtTexture2DArray Get Specified Slice Local Content of Texture2DArray
+
 
 ### In latest v1.2.1
 
@@ -305,16 +340,16 @@ Add `guess_instance_name` method to guess the instance variable name of the curr
 - Fix typo in some logs
 - Remove some redundant logs
 
-### Experimental
+#### Experimental
 
 
 Below is Experimental. It is only recorded here. There may be major changes later, and it is not recommended to use it in official tools.
 
-#### Slate
+##### Slate
 
 Add support for SGraphPanel (Experimental), and EdGraphSchema_K2 is used by default.
 
-#### ChameleonData
+##### ChameleonData
 
 Add SGraphPanel related methods (Experimental):
 
@@ -331,7 +366,7 @@ Note: The following methods are "Experimental" functions, which may be removed l
 
 Add a new BPLib to process Blueprint related content
 
-#### PythonBPAssetLib(Experimental)
+##### PythonBPAssetLib(Experimental)
 
 - Add `get_selected_nodes` 
 - Add `log_schema`
