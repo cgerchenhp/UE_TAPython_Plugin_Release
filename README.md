@@ -21,7 +21,7 @@ Thank you, TAPython's stargazers✨.😄
 
 ### In latest v1.2.2
 
-Support UE5.4
+Support UE5.4.1
 
 #### Note for UE5.4
 
