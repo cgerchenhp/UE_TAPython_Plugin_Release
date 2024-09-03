@@ -19,7 +19,90 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
-### In latest v1.2.2
+### In latest v1.2.3
+
+Support UE 5.4.4
+
+#### Slate
+
+- Add Support for `SCircularThrobber`
+- Add Support for `SProperty`
+
+#### PythonLevelLib
+
+- Add `apply_world_offset` for applying world offset
+- Add `delete_umap` for deleting UMap
+
+#### PythonLandscapeLib
+
+- Add `get_weightmap_data` for getting the weight map used by the specified layer of the terrain
+- Add `get_weightmap_data` for getting the weight map used by the specified layer of the terrain
+- Add `set_weightmap_data` for setting the weight map used by the specified layer of the terrain
+- Add `get_layer_names` for getting the names of the layers used by the terrain
+- Add `clear_layer` for clearing the specified layer of the terrain
+- Add `clear_all_layers` for clearing all layers of the terrain
+- Add `get_visibility_data` for getting the visibility data of the specified layer of the terrain
+- Add `assign_layer_info` for specifying the layer information of the terrain
+- Add `recalculate_normals` for recalculating the normals of the terrain
+- Add `get_used_paint_layers` for getting the names of the layers already used by the terrain
+
+#### AliasNames
+
+Add `Aliases` field in the `json` file to set aliases. For example, in the following settings, you can use `$this_tool` in the settings to replace `PCG_Bridge.PCG_Bridge.PCG_Bridge()` later, and you can use `$this_tool` in the Json file settings to replace the content after it.
+
+```json
+    "Aliases": {
+        "$this_tool": "PCG_Bridge.PCG_Bridge.PCG_Bridge()"
+    },
+```
+#### Improvement
+
+- Cache Json files to improve parsing speed
+
+#### Fix
+
+- Fixed the issue of `BorderBackgroundColor` not being set for `SExpandableArea`
+
+### Experimental
+
+#### DetailPanelCustomization
+
+##### Settings
+
+Add the following settings to control the behavior of `DetailPanelCustomization`.
+
+```ini
+[DetailPanelCustomization]
+IsDetailCustomizationEnabled=True
+IsForceAddDetailCustomization=False
+IsReusingWidget=False
+ClassName=SomeClassA
+ClassName=SomeClassB
+```
+
+- IsDetailCustomizationEnabled
+  Whether to enable `DetailPanelCustomization`
+- IsForceAddDetailCustomization
+  Whether to override its Customization for UClass that has already been added Customization in C++
+- IsReusingWidget
+  Reuse Widget or not
+- ClassName
+  ArrayCollection of UClass types that enable `DetailPanelCustomization`, which need to be set in the config first, and then set their specific content in the editor
+
+##### ChameleonData
+
+- Add `add_detail_customization` to add `DetailPanelCustomization` to the specified object
+- Add `clear_detail_customization` to clear `DetailPanelCustomization`
+- Add `get_customized_object` to get the CustomizationPanel of the specified object through UniqueID
+- Add `log_all_saved_detail_customization` to print all saved Customization
+- Add `get_detail_panel_customized_class_names` to get all UClass that have been added Customization
+
+#### PythonBPLib
+
+- Add `GetUniqueID` to get the UniqueID of the specified object
+
+
+### v1.2.2
 
 Support UE5.4.1
 
