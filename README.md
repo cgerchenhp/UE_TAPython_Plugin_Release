@@ -21,7 +21,7 @@ Thank you, TAPython's stargazers✨.😄
 
 ### In latest v1.2.3
 
-Support UE 5.4.4
+Support UE 5.5.0
 
 #### Slate
 
