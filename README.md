@@ -19,7 +19,25 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
-### In latest v1.2.3
+### In latest v1.2.4
+
+Support UE 5.5.4
+
+### PythonBPLib
+
+- Add `get_module_names` to retrieve module names and their corresponding DLL paths.
+- Add `get_editor_mode_names` to retrieve editor mode names.
+- Add `get_editor_mode_ids` to retrieve editor mode identifiers.
+- Add `change_editor_mode` for switching the active editor mode.
+- Add `flip_y` parameter to `set_render_target_data`.
+
+### Fixes
+
+- Fixed the issue where `Alias` had not taken effect in callback commands for the following controls:  
+  `SSlider`, `SComboButton`, `SEditableText`, `SEditableTextBox`,  
+  `SMultiLineEditableText`, `SMultiLineEditableTextBox`, `SListView`, `STreeView`.
+  
+### In v1.2.3
 
 Support UE 5.5.0
 
