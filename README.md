@@ -19,7 +19,25 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
-### In latest v1.2.4
+### In v1.2.5
+Support UE 5.6.0 Preview
+
+### Fixes
+
+- fix Utilities.Utils.py get_attr error on read-only properties
+- fix Sketch json file not following the PythonContentFolder directory setting issue
+- remove some useless Log output
+
+### Optimization
+
+- "MenuEntries" feature skips files starting with "." when searching for json files to avoid interference from files like .mypy_cache
+
+### DefaultResource
+
+- Remove AsyncTaskExample
+- DisUnreal skips redundant writes to unchanged files
+
+### In v1.2.4
 
 Support UE 5.5.4
 
@@ -73,6 +91,7 @@ Add `Aliases` field in the `json` file to set aliases. For example, in the follo
         "$this_tool": "PCG_Bridge.PCG_Bridge.PCG_Bridge()"
     },
 ```
+
 #### Improvement
 
 - Cache Json files to improve parsing speed
@@ -119,14 +138,13 @@ ClassName=SomeClassB
 
 - Add `GetUniqueID` to get the UniqueID of the specified object
 
-
 ### v1.2.2
 
 Support UE5.4.1
 
 #### Note for UE5.4
 
-**Unreal Engine 5.4 uses Python 3.11.8, so we need to install the third-party library of Python 3.11.8. **
+**Unreal Engine 5.4 uses Python 3.11.8, so we need to install the third-party library of Python 3.11.8.**
 
 If you are using the default resources provided by the old TAPython, some of the code in the old ObjectDetailViewer is incompatible with 3.11.8. You can find the corresponding file in the DefaultResources of TAPython v1.2.2 and replace the original file. Or you can also find the corresponding file [here](https://github.com/cgerchenhp/TAPython_DefaultResources)
 
@@ -155,7 +173,6 @@ Add the ability to modify the content of TextureArray (Experimental)
 - SetTexture2DArrayDataAt Set Specified Slice Local Content of Texture2DArray
 - GetPixelAtTexture2DArray Get Specified Slice Local Content of Texture2DArray
 
-
 ### In latest v1.2.1
 
 #### New Features
@@ -164,22 +181,19 @@ Add the ability to modify the content of TextureArray (Experimental)
 
 Add `Define menu entry directly in Chameleon Tool's Json file` feature. (In contrast, previous versions required defining menu entries in `MenuConfig.json`)
 
-This feature is similar to the way Unity's MenuItem works, eliminating the need to define menu entries in `MenuConfig.json`. It is undoubtedly a great help for the migration and merging of tools. 
-
+This feature is similar to the way Unity's MenuItem works, eliminating the need to define menu entries in `MenuConfig.json`. It is undoubtedly a great help for the migration and merging of tools.
 
 ###### How to use
 
 Add menu entries for the tool through the `MenuEntries` field in the ChameleonTools json file. For example, in the following example, a menu entry `Tools/Image Compare` is defined for "Chameleon Tool". Clicking this menu entry will open the `Image Compare` tool.
 
-
 ![138_ChameleonAutoMenu](Images/138_ChameleonAutoMenu.png)
-
 
 ```json
 {
-	"TabLabel": "Image Compare",
-	"InitTabSize": [1000, 650],
-	"InitTabPosition": [200, 100],
+ "TabLabel": "Image Compare",
+ "InitTabSize": [1000, 650],
+ "InitTabPosition": [200, 100],
     "MenuEntries": ["Tools/Image Compare"],
     "Icon": {"style": "ChameleonStyle", "name": "Picture" },
     "InitPyCmd": "..."
@@ -206,7 +220,7 @@ A new configuration item `MenuFromToolsJsonEnabled` has been added to Config.ini
 
 ##### Slate
 
-###### Added support for `SDPIScaler`.
+###### Added support for `SDPIScaler`
 
 The `SDPIScaler` widget can control the scaling ratio of its child components. The usage is as follows:
 
@@ -231,8 +245,7 @@ The `SDPIScaler` widget can control the scaling ratio of its child components. T
 
 - `SComboBox` adds the keyword: `InitiallySelectedItem`, which specifies the initially selected item of the `SCoboBox`.
 
--  `SEditableText`, `SEditableTextBox` adds the `IsPassword` field to specify whether it is a password input box.
-
+- `SEditableText`, `SEditableTextBox` adds the `IsPassword` field to specify whether it is a password input box.
 
 - `SImage` adds support for the `Tile` field to specify the SImage in repeat mode. The optional values are:
   - NoTile no repeat, default behavior
@@ -265,7 +278,6 @@ A new module has been added to use RBF (Radial Basis Function) interpolation in 
 - Added UObject: unreal.PythonRBFFunction
 - Added UObject: unreal.UPythonRBFValues
 
-  
 ##### PythonTextureLib
 
 - Add `get_texture2d_content` to get the content of the 8-bit texture and return a byte array
@@ -274,7 +286,6 @@ A new module has been added to use RBF (Radial Basis Function) interpolation in 
 Add debug command `TAPython.OverrideEnable 1`
 
 Enter this command in the CMD debug window, and the contents of the `DefaultResource` directory in the default resource of the plugin will replace the contents of the `TA/TAPython` directory in the current project.
-
 
 <b>CAUTION</b><br>This command will overwrite the contents of the `TA/Python` directory and will not delete the contents of the directory. Please make a backup before using it.
 {: .alert .alert-warning}
@@ -296,6 +307,7 @@ Or compare two different textures
 ###### The Widget Gallery adds examples of `SSplitter` and `SDPI` widgets
 
 Add icons
+
 - BackgroundGrid.png
 - BackgroundGridRed.png
 
@@ -304,13 +316,11 @@ Add icons
 ##### Config.ini
 Set `LogOnTickWarnings` of `config.ini` default value to False
 
-
 #### Fixed
 
 - Fix potential issues with SImage in SetColorAndOpacity
 - Fix the problem that json is not imported in Utilities/Utils.py
 - Fix the error of ResizeWindow when the interface cannot be found
-
 
 ### In latest v1.2.0
 
@@ -331,8 +341,8 @@ change to:
 ```Python
 self.data.set_image_data(self.ui_image, zlib.compress(img.data.tobytes()), w, h, channel_num)
 ```
-with the same result, you will get a faster execution speed, which will be 1/3~20 times faster, depending on the image content.
 
+with the same result, you will get a faster execution speed, which will be 1/3~20 times faster, depending on the image content.
 
 Note:
 
@@ -344,7 +354,6 @@ Note:
     compressed_data = compressor.compress(im.tobytes()) + compressor.flush()
     self.data.set_image_data(self.ui_image, compressed_data, w, h, channel_num)
 ```
-
 
 #### PythonBPLib
 
@@ -362,10 +371,9 @@ Add more viewport and projection matrix related interfaces
 - Add `project_world_to_view`   Project world position to view position.
 - Add `frustum_trace`   Trace rays against the world using a specific profile in a gird in Frustum and return the hits. UE5 only.
 
-
 ##### Add Struct： TAPythonPrimitiveHitResult
 
-unreal.TAPythonPrimitiveHitResult is used to add more return data for HitResult. 
+unreal.TAPythonPrimitiveHitResult is used to add more return data for HitResult.
 
 - ``component`` (PrimitiveComponent):  [Read-Write]
 - ``hit_locations`` (Array[Vector]):  [Read-Write]
@@ -388,7 +396,6 @@ Add more interfaces for DynamicMesh
 - Add `cal_triangles_derivatives`   Calculate the merged ddxy of DynamicMesh's triangles in current view.  UE5 only.
 - Add `export_normal_and_derivatives`  Export the current normal and mip of DynamicMesh in current view as raw data. (Experimental). UE5 only.
 
-
 #### PythonTextureLib
 
 - Add `create_texture2d`    Create a Texture2D with specified size which has no uasset file. UE5 only.
@@ -400,7 +407,6 @@ Add more interfaces for DynamicMesh
 Add menu items for Blueprint Editor
 
 - `OnBlueprintEditorMenu` Add menu items to Blueprint Editor
-
 
 ```json
     "OnBlueprintEditorMenu": {
@@ -433,7 +439,6 @@ Add two default menu items to the global Context menu of the Chameleon tool. (UE
 
 Add `guess_instance_name` method to guess the instance variable name of the current Chameleon tool in Python
 
-
 #### Fix
 
 - Fix the warning of unreal.PythonBPLib.find_actor_by_name in UE5
@@ -442,7 +447,6 @@ Add `guess_instance_name` method to guess the instance variable name of the curr
 - Remove some redundant logs
 
 #### Experimental
-
 
 Below is Experimental. It is only recorded here. There may be major changes later, and it is not recommended to use it in official tools.
 
@@ -469,7 +473,7 @@ Add a new BPLib to process Blueprint related content
 
 ##### PythonBPAssetLib(Experimental)
 
-- Add `get_selected_nodes` 
+- Add `get_selected_nodes`
 - Add `log_schema`
 - Add `log_all_k2_nodes`
 - Add `log_all_schemas` Log all available Schemas, and return UClass array
@@ -486,15 +490,13 @@ Add a new BPLib to process Blueprint related content
 
 ![G33_Splinter_Button](Images/G33_Splinter_Button.gif)
 
-The expample project of the "Splinter_Button" above is here: 
+The expample project of the "Splinter_Button" above is here:
 
-https://github.com/cgerchenhp/TAPython_ButtonDivision_Example
-
+<https://github.com/cgerchenhp/TAPython_ButtonDivision_Example>
 
 The biggest change in TAPython v1.1 is the addition of a feature that allows widgets to be directly added, inserted, and deleted through Python code. With this feature, we can dynamically add widgets to the tool during runtime. This function is particularly useful for displaying widgets of an unknown quantity.
 
 ![G34_dynamic_widgets](Images/G34_dynamic_widgets.gif)
-
 
 #### ChameleonData
 
@@ -505,8 +507,6 @@ The biggest change in TAPython v1.1 is the addition of a feature that allows wid
 - Added `chameleon_data_instance.get_all_akas`, which is used to get all Aka names in the chameleon tool.
 - Added `chameleon_data_instance.get_widget_path`, which is used to get the Slate path of the widget through its Aka name.
 
-
-
 ### [In v1.0.11](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases/tag/v1.0.11-ue5.2.0)
 
 #### Add Support for UE 5.2
@@ -515,8 +515,7 @@ The biggest change in TAPython v1.1 is the addition of a feature that allows wid
 
 In the past two months, TAPython has completed the update of the initial version of the document, and the subsequent documents will be iterated on the existing basis.
 
-The document address in the plugin is updated to the new url: https://www.tacolor.xyz/tapython/welcome_to_tapython.html
-
+The document address in the plugin is updated to the new url: <https://www.tacolor.xyz/tapython/welcome_to_tapython.html>
 
 #### Slate
 
@@ -572,7 +571,6 @@ The document address in the plugin is updated to the new url: https://www.tacolo
 
 ### In v1.0.10
 
-
 The Intermediate directory is added to the package and includes UnrealEditor-TAPython.lib (UE4Editor-TAPython.lib in UE4) to make compatibility with the automated build system. At the same time, add the corresponding .dll for DebugGame mode.
 
 #### Slate
@@ -583,18 +581,15 @@ Adding support for SWebBrowser allows you to embed WebBrowser in the tool window
 
 ![Web_browser](Images/066_web_browser.png)
 
-
 Using the SWebBrowser widget, the web browser plug-in is required. It is disabled by default. We must enable the plug-in before using it
 
 ![SWebBrowser Plugin](Images/066_web_browser_plugin.png)
-
 
 ##### Widgets
 
 - Added "SizeRule" attribute for the SSplitter widget. Optional values are "FractionOfParent" and "SizeToContent",
 
-
-- And more attributes for SColorBlock and SColorPicker 
+- And more attributes for SColorBlock and SColorPicker
 
 ##### ChameleonData
 
@@ -622,13 +617,11 @@ More APIs for SWebBrowser widget though ChameleonData.
 - BindUobjectToBrowser
 - UnbindUobjectToBrowser
 
-
 ##### ChameleonTool
 
 - The tool's wind can be set with "IsModalWindow" or "HasMinimizeMaximizeButton" to hide the maximize button.
 
 If IsModalWindow is set to True, Tab is still a nomad type and we can still dock to other Windows.
-
 
 Known issue: the maximize button reappears after the window is floated from the docked window.
 
@@ -694,7 +687,6 @@ TAPython.RefreshToolMenus
 
 "TAPython.RefreshToolMenus" can be used to refresh the "ToolMenus" menus, other menus will be auto-refreshed and not need this command
 
-
 #### Editor Lib
 
 ##### PythonBPLib
@@ -707,12 +699,11 @@ GetModifierKeyState Get the modifier key states(Ctrl, Shift, Alt, etc.), so we u
 
 We can tank a snapshot of the entire Details window via 'snapshot_details'. The file will be saved to <Your_project>\Saved\Screenshots\WindowsEditor\ObjectDetailProperties. Note we need to make sure the focus is on the Details window.
 
-
 ![object_detail_snapshot](Images/066_object_detail_snapshot.png)
 
 ##### PythonTestLib
 
-- CancelDelayCallById 
+- CancelDelayCallById
 
 Cancel the specified DelayCall by ID.
 
@@ -758,12 +749,10 @@ We got a new editor library: PhysicsAssetLib, as its name, it's for PhysicsAsset
 |update_profile_instance|Update the Profile according to the specified Constraint| |
 |break_constraint_accessor|Get the Owner and Constraint Index from ConstraintInstanceAccessor| |
 
-#### Fixed 
+#### Fixed
 
 - The "Margin" of STextBlock is not working.
 - The "OnTextChanged" and "OnTextCommitted" callback are not working when the input text is empty. (delete the text with backspace)
-
-
 
 ### v1.0.9
 
@@ -940,13 +929,11 @@ Tips:
 
 ##### New Content Menu for **Material Editor**
 
-
 One of the most **important** features in this release is the addition of support for the Material Editor.
 
 Now we can add custom menu items directly to the material editor and pass the material instance that we are currently editing to the python script so that we can "play with" the material nodes directly in python.
 
 The *%asset_paths* in the following example will be replaced by the TAPython with an array of paths to the material currently being edited, which usually has only one element.
-
 
 With the [APIs](#more-pythonmateriallib-apis) added to PythonMaterialLib in this release, we can fully script the material expression nodes via Python.
 
@@ -989,13 +976,11 @@ MenuConfig.json:
 
 Now we can calculate the size of all content in the whole ScrollBox from the Offset, ScrollOffsetOfEnd，ViewFraction，ViewOffsetFraction, etc. Then use [SnapshotChameleonWindow](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#snapshot_chameleon_window) to capture the contents of the entire tool window, including the parts of ScrollBox that are **not shown**.
 
-
 ##### SButton
 
 Add *%widgetPath* keyword in JSON
 
 It will pass the widget path of the current clicked button to python code, so we can figure out which SButton was clicked, when we import the External JONS file multi-times.
-
 
 #### More Control with Chameleon Tool's Window
 
@@ -1038,12 +1023,11 @@ The following code will calculate the size of the contents in the entire tool wi
             unreal.PythonBPLib.notification(f"Save UI snapshot failed.", info_level = 1)
 ```
 
-#### More [PythonMaterialLib APIs](https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html) 
+#### More [PythonMaterialLib APIs](https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html)
 
 Now we can iterate, create, and modify **Material Expression** nodes of Material and Material Function with Python. Including the nodes that cannot be created or modified in the MaterialEditingLibrary. For example, connect properties to World Position Offset, add Get/SetMaterialAttribute nodes, etc.
 
 For more details and examples of material expressions can be found here: [How to manipulate Material Expressions Node in Material with Python in Unreal Engine](https://www.tacolor.xyz/Howto/Manipulate_Material_Expression_Nodes_Of_Material_With_Python_In_UE.html)
-
 
 |PythonMaterialLib |Description | Is New added|
 |:--- |:---- | :----|
@@ -1142,15 +1126,12 @@ More information and example about modify RenderTexture2D and SImage can be foun
 
 - PythonStructLib.get_guid_from_friendly_name not return the correct guid.
 
-[1]: https://www.tacolor.xyz/TipsOfDay/Reload_python_when_launch_Chameleon_Tool.html "Reload_python_when_launch_Chameleon_Tool"
 [2]: https://www.tacolor.xyz/pages/ChameleonDataAPI.html#flash_chameleon_window
 [3]: https://www.tacolor.xyz/pages/PythonEditorLib/PythonTextureLib.html#set_render_target_data
-[4]: https://www.tacolor.xyz/pages/ChameleonDataAPI.html#get_chameleon_window_size
-
-
 
 ### In v1.0.6
 Added:
+
 - Support Unreal Engine 5.0.3
 - Support Unreal Engine 4.27.2
 - Support Unreal Engine 4.26.2
@@ -1158,8 +1139,8 @@ Added:
 - Better warning message for PythonDataTableLib.set_property_by_string when "row_name" or "column_name" not exists in datatable
   
 Fixed:
-- The Chameleon tab's reference not released when the project closes.
 
+- The Chameleon tab's reference not released when the project closes.
 
 ### In v1.0.5
 [PythonEnumLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html) and [PythonStructLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html) has been added to [Python Editor Libs](https://www.tacolor.xyz/pages/PythonEditorLib.html), [PythonDataTableLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html) also adds more python/blueprint callable functions.
@@ -1186,9 +1167,7 @@ Fixed:
 | | |<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#set_property_by_string">set_property_by_string</a>|
 | | |<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#set_property_by_string_at">set_property_by_string_at</a>|
 
-
  In short, we can use Python to do almost everything you did manually in the editor with **User defined ENum, User Defined Struct and DataTable**. More details and examples can be found [here](https://www.tacolor.xyz/Howto/How_To_Create_User_Defined_ENum_Struct_DataTable_with_Python_in_UE5.html).
-
 
 ### v1.0.4
 Support more slates:
@@ -1199,8 +1178,10 @@ Support more slates:
 ![G006_widget_SExpandableArea](Images/G006_widget_SExpandableArea.gif)
 
 Two APIs was added in [ChameleonData](https://www.tacolor.xyz/pages/ChameleonDataAPI.html) for [SExpandableArea](https://www.tacolor.xyz/pages/Widgets/SExpandableArea.html):
+
   1. bool GetIsExpanded(const FName AkaName)
   2. void SetIsExpanded(const FName AkaName, bool bExpanded, bool bAnimated=false)
+
 ```
 data.get_is_expanded(aka_name) -> bool
     Get the Expanded state of Specified SExpandableArea
@@ -1215,21 +1196,20 @@ data.get_is_expanded(aka_name) -> bool
 ```
 
 ```
-	data.set_is_expanded(aka_name, expanded, animated=False) -> None
-	    Set the Expanded state of Specified SExpandableArea
-	    note: Supported widgets: SExpandableArea.
-	    note: added in v1.0.4
-	
-	    Args:
-	        aka_name (Name): The aka name of the widget
-	        expanded (bool): Is Expanded or not.
-	        animated (bool): Expanded with animation or not.
+ data.set_is_expanded(aka_name, expanded, animated=False) -> None
+     Set the Expanded state of Specified SExpandableArea
+     note: Supported widgets: SExpandableArea.
+     note: added in v1.0.4
+ 
+     Args:
+         aka_name (Name): The aka name of the widget
+         expanded (bool): Is Expanded or not.
+         animated (bool): Expanded with animation or not.
 ```
 
 #### Add Context menu in Outline window
 
 Now we can add context menu in Outline window, with the "OnOutlineMenu" field in MenuConfig.ini.  
-
 
 ```json
     "OnOutlineMenu": {
@@ -1246,14 +1226,14 @@ Now we can add context menu in Outline window, with the "OnOutlineMenu" field in
 
 ![G009_context_menu_in_outline](Images/G009_context_menu_in_outline.gif)
 
-#### Add configurable icons in front the menu item 
+#### Add configurable icons in front the menu item
 
 ![024_icons_in_menus](Images/024_icons_in_menus.png)
 
 The .png and.svg files in the plugin resource directory will be added to "ChameleonStyle" automatically. Then we can use it for menu items.
 
-
 - We can specify the icon of a menu item with a relative path of the icon image in the plug-in resource directory.
+
 ``` json
     {
         "name": "Chameleon Shelf Tool",
@@ -1263,7 +1243,9 @@ The .png and.svg files in the plugin resource directory will be added to "Chamel
         }
     },
 ```
+
 - Or use ImageBrush directly in the style. For instance, the image brushes in FEditorStyle, FCoreStyle
+
 ```json
     {
         "name": "Minimal Example",
@@ -1275,10 +1257,9 @@ The .png and.svg files in the plugin resource directory will be added to "Chamel
     }
 ```
 
-#### The Chameleon UI .json file can reference other json files.
- 
-Now the Chameleon UI json file can reference other Json files. Nested references are supported, but circular references need to be avoided
+#### The Chameleon UI .json file can reference other json files
 
+Now the Chameleon UI json file can reference other Json files. Nested references are supported, but circular references need to be avoided
 
 ```json
     {
@@ -1292,27 +1273,26 @@ Now the Chameleon UI json file can reference other Json files. Nested references
     }
 ```
 
+#### pros
 
-#### pros:
 - Reduce the complexity and size of a single json file
-- reuse part ui code 
+- reuse part ui code
 
-#### cons:
+#### cons
+
 - The UI json files becomes less intuitive and more obscure
 - The Widget path logged in the console window is not the same as the Json crumb path shown in PyCharm. As PyCharm don't know that another json content has being "import" here.
 
-#### recommendation:
+#### recommendation
+
 - Put the repetitive ui code (such as 16x16 map buttons) or the ui code which generated by other script into an "external" json file.
-
-
 
 #### The number of shortcut keys has been increased to 10
   
 The number of shortcuts that can be configured in ExitorSettings has now been increased to 10. It will be a configurable number in later version.
 
- 
-
 ##### Add "BorderBackgroundColor" of SBorder
+
  ```json
     {
         "SBorder": {
@@ -1326,7 +1306,7 @@ The number of shortcuts that can be configured in ExitorSettings has now been in
     }
 ```
 
-#### Add More API in PythonBPLib:
+#### Add More API in PythonBPLib
 
 - GetViewportPixels
 Now we can grab and get the content of viewport. Use it in tools widgets:
@@ -1334,7 +1314,6 @@ Now we can grab and get the content of viewport. Use it in tools widgets:
 ![025_snap_in_editor](Images/025_snap_in_editor.png)
 
 Or send it to other device, for example, I send the viewport content to my MacroKeyboard. I think this is the smallest screen which displays Unreal Engine viewport content :D
-
 
 ![G008_ue_screen_image_to_pico](Images/G008_ue_screen_image_to_pico.gif)
 
@@ -1347,33 +1326,31 @@ Force the viewport Redraw
 We can get the EObjectFlags of a UObject.
 
 ![026_object_flags](Images/026_object_flags.png)
- 
-- GetLevelViewportCameraFov
 
+- GetLevelViewportCameraFov
 
 - GetActorsFromFolder
 Get the actors in Specified folder in outline
 
 - FindActorsByLabelName
 
-Find the actor by it's "label name" not the "actor name" 
-
+Find the actor by it's "label name" not the "actor name"
 
 #### Config.ini
+
 - add LogOnTickWarnings in config.ini
+
 ```ini
   LogOnTickWarnings=True
 ```
+
 This option controls whether a warning is printed when the user uses the keyword OnTick.
 
 ChameleonTools has a hidden keyword that has not been mentioned: "OnTick". The python code in it is executed during Slate updates, which are much more frequent than viewPort updates, So the py code can easily lower the editor's FPS.
 
 "OnTick" is hidden because 99.9% of the time it is not needed and there are better ways to do it if there is a "real" need. So I don't recommend using OnTick and changing the LogOnTickWarnings setting.
 
-
-
-
-#### Fix:
+#### Fix
 
 - Fixed RequestClose failing after Chameleon dock to another window.
 
@@ -1386,6 +1363,7 @@ ChameleonTools has a hidden keyword that has not been mentioned: "OnTick". The p
 - Fixed incorrect Padding setting in SBox
 
 ## Feature
+
 - Use UE4 and UE5 native Python  
 - Create UE Slate UI dynamically, support 39+ Slate widgets.
 - Configurable main menu/toolbar/Content Brower menu.
@@ -1398,14 +1376,16 @@ ChameleonTools has a hidden keyword that has not been mentioned: "OnTick". The p
 
 ## How to Install
 
-### Prerequisites 
+### Prerequisites
 This plugin use UE native Python Script Plugin. The [Scripting the Editor using Python](https://docs.unrealengine.com/en-US/Engine/Editor/ScriptingAndAutomation/Python/index.html) is also very useful.
 
 ![Python](Images/002_python_plugin_tiltle.png)
 
 ### Steps
+
 1. Download from [TAPython release repo @github](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release) and unzip the plugin to &lt;Your_UE_Project&gt;\Plugins
 ![release](Images/003_release_page_at_github.png)
+
 ```
     Your_UE_Project
     ├── Content                         
@@ -1417,6 +1397,7 @@ This plugin use UE native Python Script Plugin. The [Scripting the Editor using 
             └── Content                   
             └─ ...
 ```
+
 <a id="add_path_in_project_setting"></a>
 
 2. Laungch project, open Project settings - Plugin Python - additional path, add &lt;Your_UE_Project&gt;/TA/TAPython/Python to additional path. then restart the editor.
@@ -1435,13 +1416,11 @@ If a Red Cross is displayed, check the Project Setting above.
 
 ![Python Path Is not Ready](Images/007_gallery_path_is_not_ready.png)
 
-
 ## Quick Start
 
-The plug-in package contains several menu items and four demo tools by default. 
+The plug-in package contains several menu items and four demo tools by default.
 
-The latest DefaultResources is here: [DefaultResources@github](https://github.com/cgerchenhp/TAPython_DefaultResources) 
-
+The latest DefaultResources is here: [DefaultResources@github](https://github.com/cgerchenhp/TAPython_DefaultResources)
 
 ### Menu Items
 
@@ -1452,20 +1431,16 @@ The latest DefaultResources is here: [DefaultResources@github](https://github.co
 
 ![menu gifs](Images/G005_menus.gif)
 
-
-
-### Sketch Tool for design/tweaking UI 
+### Sketch Tool for design/tweaking UI
 ![005_sketch_icon_on_mainbar](Images/005_sketch_icon_on_mainbar.png)
-
 
 The **Sketch Tool** is a special ui design tool. When the&lt;Your_UE_Project&gt\TA\TAPython\Python\ChameleonSketch\ChameleonSketch.json file is modified, the content of the ui will be updated immediately(see below gif). This can be very useful when writing tool interfaces, and will save a lot of time when tweaking the interface layout or parameters.
 
 ![G000_SketchEditing](Images/G000_SketchEditing.gif)
 
+The default sketch tool looks like below. Try to modify the content of ChameleonSketch.json with any text editor, and save it. Don't worry about the json keywords and syntax, it's easy to learn and has lots of examples, will be described below.
 
-The default sketch tool looks like below. Try to modify the content of ChameleonSketch.json with any text editor, and save it. Don't worry about the json keywords and syntax, it's easy to learn and has lots of examples, will be described below. 
-
-![012_default_sketch](Images/012_default_sketch.png) 
+![012_default_sketch](Images/012_default_sketch.png)
 
 ---
 
@@ -1477,8 +1452,6 @@ All the 4 Example tools, are written with python, **without** any single line of
 
 #### Tool 1: MinimalExample
 ![MinimalExample](Images/G001_MinimalExample.gif)
-
-
 
 This is a tool demonstrating the creation of a standard UE Slate UI with python and a json file. The Button calls Python code, then the python code sends the results(click count) back to the UI.
 
@@ -1540,6 +1513,7 @@ MinimalExample.py
             self.clickCount += 1
             self.data.set_text(self.ui_output, "Clicked {} time(s)".format(self.clickCount))
 ```
+
 ---
 
 #### Tools 2 Shelf
@@ -1549,7 +1523,7 @@ Users can drag and drop items to the shelf, and execute custom Python Code, laun
 
 ![shelf gif](Images/G002_shelf.gif)
 
-| Type        |    Action  | 
+| Type        |    Action  |
 |--------------|-----------|
 | assets | select saved assets in content Brower|
 | folder      | enter saved folder in Content Brower|
@@ -1574,12 +1548,9 @@ In compare mode, the differences of two UObjects will be highlighted. It's very 
 
 Chameleon Gallery shows the most common widgets, and how to describe them in a json file. All the supported widgets and API documents can be found [here]({filename}ChameleonGallery.md)
 
-
 ![Gallery Gif](Images/G004_gallery_preview.gif)
 
-
 ## <a href="https://tacolor.xyz/pages/TAPython.html#documentation">TAPython How to Use</a>
-
 
 ## FAQ
 ### Q0. Can UE4 use this plugin?
@@ -1595,10 +1566,7 @@ A: Yes, at the beginning this plugin was developed with UE 4.21. We have release
 - <a href="https://tacolor.xyz/pages/SupportedSlates.html">Supported Slates</a>
 - <a href="https://tacolor.xyz/pages/PythonEditorLib.html">Extended Python Editor Lib</a>
 
-
-
-
-## Contributing and feedback 
+## Contributing and feedback
 
 This Plugin: TAPython is **Free** for use. The [PythonDefaultResource](https://github.com/cgerchenhp/TAPython_DefaultResources)
  is under MIT license.
@@ -1606,6 +1574,3 @@ This Plugin: TAPython is **Free** for use. The [PythonDefaultResource](https://g
 - Any suggestions and comments are welcome. Please don't hesitate to leave your message.
 - If you encounter difficulties or problems. <a href="mailto:chpsemail@gmail.com">EMail me</a> with the problem description, screenshot and the log.
 - If you find any English ambiguities or language errors on this page, please feel free to contact me as well.
-
-
-
