@@ -20,7 +20,7 @@ Thank you, TAPython's stargazers✨.😄
 ## What's New
 
 ### In v1.2.5
-Support UE 5.6.0 Preview
+Support UE 5.6.0
 
 ### Fixes
 
