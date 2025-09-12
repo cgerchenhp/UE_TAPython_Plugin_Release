@@ -19,20 +19,28 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
+### In v1.2.6
+
+Support UE 5.6.1
+
+#### Fixes
+
+- fix "OnControlRigEditorMenu" not working in ControlRigEditor
+
 ### In v1.2.5
 Support UE 5.6.0
 
-### Fixes
+#### Fixes
 
 - fix Utilities.Utils.py get_attr error on read-only properties
 - fix Sketch json file not following the PythonContentFolder directory setting issue
 - remove some useless Log output
 
-### Optimization
+#### Optimization
 
 - "MenuEntries" feature skips files starting with "." when searching for json files to avoid interference from files like .mypy_cache
 
-### DefaultResource
+#### DefaultResource
 
 - Remove AsyncTaskExample
 - DisUnreal skips redundant writes to unchanged files
@@ -41,7 +49,7 @@ Support UE 5.6.0
 
 Support UE 5.5.4
 
-### PythonBPLib
+#### PythonBPLib
 
 - Add `get_module_names` to retrieve module names and their corresponding DLL paths.
 - Add `get_editor_mode_names` to retrieve editor mode names.
@@ -49,7 +57,7 @@ Support UE 5.5.4
 - Add `change_editor_mode` for switching the active editor mode.
 - Add `flip_y` parameter to `set_render_target_data`.
 
-### Fixes
+#### Fixes
 
 - Fixed the issue where `Alias` had not taken effect in callback commands for the following controls:  
   `SSlider`, `SComboButton`, `SEditableText`, `SEditableTextBox`,  
@@ -100,11 +108,11 @@ Add `Aliases` field in the `json` file to set aliases. For example, in the follo
 
 - Fixed the issue of `BorderBackgroundColor` not being set for `SExpandableArea`
 
-### Experimental
+#### Experimental
 
-#### DetailPanelCustomization
+##### DetailPanelCustomization
 
-##### Settings
+###### Settings
 
 Add the following settings to control the behavior of `DetailPanelCustomization`.
 
