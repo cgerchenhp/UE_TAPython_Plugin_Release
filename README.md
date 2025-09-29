@@ -19,6 +19,10 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
+### In v1.2.7
+
+Support UE 5.7.0 Preview
+
 ### In v1.2.6
 
 Support UE 5.6.1
@@ -719,43 +723,43 @@ Cancel the specified DelayCall by ID.
 
 We got a new editor library: PhysicsAssetLib, as its name, it's for PhysicsAsset Editing.
 
-|Function Name |Description | |
-|:--- |:---- | :----|
-|get_selected_bodies_indexes|Get the indexes of the selected bodies in Physics Asset Editor| |
-|rotate_selected_body|Set the rotation of the selected body in Physics Asset Editor| |
-|rotate_selected_constraint|Set the rotation of the selected constraint in Physics Asset Editor| |
-|get_body_center|Get the center value of the specified body| |
-|set_body_center|Set the center value of the specified body| |
-|get_body_rotation|Get the rotation value of the first body| |
-|get_bodies_rotations|Get the rotation value of the first body| |
-|set_body_rotation|Set the rotation value of the specified body| |
-|get_body_radius|Get the Radius value of the body| |
-|set_body_radius|Set the Radius value of the body| |
-|get_body_length|Get the rotation value of the first body| |
-|set_body_length|Get the rotation value of the first body| |
-|get_body_size|Get the Size value of the box body| |
-|set_body_size|Set the Size value of the box body| |
-|scale_body|Scale the specified body| |
-|get_edited_physics_assets|Get all PhysicsAsset currently being tracked with open editors| |
-|get_physics_asset_from_top_window|Get the PhysicsAsset from the top opened editor window.| |
-|get_selected_item_names|Get all the selected items name in PhysicsAsset editor window.| |
-|select_body_by_name|Select the Body by name in PhysicsAsset editor window.| |
-|select_body_by_names|Select the Bodies by name in PhysicsAsset editor window.| |
-|select_shape_by_name|Select the Shape by name in PhysicsAsset editor window.| |
-|select_shape_by_names|Select the Shapes by name in PhysicsAsset editor window.| |
-|select_constraint_by_name|Select the constraint by name in PhysicsAsset editor window.| |
-|select_constraint_by_names|Select the constraints by name in PhysicsAsset editor window.| |
-|add_constraints|Add constraint to specified bodies| |
-|get_skeleton_hierarchy|Get the bones hierarchy| |
-|get_bodies_hierarchy|Get all the bodies names and their parent bone's index| |
-|get_constraints_names|Get all the constraint's display names of PhysicsAsset| |
-|get_bone_indexes_of_constraint|Get the parent and child bone's indexes of the specified Constraint| |
-|get_bone_index_from_body|Get the first Body under the specified bone| |
-|get_bodies_from_bone|Get the Bodies under the specified bone| |
-|get_constraint_instance_accessor|Get the ConstraintInstanceAccessor from PhysicsAsset| |
-|reset_constraint_properties|Reset the specified Constraint's values| |
-|update_profile_instance|Update the Profile according to the specified Constraint| |
-|break_constraint_accessor|Get the Owner and Constraint Index from ConstraintInstanceAccessor| |
+| Function Name                     | Description                                                         |      |
+| :-------------------------------- | :------------------------------------------------------------------ | :--- |
+| get_selected_bodies_indexes       | Get the indexes of the selected bodies in Physics Asset Editor      |      |
+| rotate_selected_body              | Set the rotation of the selected body in Physics Asset Editor       |      |
+| rotate_selected_constraint        | Set the rotation of the selected constraint in Physics Asset Editor |      |
+| get_body_center                   | Get the center value of the specified body                          |      |
+| set_body_center                   | Set the center value of the specified body                          |      |
+| get_body_rotation                 | Get the rotation value of the first body                            |      |
+| get_bodies_rotations              | Get the rotation value of the first body                            |      |
+| set_body_rotation                 | Set the rotation value of the specified body                        |      |
+| get_body_radius                   | Get the Radius value of the body                                    |      |
+| set_body_radius                   | Set the Radius value of the body                                    |      |
+| get_body_length                   | Get the rotation value of the first body                            |      |
+| set_body_length                   | Get the rotation value of the first body                            |      |
+| get_body_size                     | Get the Size value of the box body                                  |      |
+| set_body_size                     | Set the Size value of the box body                                  |      |
+| scale_body                        | Scale the specified body                                            |      |
+| get_edited_physics_assets         | Get all PhysicsAsset currently being tracked with open editors      |      |
+| get_physics_asset_from_top_window | Get the PhysicsAsset from the top opened editor window.             |      |
+| get_selected_item_names           | Get all the selected items name in PhysicsAsset editor window.      |      |
+| select_body_by_name               | Select the Body by name in PhysicsAsset editor window.              |      |
+| select_body_by_names              | Select the Bodies by name in PhysicsAsset editor window.            |      |
+| select_shape_by_name              | Select the Shape by name in PhysicsAsset editor window.             |      |
+| select_shape_by_names             | Select the Shapes by name in PhysicsAsset editor window.            |      |
+| select_constraint_by_name         | Select the constraint by name in PhysicsAsset editor window.        |      |
+| select_constraint_by_names        | Select the constraints by name in PhysicsAsset editor window.       |      |
+| add_constraints                   | Add constraint to specified bodies                                  |      |
+| get_skeleton_hierarchy            | Get the bones hierarchy                                             |      |
+| get_bodies_hierarchy              | Get all the bodies names and their parent bone's index              |      |
+| get_constraints_names             | Get all the constraint's display names of PhysicsAsset              |      |
+| get_bone_indexes_of_constraint    | Get the parent and child bone's indexes of the specified Constraint |      |
+| get_bone_index_from_body          | Get the first Body under the specified bone                         |      |
+| get_bodies_from_bone              | Get the Bodies under the specified bone                             |      |
+| get_constraint_instance_accessor  | Get the ConstraintInstanceAccessor from PhysicsAsset                |      |
+| reset_constraint_properties       | Reset the specified Constraint's values                             |      |
+| update_profile_instance           | Update the Profile according to the specified Constraint            |      |
+| break_constraint_accessor         | Get the Owner and Constraint Index from ConstraintInstanceAccessor  |      |
 
 #### Fixed
 
@@ -1037,42 +1041,42 @@ Now we can iterate, create, and modify **Material Expression** nodes of Material
 
 For more details and examples of material expressions can be found here: [How to manipulate Material Expressions Node in Material with Python in Unreal Engine](https://www.tacolor.xyz/Howto/Manipulate_Material_Expression_Nodes_Of_Material_With_Python_In_UE.html)
 
-|PythonMaterialLib |Description | Is New added|
-|:--- |:---- | :----|
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_static_switch_parameter_values">get_static_switch_parameter_values</a>|Get the Static Switch Infos of material instance| |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_static_switch_parameter_value">set_static_switch_parameter_value</a>|Set the Static Switch Infos of material instance| |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_static_switch_parameters_values">set_static_switch_parameters_values</a>|Batch set the Static Switch's status of material instance.| |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_mf_static_switch_parameter">get_mf_static_switch_parameter</a>|Get the Static Switch Infos of material function.| |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_static_parameters_summary">get_static_parameters_summary</a>|Get the numbers of each StaticSwitchParameter of material instance.| |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_mat">log_mat</a>|Log out all the connections in the material| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expressions">get_material_expressions</a>|Log out all the Material Expressions in the material| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_all_referenced_expressions">get_all_referenced_expressions</a>|Get Material Expressions in the material with specified feature level| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_connections">get_material_connections</a>|Get all the connections in the material| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_connections">get_material_function_connections</a>|Get all the connections in the material function| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_input_names">get_material_expression_input_names</a>|Get the input pin's names of the material expression| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_output_names">get_material_expression_output_names</a>|Get the output pin's names of the material expression| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_captions">get_material_expression_captions</a>|The captions of the material expression| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_shading_model">set_shading_model</a>|Set the shading model of the material, for the hidden shading model| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_id">get_material_expression_id</a>|Get the ParameterExpressionId of the material expression.| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_mf">log_mf</a>|Log out all the connections in the material function| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_expressions">get_material_function_expressions</a>|Get all the expressions in the Material Function| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_output_expressions">get_material_function_output_expressions</a>|Get all the output expressions in the Material Function| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_selected_material_nodes">get_selected_material_nodes</a>|Get the selected nodes in material editor.| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_material_expression">log_material_expression</a>|Log Detail information of the MaterialExpression, include inputs, outputs etc.| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_editing_nodes">log_editing_nodes</a>|Log Detail information of the Material or Material Function| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_selected_nodes_in_material_editor">get_selected_nodes_in_material_editor</a>|Get the selected nodes in material editor.| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_hlsl_code">get_hlsl_code</a>|Get the HLSL code of the Material| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_shader_map_info">get_shader_map_info</a>|Get the ShaderMaps infos in string format.| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_content">get_material_content</a>|Get the material's content in JSON Format| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_content">get_material_function_content</a>|Get the material function's content in JSON Format| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#connect_material_expressions">connect_material_expressions</a>|Create connection between two material expressions| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#disconnect_expression">disconnect_expression</a>|Disconnection the material expression's input| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#connect_material_property">connect_material_property</a>|Connect a material expression output to one of the material property inputs (e.g. diffuse color,  world position offset etc)| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#disconnect_material_property">disconnect_material_property</a>|Disconnect the material property input| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_proper_str_from_guid">get_material_proper_str_from_guid</a>|Get EMaterialProperty in string format from a guid| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#gen_guid_from_material_property_str">gen_guid_from_material_property_str</a>|Generate a Guid from EMaterialProperty| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#add_input_at_expression_set_material_attributes">add_input_at_expression_set_material_attributes</a>|Add an Attribute Get Type pin for material expression "GetMaterialAttributes"| Yes |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#add_output_at_expression_get_material_attributes">add_output_at_expression_get_material_attributes</a>|Add an Attribute Get Type pin for material expression "GetMaterialAttributes"| Yes |
+| PythonMaterialLib                                                                                                                                                                    | Description                                                                                                                  | Is New added |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- | :----------- |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_static_switch_parameter_values">get_static_switch_parameter_values</a>                             | Get the Static Switch Infos of material instance                                                                             |              |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_static_switch_parameter_value">set_static_switch_parameter_value</a>                               | Set the Static Switch Infos of material instance                                                                             |              |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_static_switch_parameters_values">set_static_switch_parameters_values</a>                           | Batch set the Static Switch's status of material instance.                                                                   |              |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_mf_static_switch_parameter">get_mf_static_switch_parameter</a>                                     | Get the Static Switch Infos of material function.                                                                            |              |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_static_parameters_summary">get_static_parameters_summary</a>                                       | Get the numbers of each StaticSwitchParameter of material instance.                                                          |              |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_mat">log_mat</a>                                                                                   | Log out all the connections in the material                                                                                  | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expressions">get_material_expressions</a>                                                 | Log out all the Material Expressions in the material                                                                         | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_all_referenced_expressions">get_all_referenced_expressions</a>                                     | Get Material Expressions in the material with specified feature level                                                        | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_connections">get_material_connections</a>                                                 | Get all the connections in the material                                                                                      | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_connections">get_material_function_connections</a>                               | Get all the connections in the material function                                                                             | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_input_names">get_material_expression_input_names</a>                           | Get the input pin's names of the material expression                                                                         | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_output_names">get_material_expression_output_names</a>                         | Get the output pin's names of the material expression                                                                        | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_captions">get_material_expression_captions</a>                                 | The captions of the material expression                                                                                      | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_shading_model">set_shading_model</a>                                                               | Set the shading model of the material, for the hidden shading model                                                          | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_id">get_material_expression_id</a>                                             | Get the ParameterExpressionId of the material expression.                                                                    | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_mf">log_mf</a>                                                                                     | Log out all the connections in the material function                                                                         | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_expressions">get_material_function_expressions</a>                               | Get all the expressions in the Material Function                                                                             | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_output_expressions">get_material_function_output_expressions</a>                 | Get all the output expressions in the Material Function                                                                      | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_selected_material_nodes">get_selected_material_nodes</a>                                           | Get the selected nodes in material editor.                                                                                   | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_material_expression">log_material_expression</a>                                                   | Log Detail information of the MaterialExpression, include inputs, outputs etc.                                               | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_editing_nodes">log_editing_nodes</a>                                                               | Log Detail information of the Material or Material Function                                                                  | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_selected_nodes_in_material_editor">get_selected_nodes_in_material_editor</a>                       | Get the selected nodes in material editor.                                                                                   | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_hlsl_code">get_hlsl_code</a>                                                                       | Get the HLSL code of the Material                                                                                            | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_shader_map_info">get_shader_map_info</a>                                                           | Get the ShaderMaps infos in string format.                                                                                   | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_content">get_material_content</a>                                                         | Get the material's content in JSON Format                                                                                    | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_content">get_material_function_content</a>                                       | Get the material function's content in JSON Format                                                                           | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#connect_material_expressions">connect_material_expressions</a>                                         | Create connection between two material expressions                                                                           | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#disconnect_expression">disconnect_expression</a>                                                       | Disconnection the material expression's input                                                                                | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#connect_material_property">connect_material_property</a>                                               | Connect a material expression output to one of the material property inputs (e.g. diffuse color,  world position offset etc) | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#disconnect_material_property">disconnect_material_property</a>                                         | Disconnect the material property input                                                                                       | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_proper_str_from_guid">get_material_proper_str_from_guid</a>                               | Get EMaterialProperty in string format from a guid                                                                           | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#gen_guid_from_material_property_str">gen_guid_from_material_property_str</a>                           | Generate a Guid from EMaterialProperty                                                                                       | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#add_input_at_expression_set_material_attributes">add_input_at_expression_set_material_attributes</a>   | Add an Attribute Get Type pin for material expression "GetMaterialAttributes"                                                | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#add_output_at_expression_get_material_attributes">add_output_at_expression_get_material_attributes</a> | Add an Attribute Get Type pin for material expression "GetMaterialAttributes"                                                | Yes          |
 
 ---
 
@@ -1153,27 +1157,27 @@ Fixed:
 ### In v1.0.5
 [PythonEnumLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html) and [PythonStructLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html) has been added to [Python Editor Libs](https://www.tacolor.xyz/pages/PythonEditorLib.html), [PythonDataTableLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html) also adds more python/blueprint callable functions.
 
-|PythonEnumLib |PythonStructLib |PythonDataTableLib |
-|:--- |:--- |:--- |
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#get_display_name_map">get_display_name_map</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#log_var_desc">log_var_desc</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_data_table_struct_path">get_data_table_struct_path</a>|
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#set_enum_items">set_enum_items</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#log_var_desc_by_friendly_name">log_var_desc_by_friendly_name</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_data_table_struct">get_data_table_struct</a>|
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#get_enum_len">get_enum_len</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#get_variable_description">get_variable_description</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_table_as_json">get_table_as_json</a>|
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#get_display_name_by_index">get_display_name_by_index</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#get_guid_from_friendly_name">get_guid_from_friendly_name</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_row_names">get_row_names</a>|
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#set_display_name">set_display_name</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#get_guid_from_property_name">get_guid_from_property_name</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_column_names">get_column_names</a>|
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#get_description_by_index">get_description_by_index</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#get_variable_names">get_variable_names</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_shape">get_shape</a>|
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#set_description_by_index">set_description_by_index</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#get_friendly_names">get_friendly_names</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#remove_row">remove_row</a>|
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#get_name_by_index">get_name_by_index</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#is_unique_friendly_name">is_unique_friendly_name</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#add_row">add_row</a>|
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#move_enum_item">move_enum_item</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#add_variable">add_variable</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#duplicate_row">duplicate_row</a>|
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#is_bitflags_type">is_bitflags_type</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#add_directory_variable">add_directory_variable</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#rename_row">rename_row</a>|
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#set_bitflags_type">set_bitflags_type</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#remove_variable_by_name">remove_variable_by_name</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#reset_row">reset_row</a>|
-|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#get_cpp_form">get_cpp_form</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#rename_variable">rename_variable</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#move_row">move_row</a>|
-| |<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#change_variable_default_value">change_variable_default_value</a>|<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_row_name">get_row_name</a>|
-| | |<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_column_name">get_column_name</a>|
-| | |<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_flatten_data_table">get_flatten_data_table</a>|
-| | |<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_property_as_string">get_property_as_string</a>|
-| | |<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_property_as_string_at">get_property_as_string_at</a>|
-| | |<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#set_property_by_string">set_property_by_string</a>|
-| | |<a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#set_property_by_string_at">set_property_by_string_at</a>|
+| PythonEnumLib                                                                                                                      | PythonStructLib                                                                                                                              | PythonDataTableLib                                                                                                                        |
+| :--------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------- |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#get_display_name_map">get_display_name_map</a>           | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#log_var_desc">log_var_desc</a>                                   | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_data_table_struct_path">get_data_table_struct_path</a> |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#set_enum_items">set_enum_items</a>                       | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#log_var_desc_by_friendly_name">log_var_desc_by_friendly_name</a> | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_data_table_struct">get_data_table_struct</a>           |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#get_enum_len">get_enum_len</a>                           | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#get_variable_description">get_variable_description</a>           | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_table_as_json">get_table_as_json</a>                   |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#get_display_name_by_index">get_display_name_by_index</a> | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#get_guid_from_friendly_name">get_guid_from_friendly_name</a>     | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_row_names">get_row_names</a>                           |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#set_display_name">set_display_name</a>                   | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#get_guid_from_property_name">get_guid_from_property_name</a>     | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_column_names">get_column_names</a>                     |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#get_description_by_index">get_description_by_index</a>   | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#get_variable_names">get_variable_names</a>                       | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_shape">get_shape</a>                                   |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#set_description_by_index">set_description_by_index</a>   | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#get_friendly_names">get_friendly_names</a>                       | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#remove_row">remove_row</a>                                 |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#get_name_by_index">get_name_by_index</a>                 | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#is_unique_friendly_name">is_unique_friendly_name</a>             | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#add_row">add_row</a>                                       |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#move_enum_item">move_enum_item</a>                       | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#add_variable">add_variable</a>                                   | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#duplicate_row">duplicate_row</a>                           |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#is_bitflags_type">is_bitflags_type</a>                   | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#add_directory_variable">add_directory_variable</a>               | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#rename_row">rename_row</a>                                 |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#set_bitflags_type">set_bitflags_type</a>                 | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#remove_variable_by_name">remove_variable_by_name</a>             | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#reset_row">reset_row</a>                                   |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html#get_cpp_form">get_cpp_form</a>                           | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#rename_variable">rename_variable</a>                             | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#move_row">move_row</a>                                     |
+|                                                                                                                                    | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html#change_variable_default_value">change_variable_default_value</a> | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_row_name">get_row_name</a>                             |
+|                                                                                                                                    |                                                                                                                                              | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_column_name">get_column_name</a>                       |
+|                                                                                                                                    |                                                                                                                                              | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_flatten_data_table">get_flatten_data_table</a>         |
+|                                                                                                                                    |                                                                                                                                              | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_property_as_string">get_property_as_string</a>         |
+|                                                                                                                                    |                                                                                                                                              | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#get_property_as_string_at">get_property_as_string_at</a>   |
+|                                                                                                                                    |                                                                                                                                              | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#set_property_by_string">set_property_by_string</a>         |
+|                                                                                                                                    |                                                                                                                                              | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#set_property_by_string_at">set_property_by_string_at</a>   |
 
  In short, we can use Python to do almost everything you did manually in the editor with **User defined ENum, User Defined Struct and DataTable**. More details and examples can be found [here](https://www.tacolor.xyz/Howto/How_To_Create_User_Defined_ENum_Struct_DataTable_with_Python_in_UE5.html).
 
@@ -1531,13 +1535,13 @@ Users can drag and drop items to the shelf, and execute custom Python Code, laun
 
 ![shelf gif](Images/G002_shelf.gif)
 
-| Type        |    Action  |
-|--------------|-----------|
-| assets | select saved assets in content Brower|
-| folder      | enter saved folder in Content Brower|
-| actors      | select saved actors in level|
-| text（python snippet）| execute as python code   |
-| chamelon tool json file     | launch the Chameleon tool |
+| Type                    | Action                                |
+| ----------------------- | ------------------------------------- |
+| assets                  | select saved assets in content Brower |
+| folder                  | enter saved folder in Content Brower  |
+| actors                  | select saved actors in level          |
+| text（python snippet）  | execute as python code                |
+| chamelon tool json file | launch the Chameleon tool             |
 
 You can modify the python code, and make it better.
 
