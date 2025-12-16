@@ -19,6 +19,114 @@ Thank you, TAPython's stargazers✨.😄
 
 ## What's New
 
+### In v1.3.0
+
+#### Editor Mode Support
+
+Starting from TAPython v1.3.0, you can create custom **Editor Modes** using **JSON for UI definition + Python for logic**, without writing any C++ code, with support for live hot-reloading.
+
+![Editor Mode Menu](Images/144_editor_mode_menu.png)
+
+**Editor Mode** is a specialized editing tool framework that allows developers to create independent interactive environments for specific editing tasks, similar to Unreal Engine's Landscape Editing Mode, Foliage Painting Mode, etc.
+
+##### Key Features
+
+- **Independent Interaction Logic**: Capture and handle mouse, keyboard, and other input events
+- **Custom User Interface**: Create specialized UI layouts in both main panel and viewport overlay
+- **Viewport Interaction**: Support for painting, sculpting, placement operations with mouse drag
+- **PropertySet Support**: Define tool properties that automatically display in the UI panel
+- **Rich Callback Events**: Mouse down/up, drag, wheel, and capture control events
+- **No C++ Required**: Develop entirely with Python + JSON configuration
+
+##### Minimal Example
+
+A simple Editor Mode that displays screen coordinates when the mouse is dragged:
+
+![Minimal Editor Mode](Images/146_minimal_editor_mode.png)
+
+```json
+{
+  "EditorModeName": "Minimal Editor Mode",
+  "InitPyCmd": "import EditorModeExample; EditorModeExample.MinimalEditorMode(%JsonPath)",
+  "Aliases": {
+    "$this_tool": "EditorModeExample.MinimalEditorMode.MinimalEditorMode()"
+  },
+  "EditorModeOnDrag": "$this_tool.on_drag(%input_ray, %mouse_button, %delta_time)",
+  "Root": { "SBorder": { ... } }
+}
+```
+
+![Running Effect](Images/G047_editor_mode_minimal.webp)
+
+##### Advanced Features
+
+**Menu System:**
+
+![Menu Structure](Images/152_menu_titles.png)
+
+- Tool-specific menu (configurable via OnTabContextMenu)
+- Available Tools menu (auto-discovery of all Editor Modes)
+- Viewport menu (control UI visibility and interaction)
+
+**Viewport UI:**
+
+![Viewport UI](Images/147_viewport_ui.png)
+
+In addition to the main panel, you can overlay UI controls directly on the viewport for brushes, information display, and interactive controls.
+
+**Callback Events:**
+
+| Event Name               | Trigger Time                | Parameters                                   |
+| ------------------------ | --------------------------- | -------------------------------------------- |
+| `EditorModeOnMouseDown`  | Mouse button pressed        | `%input_ray`, `%mouse_button`, `%delta_time` |
+| `EditorModeOnMouseUp`    | Mouse button released       | `%input_ray`, `%mouse_button`, `%delta_time` |
+| `EditorModeOnDrag`       | During mouse drag           | `%input_ray`, `%mouse_button`, `%delta_time` |
+| `EditorModeOnDragEnd`    | Drag ends                   | `%input_ray`, `%mouse_button`, `%delta_time` |
+| `EditorModeOnMouseWheel` | Mouse wheel                 | `%wheel_delta`                               |
+| `EditorModeCanCapture`   | Determine if input captured | `%input_ray`, `%mouse_button`                |
+
+For more details and complete examples, see: [How to Create Editor Modes with TAPython](https://www.tacolor.xyz/Howto/create_editor_modes_with_tapython.html)
+
+![Advanced Example](Images/G048_editor_mode.webp)
+
+##### New Python APIs (v1.3.0)
+
+**ChameleonData - Editor Mode APIs:**
+
+| Function Name                           | Description                               |
+| --------------------------------------- | ----------------------------------------- |
+| `get_chameleon_editor_mode_json_path`   | Get JSON file path of current Editor Mode |
+| `get_editor_mode_event_command`         | Get Python command for specified event    |
+| `get_editor_mode_property_set`          | Get PropertySet instance of current tool  |
+| `is_chameleon_editor_mode_enabled`      | Check if Editor Mode is enabled           |
+| `log_chameleon_editor_mode`             | Output current Editor Mode state to log   |
+| `set_chameleon_editor_mode_enabled`     | Enable/disable Editor Mode                |
+| `get_editor_mode_capture_middle_button` | Get whether middle button is captured     |
+| `get_editor_mode_capture_right_button`  | Get whether right button is captured      |
+| `set_editor_mode_capture_middle_button` | Set whether to capture middle button      |
+| `set_editor_mode_capture_right_button`  | Set whether to capture right button       |
+| `get_chameleon_editor_mode`             | Get Editor Mode instance                  |
+
+**ChameleonData - SCanvas Element Operations:**
+
+| Function Name                          | Description                      |
+| -------------------------------------- | -------------------------------- |
+| `set_canvas_element_position`          | Set viewport UI element position |
+| `get_canvas_element_position`          | Get viewport UI element position |
+| `set_canvas_element_size`              | Set viewport UI element size     |
+| `get_canvas_element_size`              | Get viewport UI element size     |
+| `set_canvas_element_position_by_index` | Set UI element position by index |
+| `get_canvas_element_position_by_index` | Get UI element position by index |
+| `set_canvas_element_size_by_index`     | Set UI element size by index     |
+| `get_canvas_element_size_by_index`     | Get UI element size by index     |
+
+**ChameleonData - Project Settings:**
+
+| Function Name                 | Description                 |
+| ----------------------------- | --------------------------- |
+| `get_python_project_settings` | Get Python project settings |
+| `get_python_additional_paths` | Get Python additional paths |
+
 ### In v1.2.7
 
 Support UE 5.7.0 Preview
