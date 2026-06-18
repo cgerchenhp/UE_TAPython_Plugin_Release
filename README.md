@@ -1,4 +1,3 @@
-
 ## TA Python Tools
 
 This is a plugin which tries hard to make Unreal Editor Tools As Easy As Possible.
@@ -18,6 +17,146 @@ Thank you, TAPython's stargazers✨.😄
 [![Star History Chart](https://api.star-history.com/svg?repos=cgerchenhp/UE_TAPython_Plugin_Release&type=Date)](https://star-history.com/#cgerchenhp/UE_TAPython_Plugin_Release&Date)
 
 ## What's New
+
+### In v1.3.3
+
+Support UE 5.8
+
+#### PythonBPLib - Viewport Stats & Overlay Screenshot
+
+| Function Name                          | Description                                                                                |
+| -------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `get_active_viewport_stat_texts`       | Get stat text values currently shown on the active viewport (FPS, Frame, Game, Draw, etc.) |
+| `get_latest_stat_names`                | Get all stat names present in the latest game-thread stats data                            |
+| `get_latest_stat_data`                 | Get one stat's latest values by name                                                       |
+| `get_active_viewport_slate_rect`       | Get the active viewport's inner Slate rect in desktop coordinates                          |
+| `save_editor_screenshot_with_overlays` | Capture the editor backbuffer as PNG, including stat text and Slate UI overlays            |
+
+#### PythonBPLib - World & Actor Queries
+
+| Function Name               | Description                                                                  |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| `get_world_type`            | Get the world type for an object (returns `ETypedElementWorldType` + string) |
+| `get_world`                 | Get the current active world, auto-detecting Editor / PIE / Simulate mode    |
+| `get_selected_level_actors` | Get selected level actors in both Editor and PIE mode                        |
+| `get_all_level_actors`      | Get all level actors in the specified world (supports Editor and PIE mode)   |
+
+#### Fixes
+
+- Fixed inaccurate stat unit data returned by `get_active_viewport_stat_texts`
+- Fixed `get_world` deprecation warning (renamed to `get_active_world` internally)
+
+---
+
+### In v1.3.2
+
+#### PythonBPLib - LLM / Agent-Friendly APIs
+
+New functions designed for LLM-agent workflows and editor automation:
+
+| Function Name                 | Description                                                                                         |
+| ----------------------------- | --------------------------------------------------------------------------------------------------- |
+| `get_opened_window`           | Get currently opened editor windows                                                                 |
+| `get_opened_assets`           | Get assets currently opened in editor tabs                                                          |
+| `get_modified_properties`     | Get an object's properties that differ from CDO; supports `bIncludeComponents` for Actor components |
+| `get_cdo_properties`          | Get an object class's CDO default property values                                                   |
+| `get_foreground_tab`          | Get the currently focused docked tab (label + tab_id)                                               |
+| `get_object_referencers`      | Get all objects that reference the given UObject                                                    |
+| `get_current_level_blueprint` | Get the Level Blueprint of the current persistent level                                             |
+
+#### PythonMaterialLib - Material & Function Inspection
+
+| Function Name                                 | Description                                                          |
+| --------------------------------------------- | -------------------------------------------------------------------- |
+| `get_mat_logic`                               | Get material node connections as a formatted string (LLM-friendly)   |
+| `get_mat_logic_with_node_ids`                 | Get material logic including internal node IDs                       |
+| `get_mat_parameters`                          | Get all material parameters as a formatted string                    |
+| `get_mf_logic`                                | Get MaterialFunction node logic as a formatted string                |
+| `get_mf_parameters`                           | Get all MaterialFunction parameters as a formatted string            |
+| `get_double_vector_parameter_values`          | Get DoubleVector parameter values of a material or material instance |
+| `set_double_vector_parameter_value`           | Set a DoubleVector parameter value on a MaterialInstanceConstant     |
+| `get_material_parameter_collection_usage`     | Get all MPC parameter references used in a material                  |
+| `get_static_component_mask_parameter_values`  | Get StaticComponentMask parameter values                             |
+| `set_static_component_mask_parameter_value`   | Set a StaticComponentMask parameter on a MaterialInstanceConstant    |
+| `set_static_component_mask_parameters_values` | Batch-set multiple StaticComponentMask parameters                    |
+
+#### PythonBPLib - Viewport Capture & Screenshot
+
+| Function Name               | Description                                                                              |
+| --------------------------- | ---------------------------------------------------------------------------------------- |
+| `save_viewport_as_png`      | Save the active viewport content as PNG (faster than `get_viewport_pixels_as_data`)      |
+| `start_viewport_capture`    | Start a C++-ticker-driven viewport recording session (buffered, written to disk on stop) |
+| `stop_viewport_capture`     | Stop capture and flush buffered frames to disk (background thread)                       |
+| `cancel_viewport_capture`   | Cancel capture and discard buffered frames without writing to disk                       |
+| `get_viewport_capture_info` | Get current capture status: phase, captured_frames, written_frames, max_frames           |
+
+#### PythonBPLib - Other Additions
+
+| Function Name                         | Description                                                                      |
+| ------------------------------------- | -------------------------------------------------------------------------------- |
+| `get_component_bounds`                | Get world-space bounds (Origin, BoxExtent, SphereRadius) of a PrimitiveComponent |
+| `get_selected_actors`                 | Get selected actors, works in both Editor and PIE mode                           |
+| `request_viewport_focus_on_selection` | Focus viewport on selection without animation                                    |
+
+#### Console Command
+
+- Added `tapython_exec` — a console command that executes a Python expression in the Unreal main thread and returns the result as a string. Useful for LLM agent tool-call integration.
+
+#### Rename: SlateLib → WidgetLib
+
+`PythonSlateLib` has been renamed to `PythonWidgetLib`. Existing Python code using `unreal.PythonSlateLib` should be updated to `unreal.PythonWidgetLib`.
+
+#### Fixes
+
+- Fixed crash when taking large-size screenshot previews
+- Fixed errors when adding adjacent landscape tiles
+- Fixed landscape height get/set issues
+- Fixed focus position calculation for `request_viewport_focus_on_selection`
+- Fixed various crash issues
+
+---
+
+### In v1.3.1
+
+#### Editor Mode - Hover Event
+
+Added `EditorModeOnHover` event callback in Editor Mode JSON. This is triggered as the user moves the mouse over the viewport without pressing any button (preview before clicking), enabling brush-range previews and similar interaction hints.
+
+```json
+{
+  "EditorModeOnHover": "$this_tool.on_hover(%input_ray)"
+}
+```
+
+#### Editor Mode - Cursor Control
+
+| Function Name                  | Description                                                                                            |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `set_editor_mode_cursor`       | Set the cursor type for the active Editor Mode tool by name (e.g., `"Crosshairs"`, `"Hand"`, `"None"`) |
+| `get_editor_mode_cursor`       | Get the current cursor type name of the active Editor Mode tool                                        |
+| `set_editor_mode_cursor_by_id` | Set cursor by integer enum value (see `EMouseCursor::Type`)                                            |
+| `get_editor_mode_cursor_id`    | Get the current cursor type as integer                                                                 |
+
+#### ChameleonData
+
+- Add `set_style` — change the style of a widget at runtime by specifying a StyleSet name and property name. Supports a subset of Slate widget types.
+
+#### Slate
+
+- `SImage`, `set_image_from_path`, `set_image_from` now support **SVG** files in addition to raster image formats.
+
+#### PythonTextureLib
+
+| Function Name                     | Description                                                                 |
+| --------------------------------- | --------------------------------------------------------------------------- |
+| `set_texture2d_content`           | Write pixel data to a Texture2D mip level from a memory address             |
+| `set_texture2d_rhi`               | Directly update Texture2D GPU resource via RHI (faster for runtime drawing) |
+| `set_texture_render_target2d_rhi` | Directly update RenderTarget2D GPU resource via RHI (faster for animation)  |
+
+#### Fixes
+
+- Fixed `SComboBox` crash on initialization
+- Path mismatch in resource loading now emits a Warning instead of a hard error
 
 ### In v1.3.0
 
@@ -140,6 +279,7 @@ Support UE 5.6.1
 - fix "OnControlRigEditorMenu" not working in ControlRigEditor
 
 ### In v1.2.5
+
 Support UE 5.6.0
 
 #### Fixes
@@ -174,7 +314,7 @@ Support UE 5.5.4
 - Fixed the issue where `Alias` had not taken effect in callback commands for the following controls:  
   `SSlider`, `SComboButton`, `SEditableText`, `SEditableTextBox`,  
   `SMultiLineEditableText`, `SMultiLineEditableTextBox`, `SListView`, `STreeView`.
-  
+
 ### In v1.2.3
 
 Support UE 5.5.0
@@ -311,12 +451,12 @@ Add menu entries for the tool through the `MenuEntries` field in the ChameleonTo
 
 ```json
 {
- "TabLabel": "Image Compare",
- "InitTabSize": [1000, 650],
- "InitTabPosition": [200, 100],
-    "MenuEntries": ["Tools/Image Compare"],
-    "Icon": {"style": "ChameleonStyle", "name": "Picture" },
-    "InitPyCmd": "..."
+  "TabLabel": "Image Compare",
+  "InitTabSize": [1000, 650],
+  "InitTabPosition": [200, 100],
+  "MenuEntries": ["Tools/Image Compare"],
+  "Icon": { "style": "ChameleonStyle", "name": "Picture" },
+  "InitPyCmd": "..."
 }
 ```
 
@@ -345,7 +485,7 @@ A new configuration item `MenuFromToolsJsonEnabled` has been added to Config.ini
 The `SDPIScaler` widget can control the scaling ratio of its child components. The usage is as follows:
 
 ```python
-    "SDPIScaler": 
+    "SDPIScaler":
     {
         "Aka": "Scaler",
         "DPIScaler": 1.0,
@@ -403,6 +543,7 @@ A new module has been added to use RBF (Radial Basis Function) interpolation in 
 - Add `get_texture2d_content` to get the content of the 8-bit texture and return a byte array
 
 ##### Console Command
+
 Add debug command `TAPython.OverrideEnable 1`
 
 Enter this command in the CMD debug window, and the contents of the `DefaultResource` directory in the default resource of the plugin will replace the contents of the `TA/TAPython` directory in the current project.
@@ -434,6 +575,7 @@ Add icons
 #### Changes
 
 ##### Config.ini
+
 Set `LogOnTickWarnings` of `config.ini` default value to False
 
 #### Fixed
@@ -479,47 +621,47 @@ Note:
 
 Add more viewport and projection matrix related interfaces
 
-- Add `set_level_viewport_camera_fov`    Set the fov of level viewport camera
-- Add `get_level_viewport_camera_aspect`    Get the aspect of level viewport camera
+- Add `set_level_viewport_camera_fov` Set the fov of level viewport camera
+- Add `get_level_viewport_camera_aspect` Get the aspect of level viewport camera
 - Add `get_level_viewport_size` Get the size of level viewport
-- Add `get_viewport_pixels_as_texture`  Get the content of first active viewport as Texture2D. UE5 only.
+- Add `get_viewport_pixels_as_texture` Get the content of first active viewport as Texture2D. UE5 only.
 - Add `get_viewport_pixels_as_data` Get the raw pixels from first active viewport as RawData
 - Add `calculate_projection_matrix` Calculate the Projection Matrix by fov and near plane
-- Add `calculate_view_matrix`   Calculate the View Matrix by ViewLocation and ViewRotation.
-- Add `calculate_vp_matrix`     Calculate the ViewProjection Matrix by ViewLocation, ViewRotation, fov and near plane.
-- Add `calculate_inv_view_projection_matrix`    Calculate the inverse ViewProjection Matrix by ViewLocation, ViewRotation, fov and near plane.
-- Add `project_world_to_view`   Project world position to view position.
-- Add `frustum_trace`   Trace rays against the world using a specific profile in a gird in Frustum and return the hits. UE5 only.
+- Add `calculate_view_matrix` Calculate the View Matrix by ViewLocation and ViewRotation.
+- Add `calculate_vp_matrix` Calculate the ViewProjection Matrix by ViewLocation, ViewRotation, fov and near plane.
+- Add `calculate_inv_view_projection_matrix` Calculate the inverse ViewProjection Matrix by ViewLocation, ViewRotation, fov and near plane.
+- Add `project_world_to_view` Project world position to view position.
+- Add `frustum_trace` Trace rays against the world using a specific profile in a gird in Frustum and return the hits. UE5 only.
 
 ##### Add Struct： TAPythonPrimitiveHitResult
 
 unreal.TAPythonPrimitiveHitResult is used to add more return data for HitResult.
 
-- ``component`` (PrimitiveComponent):  [Read-Write]
-- ``hit_locations`` (Array[Vector]):  [Read-Write]
-- ``hit_normals`` (Array[Vector]):  [Read-Write]
-- ``is_this_triangles_vertex_all_visible`` (Array[bool]):  [Read-Write]
-- ``screen_normals`` (Array[Vector]):  [Read-Write]
-- ``screen_positions`` (Array[Vector2D]):  [Read-Write]
-- ``transform`` (Transform):  [Read-Write]
-- ``triangle_ids`` (Array[int32]):  [Read-Write] The index of output in the expression
+- `component` (PrimitiveComponent): [Read-Write]
+- `hit_locations` (Array[Vector]): [Read-Write]
+- `hit_normals` (Array[Vector]): [Read-Write]
+- `is_this_triangles_vertex_all_visible` (Array[bool]): [Read-Write]
+- `screen_normals` (Array[Vector]): [Read-Write]
+- `screen_positions` (Array[Vector2D]): [Read-Write]
+- `transform` (Transform): [Read-Write]
+- `triangle_ids` (Array[int32]): [Read-Write] The index of output in the expression
 
 #### PythonMeshLib
 
 Add more interfaces for DynamicMesh
 
 - Add `set_uvs_from_camera_projection` Project the DynamicMesh to specified UVSet in current view. UE5 only.
-- Add `get_visible_triangles`   Get the visible triangles of DynamicMesh in current view. UE5 only.
-- Add `rasterize_and_trace_triangles_uv`    Trace the visibility of DynamicMesh in current view.(Experimental). UE5 only.
+- Add `get_visible_triangles` Get the visible triangles of DynamicMesh in current view. UE5 only.
+- Add `rasterize_and_trace_triangles_uv` Trace the visibility of DynamicMesh in current view.(Experimental). UE5 only.
 - Add `trace_dynamic_mesh_triangles_visibility` Trace the visibility of DynamicMesh's triangles in current view. UE5 only.
-- Add `get_triangles_face_normal_in_view`   Get the face normal of DynamicMesh in current view.  (Experimental).  UE5 only.
-- Add `cal_triangles_derivatives`   Calculate the merged ddxy of DynamicMesh's triangles in current view.  UE5 only.
-- Add `export_normal_and_derivatives`  Export the current normal and mip of DynamicMesh in current view as raw data. (Experimental). UE5 only.
+- Add `get_triangles_face_normal_in_view` Get the face normal of DynamicMesh in current view. (Experimental). UE5 only.
+- Add `cal_triangles_derivatives` Calculate the merged ddxy of DynamicMesh's triangles in current view. UE5 only.
+- Add `export_normal_and_derivatives` Export the current normal and mip of DynamicMesh in current view as raw data. (Experimental). UE5 only.
 
 #### PythonTextureLib
 
-- Add `create_texture2d`    Create a Texture2D with specified size which has no uasset file. UE5 only.
-- Add `finish_compilation_texture`  Wait for the texture to finish compiling. UE5 only.
+- Add `create_texture2d` Create a Texture2D with specified size which has no uasset file. UE5 only.
+- Add `finish_compilation_texture` Wait for the texture to finish compiling. UE5 only.
 - Add parameter FlipY to `create_texture2d_from_raw`, default is False
 
 #### Menus
@@ -583,11 +725,11 @@ Note: The following methods are "Experimental" functions, which may be removed l
 - Add `spawn_to_graph_by_class`
 - Add `spawn_function_to_graph` Spawn a specified function of a module in SGraphPanel.
 - Add `spawn_function_to_graph_with_spawner` Spawn a specified function of a module in SGraphPanel through a BPFunctionSpawner.
-- Add `get_graph_panel_nodes`   Get all nodes in SGraphPanel.
-- Add `clear_graph_panel`   Clear all nodes in SGraphPanel.
+- Add `get_graph_panel_nodes` Get all nodes in SGraphPanel.
+- Add `clear_graph_panel` Clear all nodes in SGraphPanel.
 - Add `get_graph_selected_node` Get the selected nodes in SGraphPanel.
 - Add `get_graph_panel_content_as_json` Get the content of SGraphPanel as JSON string
-- Add `set_graph_panel_content_from_json`   Set the content of SGraphPanel from JSON string.
+- Add `set_graph_panel_content_from_json` Set the content of SGraphPanel from JSON string.
 
 Add a new BPLib to process Blueprint related content
 
@@ -599,9 +741,9 @@ Add a new BPLib to process Blueprint related content
 - Add `log_all_schemas` Log all available Schemas, and return UClass array
 - Add `get_graph_node_by_name`
 - Add `get_all_k2_nodes`
-- Add `get_children_classes`    Get the children classes from the specified UClass
+- Add `get_children_classes` Get the children classes from the specified UClass
 - Add `get_classes_from_module` Get the UClass from the specified module name
-- Add `get_bp_functions_spawners`   Get the UFunction from the specified UClass
+- Add `get_bp_functions_spawners` Get the UFunction from the specified UClass
 - Add `get_bp_function_spawner` Get the Spawner of the specified Blueprint function name, used to create nodes in SGraphPanel
 
 ### In v1.1.0
@@ -802,7 +944,7 @@ And we can add a context menu for object's component in Detail views.
 ###### Console Command
 
 ```
-TAPython.RefreshToolMenus 
+TAPython.RefreshToolMenus
 ```
 
 "TAPython.RefreshToolMenus" can be used to refresh the "ToolMenus" menus, other menus will be auto-refreshed and not need this command
@@ -831,43 +973,43 @@ Cancel the specified DelayCall by ID.
 
 We got a new editor library: PhysicsAssetLib, as its name, it's for PhysicsAsset Editing.
 
-| Function Name                     | Description                                                         |      |
-| :-------------------------------- | :------------------------------------------------------------------ | :--- |
-| get_selected_bodies_indexes       | Get the indexes of the selected bodies in Physics Asset Editor      |      |
-| rotate_selected_body              | Set the rotation of the selected body in Physics Asset Editor       |      |
-| rotate_selected_constraint        | Set the rotation of the selected constraint in Physics Asset Editor |      |
-| get_body_center                   | Get the center value of the specified body                          |      |
-| set_body_center                   | Set the center value of the specified body                          |      |
-| get_body_rotation                 | Get the rotation value of the first body                            |      |
-| get_bodies_rotations              | Get the rotation value of the first body                            |      |
-| set_body_rotation                 | Set the rotation value of the specified body                        |      |
-| get_body_radius                   | Get the Radius value of the body                                    |      |
-| set_body_radius                   | Set the Radius value of the body                                    |      |
-| get_body_length                   | Get the rotation value of the first body                            |      |
-| set_body_length                   | Get the rotation value of the first body                            |      |
-| get_body_size                     | Get the Size value of the box body                                  |      |
-| set_body_size                     | Set the Size value of the box body                                  |      |
-| scale_body                        | Scale the specified body                                            |      |
-| get_edited_physics_assets         | Get all PhysicsAsset currently being tracked with open editors      |      |
-| get_physics_asset_from_top_window | Get the PhysicsAsset from the top opened editor window.             |      |
-| get_selected_item_names           | Get all the selected items name in PhysicsAsset editor window.      |      |
-| select_body_by_name               | Select the Body by name in PhysicsAsset editor window.              |      |
-| select_body_by_names              | Select the Bodies by name in PhysicsAsset editor window.            |      |
-| select_shape_by_name              | Select the Shape by name in PhysicsAsset editor window.             |      |
-| select_shape_by_names             | Select the Shapes by name in PhysicsAsset editor window.            |      |
-| select_constraint_by_name         | Select the constraint by name in PhysicsAsset editor window.        |      |
-| select_constraint_by_names        | Select the constraints by name in PhysicsAsset editor window.       |      |
-| add_constraints                   | Add constraint to specified bodies                                  |      |
-| get_skeleton_hierarchy            | Get the bones hierarchy                                             |      |
-| get_bodies_hierarchy              | Get all the bodies names and their parent bone's index              |      |
-| get_constraints_names             | Get all the constraint's display names of PhysicsAsset              |      |
-| get_bone_indexes_of_constraint    | Get the parent and child bone's indexes of the specified Constraint |      |
-| get_bone_index_from_body          | Get the first Body under the specified bone                         |      |
-| get_bodies_from_bone              | Get the Bodies under the specified bone                             |      |
-| get_constraint_instance_accessor  | Get the ConstraintInstanceAccessor from PhysicsAsset                |      |
-| reset_constraint_properties       | Reset the specified Constraint's values                             |      |
-| update_profile_instance           | Update the Profile according to the specified Constraint            |      |
-| break_constraint_accessor         | Get the Owner and Constraint Index from ConstraintInstanceAccessor  |      |
+| Function Name                     | Description                                                         |     |
+| :-------------------------------- | :------------------------------------------------------------------ | :-- |
+| get_selected_bodies_indexes       | Get the indexes of the selected bodies in Physics Asset Editor      |     |
+| rotate_selected_body              | Set the rotation of the selected body in Physics Asset Editor       |     |
+| rotate_selected_constraint        | Set the rotation of the selected constraint in Physics Asset Editor |     |
+| get_body_center                   | Get the center value of the specified body                          |     |
+| set_body_center                   | Set the center value of the specified body                          |     |
+| get_body_rotation                 | Get the rotation value of the first body                            |     |
+| get_bodies_rotations              | Get the rotation value of the first body                            |     |
+| set_body_rotation                 | Set the rotation value of the specified body                        |     |
+| get_body_radius                   | Get the Radius value of the body                                    |     |
+| set_body_radius                   | Set the Radius value of the body                                    |     |
+| get_body_length                   | Get the rotation value of the first body                            |     |
+| set_body_length                   | Get the rotation value of the first body                            |     |
+| get_body_size                     | Get the Size value of the box body                                  |     |
+| set_body_size                     | Set the Size value of the box body                                  |     |
+| scale_body                        | Scale the specified body                                            |     |
+| get_edited_physics_assets         | Get all PhysicsAsset currently being tracked with open editors      |     |
+| get_physics_asset_from_top_window | Get the PhysicsAsset from the top opened editor window.             |     |
+| get_selected_item_names           | Get all the selected items name in PhysicsAsset editor window.      |     |
+| select_body_by_name               | Select the Body by name in PhysicsAsset editor window.              |     |
+| select_body_by_names              | Select the Bodies by name in PhysicsAsset editor window.            |     |
+| select_shape_by_name              | Select the Shape by name in PhysicsAsset editor window.             |     |
+| select_shape_by_names             | Select the Shapes by name in PhysicsAsset editor window.            |     |
+| select_constraint_by_name         | Select the constraint by name in PhysicsAsset editor window.        |     |
+| select_constraint_by_names        | Select the constraints by name in PhysicsAsset editor window.       |     |
+| add_constraints                   | Add constraint to specified bodies                                  |     |
+| get_skeleton_hierarchy            | Get the bones hierarchy                                             |     |
+| get_bodies_hierarchy              | Get all the bodies names and their parent bone's index              |     |
+| get_constraints_names             | Get all the constraint's display names of PhysicsAsset              |     |
+| get_bone_indexes_of_constraint    | Get the parent and child bone's indexes of the specified Constraint |     |
+| get_bone_index_from_body          | Get the first Body under the specified bone                         |     |
+| get_bodies_from_bone              | Get the Bodies under the specified bone                             |     |
+| get_constraint_instance_accessor  | Get the ConstraintInstanceAccessor from PhysicsAsset                |     |
+| reset_constraint_properties       | Reset the specified Constraint's values                             |     |
+| update_profile_instance           | Update the Profile according to the specified Constraint            |     |
+| break_constraint_accessor         | Get the Owner and Constraint Index from ConstraintInstanceAccessor  |     |
 
 #### Fixed
 
@@ -897,7 +1039,7 @@ A new setting parameters LogNumberLimit in Config.ini will limit the maximum num
 
 ##### Call python command with delay and repetition
 
- In the test case, I used [delay_call](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTestLib.html#delay_call), pushing the python scripting, then waiting for the editor to complete its asynchronous tasks, or waiting for the window to refresh, and so on.
+In the test case, I used [delay_call](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTestLib.html#delay_call), pushing the python scripting, then waiting for the editor to complete its asynchronous tasks, or waiting for the window to refresh, and so on.
 
 - [delay_call](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTestLib.html#delay_call)
 - [cancel_delay_call](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTestLib.html#delay_call)
@@ -915,11 +1057,11 @@ Usage:
 
 For example, I fixed the crash when using ObjectDetailViewer tool and then loading another level, as the queried object will referenced by ObjectDetailViewer. :-(
 
-``` json
+```json
     "OnMapChangedCmd": "chemeleon_objectDetailViewer.on_map_changed(%map_change_type)",
 ```
 
-``` python
+```python
     def on_map_changed(self, map_change_type_str):
         # remove the reference, avoid memory leaking when load another map.
         if map_change_type_str == "TearDownWorld":
@@ -983,7 +1125,7 @@ Add [SetColorAndOpacity](https://www.tacolor.xyz/pages/ChameleonDataAPI.html#set
 
 #### Support MacOS
 
-TAPython released its first version of MacOS Monterey (v1.0.8 for UE 5.0.3), although there are far fewer Unreal developers on the MAC than PC.  If you have any problems, please let me know.
+TAPython released its first version of MacOS Monterey (v1.0.8 for UE 5.0.3), although there are far fewer Unreal developers on the MAC than PC. If you have any problems, please let me know.
 
 ![0_49_tapython_osx_small](Images/049_tapython_osx_small.png)
 
@@ -1053,7 +1195,7 @@ One of the most **important** features in this release is the addition of suppor
 
 Now we can add custom menu items directly to the material editor and pass the material instance that we are currently editing to the python script so that we can "play with" the material nodes directly in python.
 
-The *%asset_paths* in the following example will be replaced by the TAPython with an array of paths to the material currently being edited, which usually has only one element.
+The _%asset_paths_ in the following example will be replaced by the TAPython with an array of paths to the material currently being edited, which usually has only one element.
 
 With the [APIs](#more-pythonmateriallib-apis) added to PythonMaterialLib in this release, we can fully script the material expression nodes via Python.
 
@@ -1098,7 +1240,7 @@ Now we can calculate the size of all content in the whole ScrollBox from the Off
 
 ##### SButton
 
-Add *%widgetPath* keyword in JSON
+Add _%widgetPath_ keyword in JSON
 
 It will pass the widget path of the current clicked button to python code, so we can figure out which SButton was clicked, when we import the External JONS file multi-times.
 
@@ -1135,7 +1277,7 @@ The following code will calculate the size of the contents in the entire tool wi
     def on_button_Snapshot_click(self):
         full_size = self.get_full_size_of_this_chameleon()
         saved_file_path = unreal.ChameleonData.snapshot_chameleon_window(self.jsonPath, unreal.Vector2D(*full_size))
-        
+
         if saved_file_path:
             unreal.PythonBPLib.notification(f"UI Snapshot Saved:", hyperlink_text = saved_file_path
                                             , on_hyperlink_click_command = f'chameleon_gallery.explorer("{saved_file_path}")')
@@ -1149,42 +1291,42 @@ Now we can iterate, create, and modify **Material Expression** nodes of Material
 
 For more details and examples of material expressions can be found here: [How to manipulate Material Expressions Node in Material with Python in Unreal Engine](https://www.tacolor.xyz/Howto/Manipulate_Material_Expression_Nodes_Of_Material_With_Python_In_UE.html)
 
-| PythonMaterialLib                                                                                                                                                                    | Description                                                                                                                  | Is New added |
-| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- | :----------- |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_static_switch_parameter_values">get_static_switch_parameter_values</a>                             | Get the Static Switch Infos of material instance                                                                             |              |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_static_switch_parameter_value">set_static_switch_parameter_value</a>                               | Set the Static Switch Infos of material instance                                                                             |              |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_static_switch_parameters_values">set_static_switch_parameters_values</a>                           | Batch set the Static Switch's status of material instance.                                                                   |              |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_mf_static_switch_parameter">get_mf_static_switch_parameter</a>                                     | Get the Static Switch Infos of material function.                                                                            |              |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_static_parameters_summary">get_static_parameters_summary</a>                                       | Get the numbers of each StaticSwitchParameter of material instance.                                                          |              |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_mat">log_mat</a>                                                                                   | Log out all the connections in the material                                                                                  | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expressions">get_material_expressions</a>                                                 | Log out all the Material Expressions in the material                                                                         | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_all_referenced_expressions">get_all_referenced_expressions</a>                                     | Get Material Expressions in the material with specified feature level                                                        | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_connections">get_material_connections</a>                                                 | Get all the connections in the material                                                                                      | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_connections">get_material_function_connections</a>                               | Get all the connections in the material function                                                                             | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_input_names">get_material_expression_input_names</a>                           | Get the input pin's names of the material expression                                                                         | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_output_names">get_material_expression_output_names</a>                         | Get the output pin's names of the material expression                                                                        | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_captions">get_material_expression_captions</a>                                 | The captions of the material expression                                                                                      | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_shading_model">set_shading_model</a>                                                               | Set the shading model of the material, for the hidden shading model                                                          | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_id">get_material_expression_id</a>                                             | Get the ParameterExpressionId of the material expression.                                                                    | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_mf">log_mf</a>                                                                                     | Log out all the connections in the material function                                                                         | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_expressions">get_material_function_expressions</a>                               | Get all the expressions in the Material Function                                                                             | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_output_expressions">get_material_function_output_expressions</a>                 | Get all the output expressions in the Material Function                                                                      | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_selected_material_nodes">get_selected_material_nodes</a>                                           | Get the selected nodes in material editor.                                                                                   | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_material_expression">log_material_expression</a>                                                   | Log Detail information of the MaterialExpression, include inputs, outputs etc.                                               | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_editing_nodes">log_editing_nodes</a>                                                               | Log Detail information of the Material or Material Function                                                                  | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_selected_nodes_in_material_editor">get_selected_nodes_in_material_editor</a>                       | Get the selected nodes in material editor.                                                                                   | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_hlsl_code">get_hlsl_code</a>                                                                       | Get the HLSL code of the Material                                                                                            | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_shader_map_info">get_shader_map_info</a>                                                           | Get the ShaderMaps infos in string format.                                                                                   | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_content">get_material_content</a>                                                         | Get the material's content in JSON Format                                                                                    | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_content">get_material_function_content</a>                                       | Get the material function's content in JSON Format                                                                           | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#connect_material_expressions">connect_material_expressions</a>                                         | Create connection between two material expressions                                                                           | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#disconnect_expression">disconnect_expression</a>                                                       | Disconnection the material expression's input                                                                                | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#connect_material_property">connect_material_property</a>                                               | Connect a material expression output to one of the material property inputs (e.g. diffuse color,  world position offset etc) | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#disconnect_material_property">disconnect_material_property</a>                                         | Disconnect the material property input                                                                                       | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_proper_str_from_guid">get_material_proper_str_from_guid</a>                               | Get EMaterialProperty in string format from a guid                                                                           | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#gen_guid_from_material_property_str">gen_guid_from_material_property_str</a>                           | Generate a Guid from EMaterialProperty                                                                                       | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#add_input_at_expression_set_material_attributes">add_input_at_expression_set_material_attributes</a>   | Add an Attribute Get Type pin for material expression "GetMaterialAttributes"                                                | Yes          |
-| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#add_output_at_expression_get_material_attributes">add_output_at_expression_get_material_attributes</a> | Add an Attribute Get Type pin for material expression "GetMaterialAttributes"                                                | Yes          |
+| PythonMaterialLib                                                                                                                                                                    | Description                                                                                                                 | Is New added |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- | :----------- |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_static_switch_parameter_values">get_static_switch_parameter_values</a>                             | Get the Static Switch Infos of material instance                                                                            |              |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_static_switch_parameter_value">set_static_switch_parameter_value</a>                               | Set the Static Switch Infos of material instance                                                                            |              |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_static_switch_parameters_values">set_static_switch_parameters_values</a>                           | Batch set the Static Switch's status of material instance.                                                                  |              |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_mf_static_switch_parameter">get_mf_static_switch_parameter</a>                                     | Get the Static Switch Infos of material function.                                                                           |              |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_static_parameters_summary">get_static_parameters_summary</a>                                       | Get the numbers of each StaticSwitchParameter of material instance.                                                         |              |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_mat">log_mat</a>                                                                                   | Log out all the connections in the material                                                                                 | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expressions">get_material_expressions</a>                                                 | Log out all the Material Expressions in the material                                                                        | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_all_referenced_expressions">get_all_referenced_expressions</a>                                     | Get Material Expressions in the material with specified feature level                                                       | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_connections">get_material_connections</a>                                                 | Get all the connections in the material                                                                                     | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_connections">get_material_function_connections</a>                               | Get all the connections in the material function                                                                            | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_input_names">get_material_expression_input_names</a>                           | Get the input pin's names of the material expression                                                                        | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_output_names">get_material_expression_output_names</a>                         | Get the output pin's names of the material expression                                                                       | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_captions">get_material_expression_captions</a>                                 | The captions of the material expression                                                                                     | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#set_shading_model">set_shading_model</a>                                                               | Set the shading model of the material, for the hidden shading model                                                         | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_expression_id">get_material_expression_id</a>                                             | Get the ParameterExpressionId of the material expression.                                                                   | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_mf">log_mf</a>                                                                                     | Log out all the connections in the material function                                                                        | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_expressions">get_material_function_expressions</a>                               | Get all the expressions in the Material Function                                                                            | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_output_expressions">get_material_function_output_expressions</a>                 | Get all the output expressions in the Material Function                                                                     | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_selected_material_nodes">get_selected_material_nodes</a>                                           | Get the selected nodes in material editor.                                                                                  | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_material_expression">log_material_expression</a>                                                   | Log Detail information of the MaterialExpression, include inputs, outputs etc.                                              | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#log_editing_nodes">log_editing_nodes</a>                                                               | Log Detail information of the Material or Material Function                                                                 | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_selected_nodes_in_material_editor">get_selected_nodes_in_material_editor</a>                       | Get the selected nodes in material editor.                                                                                  | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_hlsl_code">get_hlsl_code</a>                                                                       | Get the HLSL code of the Material                                                                                           | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_shader_map_info">get_shader_map_info</a>                                                           | Get the ShaderMaps infos in string format.                                                                                  | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_content">get_material_content</a>                                                         | Get the material's content in JSON Format                                                                                   | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_function_content">get_material_function_content</a>                                       | Get the material function's content in JSON Format                                                                          | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#connect_material_expressions">connect_material_expressions</a>                                         | Create connection between two material expressions                                                                          | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#disconnect_expression">disconnect_expression</a>                                                       | Disconnection the material expression's input                                                                               | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#connect_material_property">connect_material_property</a>                                               | Connect a material expression output to one of the material property inputs (e.g. diffuse color, world position offset etc) | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#disconnect_material_property">disconnect_material_property</a>                                         | Disconnect the material property input                                                                                      | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#get_material_proper_str_from_guid">get_material_proper_str_from_guid</a>                               | Get EMaterialProperty in string format from a guid                                                                          | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#gen_guid_from_material_property_str">gen_guid_from_material_property_str</a>                           | Generate a Guid from EMaterialProperty                                                                                      | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#add_input_at_expression_set_material_attributes">add_input_at_expression_set_material_attributes</a>   | Add an Attribute Get Type pin for material expression "GetMaterialAttributes"                                               | Yes          |
+| <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonMaterialLib.html#add_output_at_expression_get_material_attributes">add_output_at_expression_get_material_attributes</a> | Add an Attribute Get Type pin for material expression "GetMaterialAttributes"                                               | Yes          |
 
 ---
 
@@ -1232,7 +1374,7 @@ The user's operation in SImage is taken as Stable Fluid function's input, then u
 
 - [Notification](https://www.tacolor.xyz/pages/PythonEditorLib/PythonBPLib.html#notification)
 
-    Two new optional parameters in notifications were added, for adding a specify hyperlinks and the custom python function that executes when click. So we can quickly jump to a specific location or open a hyperlink.
+  Two new optional parameters in notifications were added, for adding a specify hyperlinks and the custom python function that executes when click. So we can quickly jump to a specific location or open a hyperlink.
 
 #### [PythonTextureLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonTextureLib.html)
 
@@ -1250,6 +1392,7 @@ More information and example about modify RenderTexture2D and SImage can be foun
 [3]: https://www.tacolor.xyz/pages/PythonEditorLib/PythonTextureLib.html#set_render_target_data
 
 ### In v1.0.6
+
 Added:
 
 - Support Unreal Engine 5.0.3
@@ -1257,12 +1400,13 @@ Added:
 - Support Unreal Engine 4.26.2
 - Add an optional parameter: "friendly name" to PythonStructLib.add_variable and PythonStructLib.add_directory_variable
 - Better warning message for PythonDataTableLib.set_property_by_string when "row_name" or "column_name" not exists in datatable
-  
+
 Fixed:
 
 - The Chameleon tab's reference not released when the project closes.
 
 ### In v1.0.5
+
 [PythonEnumLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonEnumLib.html) and [PythonStructLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonStructLib.html) has been added to [Python Editor Libs](https://www.tacolor.xyz/pages/PythonEditorLib.html), [PythonDataTableLib](https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html) also adds more python/blueprint callable functions.
 
 | PythonEnumLib                                                                                                                      | PythonStructLib                                                                                                                              | PythonDataTableLib                                                                                                                        |
@@ -1287,20 +1431,24 @@ Fixed:
 |                                                                                                                                    |                                                                                                                                              | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#set_property_by_string">set_property_by_string</a>         |
 |                                                                                                                                    |                                                                                                                                              | <a href="https://www.tacolor.xyz/pages/PythonEditorLib/PythonDataTableLib.html#set_property_by_string_at">set_property_by_string_at</a>   |
 
- In short, we can use Python to do almost everything you did manually in the editor with **User defined ENum, User Defined Struct and DataTable**. More details and examples can be found [here](https://www.tacolor.xyz/Howto/How_To_Create_User_Defined_ENum_Struct_DataTable_with_Python_in_UE5.html).
+In short, we can use Python to do almost everything you did manually in the editor with **User defined ENum, User Defined Struct and DataTable**. More details and examples can be found [here](https://www.tacolor.xyz/Howto/How_To_Create_User_Defined_ENum_Struct_DataTable_with_Python_in_UE5.html).
 
 ### v1.0.4
+
 Support more slates:
+
 #### Now we can create widge: [SSplitter](https://www.tacolor.xyz/pages/Widgets/SSplitter.html)
+
 ![G006_widget_SSplitter](Images/G006_widget_SSplitter.gif)
 
 #### And [SExpandableArea](https://www.tacolor.xyz/pages/Widgets/SExpandableArea.html)
+
 ![G006_widget_SExpandableArea](Images/G006_widget_SExpandableArea.gif)
 
 Two APIs was added in [ChameleonData](https://www.tacolor.xyz/pages/ChameleonDataAPI.html) for [SExpandableArea](https://www.tacolor.xyz/pages/Widgets/SExpandableArea.html):
 
-  1. bool GetIsExpanded(const FName AkaName)
-  2. void SetIsExpanded(const FName AkaName, bool bExpanded, bool bAnimated=false)
+1. bool GetIsExpanded(const FName AkaName)
+2. void SetIsExpanded(const FName AkaName, bool bExpanded, bool bAnimated=false)
 
 ```
 data.get_is_expanded(aka_name) -> bool
@@ -1320,7 +1468,7 @@ data.get_is_expanded(aka_name) -> bool
      Set the Expanded state of Specified SExpandableArea
      note: Supported widgets: SExpandableArea.
      note: added in v1.0.4
- 
+
      Args:
          aka_name (Name): The aka name of the widget
          expanded (bool): Is Expanded or not.
@@ -1329,7 +1477,7 @@ data.get_is_expanded(aka_name) -> bool
 
 #### Add Context menu in Outline window
 
-Now we can add context menu in Outline window, with the "OnOutlineMenu" field in MenuConfig.ini.  
+Now we can add context menu in Outline window, with the "OnOutlineMenu" field in MenuConfig.ini.
 
 ```json
     "OnOutlineMenu": {
@@ -1354,7 +1502,7 @@ The .png and.svg files in the plugin resource directory will be added to "Chamel
 
 - We can specify the icon of a menu item with a relative path of the icon image in the plug-in resource directory.
 
-``` json
+```json
     {
         "name": "Chameleon Shelf Tool",
         "ChameleonTools": "../Python/ShelfTools/Shelf.json",
@@ -1367,14 +1515,14 @@ The .png and.svg files in the plugin resource directory will be added to "Chamel
 - Or use ImageBrush directly in the style. For instance, the image brushes in FEditorStyle, FCoreStyle
 
 ```json
-    {
-        "name": "Minimal Example",
-        "ChameleonTools": "../Python/Example/MinimalExample.json",
-        "icon": {
-            "style": "ChameleonStyle",
-            "name": "Flash"
-        }
-    }
+{
+  "name": "Minimal Example",
+  "ChameleonTools": "../Python/Example/MinimalExample.json",
+  "icon": {
+    "style": "ChameleonStyle",
+    "name": "Flash"
+  }
+}
 ```
 
 #### The Chameleon UI .json file can reference other json files
@@ -1382,15 +1530,15 @@ The .png and.svg files in the plugin resource directory will be added to "Chamel
 Now the Chameleon UI json file can reference other Json files. Nested references are supported, but circular references need to be avoided
 
 ```json
-    {
-        "autoWidth": true,
-        "SBox": {
-            "WidthOverride": 480,
-            "Content": {
-                "ExternalJson": "ZeldaWorldMapEditor_Buttons.json"
-            }
-        }
+{
+  "autoWidth": true,
+  "SBox": {
+    "WidthOverride": 480,
+    "Content": {
+      "ExternalJson": "ZeldaWorldMapEditor_Buttons.json"
     }
+  }
+}
 ```
 
 #### pros
@@ -1408,28 +1556,27 @@ Now the Chameleon UI json file can reference other Json files. Nested references
 - Put the repetitive ui code (such as 16x16 map buttons) or the ui code which generated by other script into an "external" json file.
 
 #### The number of shortcut keys has been increased to 10
-  
+
 The number of shortcuts that can be configured in ExitorSettings has now been increased to 10. It will be a configurable number in later version.
 
 ##### Add "BorderBackgroundColor" of SBorder
 
- ```json
-    {
-        "SBorder": {
-            "BorderBackgroundColor": [1, 0.5, 0, 1],
-            "BorderImage":
-            {
-                "Style": "FEditorStyle",
-                "Brush": "ErrorReporting.EmptyBox"
-            }
-        }
+```json
+{
+  "SBorder": {
+    "BorderBackgroundColor": [1, 0.5, 0, 1],
+    "BorderImage": {
+      "Style": "FEditorStyle",
+      "Brush": "ErrorReporting.EmptyBox"
     }
+  }
+}
 ```
 
 #### Add More API in PythonBPLib
 
 - GetViewportPixels
-Now we can grab and get the content of viewport. Use it in tools widgets:
+  Now we can grab and get the content of viewport. Use it in tools widgets:
 
 ![025_snap_in_editor](Images/025_snap_in_editor.png)
 
@@ -1450,7 +1597,7 @@ We can get the EObjectFlags of a UObject.
 - GetLevelViewportCameraFov
 
 - GetActorsFromFolder
-Get the actors in Specified folder in outline
+  Get the actors in Specified folder in outline
 
 - FindActorsByLabelName
 
@@ -1484,7 +1631,7 @@ ChameleonTools has a hidden keyword that has not been mentioned: "OnTick". The p
 
 ## Feature
 
-- Use UE4 and UE5 native Python  
+- Use UE4 and UE5 native Python
 - Create UE Slate UI dynamically, support 39+ Slate widgets.
 - Configurable main menu/toolbar/Content Brower menu.
 - Slate like syntax interface description file, real-time preview UI result, without any reload.
@@ -1497,6 +1644,7 @@ ChameleonTools has a hidden keyword that has not been mentioned: "OnTick". The p
 ## How to Install
 
 ### Prerequisites
+
 This plugin use UE native Python Script Plugin. The [Scripting the Editor using Python](https://docs.unrealengine.com/en-US/Engine/Editor/ScriptingAndAutomation/Python/index.html) is also very useful.
 
 ![Python](Images/002_python_plugin_tiltle.png)
@@ -1504,17 +1652,17 @@ This plugin use UE native Python Script Plugin. The [Scripting the Editor using 
 ### Steps
 
 1. Download from [TAPython release repo @github](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release) and unzip the plugin to &lt;Your_UE_Project&gt;\Plugins
-![release](Images/003_release_page_at_github.png)
+   ![release](Images/003_release_page_at_github.png)
 
 ```
     Your_UE_Project
-    ├── Content                         
+    ├── Content
     ├── ...
-    └── Plugins                        
+    └── Plugins
         └── TAPython       # <--- Put Plugin Here
-            ├── Binaries                     
-            ├── Config                     
-            └── Content                   
+            ├── Binaries
+            ├── Config
+            └── Content
             └─ ...
 ```
 
@@ -1552,6 +1700,7 @@ The latest DefaultResources is here: [DefaultResources@github](https://github.co
 ![menu gifs](Images/G005_menus.gif)
 
 ### Sketch Tool for design/tweaking UI
+
 ![005_sketch_icon_on_mainbar](Images/005_sketch_icon_on_mainbar.png)
 
 The **Sketch Tool** is a special ui design tool. When the&lt;Your_UE_Project&gt\TA\TAPython\Python\ChameleonSketch\ChameleonSketch.json file is modified, the content of the ui will be updated immediately(see below gif). This can be very useful when writing tool interfaces, and will save a lot of time when tweaking the interface layout or parameters.
@@ -1571,6 +1720,7 @@ All the 4 Example tools, are written with python, **without** any single line of
 ![013_Chameleon_menu](Images/013_Chameleon_menu.png)
 
 #### Tool 1: MinimalExample
+
 ![MinimalExample](Images/G001_MinimalExample.gif)
 
 This is a tool demonstrating the creation of a standard UE Slate UI with python and a json file. The Button calls Python code, then the python code sends the results(click count) back to the UI.
@@ -1637,6 +1787,7 @@ MinimalExample.py
 ---
 
 #### Tools 2 Shelf
+
 Shelf is a Maya-like shortcut shelf tool, showing how to set visibility of widget and the usage of SDropTarget widget.
 
 Users can drag and drop items to the shelf, and execute custom Python Code, launch Chameleon tool when clicking the item on the shelf.
@@ -1656,6 +1807,7 @@ You can modify the python code, and make it better.
 ---
 
 #### Tool 2 Object Detail Viewer
+
 ![Object Detail Viewer](Images/014_object_viewer.png)
 
 Object Detail Viewer is an inspector Tool for UE object. It shows all the functions and property in any UObject. Double click the property will query the child property. The image above shows the detail values of Floor_14(actor).static_mesh_component.static_mesh.static_materials[0].
@@ -1673,7 +1825,9 @@ Chameleon Gallery shows the most common widgets, and how to describe them in a j
 ## <a href="https://tacolor.xyz/pages/TAPython.html#documentation">TAPython How to Use</a>
 
 ## FAQ
+
 ### Q0. Can UE4 use this plugin?
+
 A: Yes, at the beginning this plugin was developed with UE 4.21. We have released this plugin for UE 4.26, 4.27, UE5.0EA, UE5.0Preview1.
 
 ### <a href="https://tacolor.xyz/pages/TAPython.html#faq">More FAQ</a>
@@ -1689,7 +1843,7 @@ A: Yes, at the beginning this plugin was developed with UE 4.21. We have release
 ## Contributing and feedback
 
 This Plugin: TAPython is **Free** for use. The [PythonDefaultResource](https://github.com/cgerchenhp/TAPython_DefaultResources)
- is under MIT license.
+is under MIT license.
 
 - Any suggestions and comments are welcome. Please don't hesitate to leave your message.
 - If you encounter difficulties or problems. <a href="mailto:chpsemail@gmail.com">EMail me</a> with the problem description, screenshot and the log.
