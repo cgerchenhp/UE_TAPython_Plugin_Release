@@ -1,18 +1,18 @@
-## TA Python Tools
+# TAPython
 
-This is a plugin which tries hard to make Unreal Editor Tools As Easy As Possible.
+Build Unreal Editor tools as easily as possible with Python.
 
-<a href="https://tacolor.xyz/pages/TAPython.html">TAPython WebSite</a>
+[TAPython website](https://www.tacolor.xyz/pages/TAPython.html)
 
-<a href="https://www.tacolor.xyz/tapython/welcome_to_tapython.html">TAPython Documentation</a>
+[TAPython documentation](https://www.tacolor.xyz/tapython/welcome_to_tapython.html)
 
 ## Overview
 
-TAPython is an editor plugin for Unreal Engine. It provides a framework for creating python editor tools in Unreal Engine, and live Slate editing for developers, which makes creating menus and UE native Slate UI much easier and faster(without any compiling time or restart editor). The plugin also provides 300+ editor tool interfaces to use, making developing UE editor tools very simple and efficient.
+TAPython is an Unreal Engine editor plugin for building Python-powered editor tools. It lets you create menus and native Slate UIs dynamically, iterate on UI changes without recompiling or restarting the editor, and use 300+ extended APIs for assets, materials, landscapes, viewports, and editor automation.
 
 ![Tools Preview](Images/001_tools_preview_small.png)
 
-Thank you, TAPython's stargazers✨.😄
+Thanks to all TAPython stargazers!
 
 [![Star History Chart](https://api.star-history.com/svg?repos=cgerchenhp/UE_TAPython_Plugin_Release&type=Date)](https://star-history.com/#cgerchenhp/UE_TAPython_Plugin_Release&Date)
 
@@ -21,29 +21,29 @@ Thank you, TAPython's stargazers✨.😄
 ### v1.3.3
 
 - Supports Unreal Engine 5.8.
-- Adds viewport-stat inspection and editor screenshots with Slate/UI overlays.
-- Adds world and actor query APIs for Editor, PIE, and Simulate modes.
-- Fixes viewport stat-unit data and the `get_world` deprecation warning.
+- Adds viewport-stat inspection and editor screenshot capture, including Slate/UI overlays.
+- Adds active-world queries for Editor, PIE, and Simulate modes, plus actor queries for Editor and PIE.
+- Fixes inaccurate viewport-stat unit data and the `get_world` deprecation warning.
 
 See the [full release history](CHANGELOG.md).
 
 ## Editor Modes: interactive viewport tools without C++
 
-Create custom Editor Modes with **JSON-defined UI and Python logic**, with no C++ required and live hot reload while you iterate. Handle mouse and keyboard input, add viewport overlay UI, and build painting, sculpting, placement, and other interactive workflows.
+Create custom Editor Modes with **JSON-defined UI and Python logic**. No C++ is required, and live hot reloading lets you iterate quickly. Handle mouse and keyboard input, add viewport-overlay UI, and build interactive painting, sculpting, placement, and similar workflows.
 
 ![TAPython Editor Mode example](Images/153_editor_mode_preview.png)
 
 [Learn how to create Editor Modes with TAPython](https://www.tacolor.xyz/Howto/create_editor_modes_with_tapython.html).
 
-## Feature
+## Features
 
-- Use UE4 and UE5 native Python
-- Create UE Slate UI dynamically, supporting 43+ widget types.
-- Configurable main menu/toolbar/Content Brower menu.
-- Slate like syntax interface description file, real-time preview UI result, without any reload.
-- Bind Python command to Slate UI widget, and change the UI content with python.
-- No enging source code modified, compatible with lower versions of UE4(4.21, release later) and latest UE5
-- 300+ extended Editor APIs for assets, materials, landscapes, viewports, and editor automation.
+- Use Unreal Engine's built-in Python integration across supported UE4 and UE5 releases.
+- Create native Slate UIs dynamically, with support for 43+ widget types.
+- Configure Main Menu, toolbar, and Content Browser context-menu entries.
+- Define Slate-like interfaces in JSON and preview UI changes in real time without reloading.
+- Bind Python commands to Slate widgets and update UI content from Python.
+- No engine-source modifications are required. This release supports UE 5.8; see the [release history](CHANGELOG.md) for version-specific compatibility.
+- Use 300+ extended Editor APIs for assets, materials, landscapes, viewports, and editor automation.
 
 ![Sketch Editing Gif](Images/G000_SketchEditing.gif)
 
@@ -51,13 +51,13 @@ Create custom Editor Modes with **JSON-defined UI and Python logic**, with no C+
 
 ### Prerequisites
 
-This plugin use UE native Python Script Plugin. The [Scripting the Editor using Python](https://docs.unrealengine.com/en-US/Engine/Editor/ScriptingAndAutomation/Python/index.html) is also very useful.
+TAPython relies on Unreal Engine's built-in **Python Editor Script Plugin**. Enable it for your project, then refer to Epic's [Scripting the Unreal Editor Using Python](https://dev.epicgames.com/documentation/en-us/unreal-engine/scripting-the-unreal-editor-using-python) guide.
 
 ![Python](Images/002_python_plugin_tiltle.png)
 
 ### Steps
 
-1. Download from [TAPython release repo @github](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release) and unzip the plugin to &lt;Your_UE_Project&gt;\Plugins
+1. Download the TAPython release that matches your Unreal Engine version from [GitHub Releases](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases), then extract the `TAPython` folder into `<Your_UE_Project>\Plugins`.
    ![release](Images/003_release_page_at_github.png)
 
 ```
@@ -65,55 +65,53 @@ This plugin use UE native Python Script Plugin. The [Scripting the Editor using 
     ├── Content
     ├── ...
     └── Plugins
-        └── TAPython       # <--- Put Plugin Here
+        └── TAPython       # Place the plug-in here
             ├── Binaries
             ├── Config
             └── Content
             └─ ...
 ```
 
-<a id="add_path_in_project_setting"></a>
-
-2. Laungch project, open Project settings - Plugin Python - additional path, add &lt;Your_UE_Project&gt;/TA/TAPython/Python to additional path. then restart the editor.
+2. Launch the project. By default, if `<Your_UE_Project>\TA` does not already exist, TAPython copies its initial resources there on the first launch. Open **Edit > Project Settings > Plugins > Python**, add `<Your_UE_Project>\TA\TAPython\Python` under **Additional Paths**, and then restart the editor.
 
 ![Project Setting Image](Images/004_project_settings_setted.png)
 
-3. click the **Gallery** icon on main toolbar, you should see a green check box UI like below.
+3. Click the **Gallery** icon in the main toolbar. You should see a green check mark, as shown below.
 
 ![SketchIconOnMainBar](Images/020_gallery_menu.png)
 
-Green sign and text "Python Path Ready" will showing at the top of gallery.
+A green check mark and the text **Python Path Ready** appear at the top of the Gallery.
 
 ![Python Path Is Ready](Images/006_gallery_path_is_ready.png)
 
-If a Red Cross is displayed, check the Project Setting above.
+If a red cross is displayed, check the Project Settings entry above.
 
 ![Python Path Is not Ready](Images/007_gallery_path_is_not_ready.png)
 
 ## Quick Start
 
-The plug-in package contains several menu items and four demo tools by default.
+The plug-in package includes several menu items and four example tools.
 
-The latest DefaultResources is here: [DefaultResources@github](https://github.com/cgerchenhp/TAPython_DefaultResources)
+The source repository for the default resources is [TAPython DefaultResources](https://github.com/cgerchenhp/TAPython_DefaultResources).
 
 ### Menu Items
 
-- Context Menu Items in Content Browser
-- Context Menu Items for selected asset
-- Menu Item in Main menu
-- Menu icons on Mainbar
+- Content Browser context-menu entries
+- Context-menu entries for selected assets
+- Main-menu entries
+- Toolbar icons
 
 ![menu gifs](Images/G005_menus.gif)
 
-### Sketch Tool for design/tweaking UI
+### Sketch Tool for designing and refining UIs
 
 ![005_sketch_icon_on_mainbar](Images/005_sketch_icon_on_mainbar.png)
 
-The **Sketch Tool** is a special ui design tool. When the&lt;Your_UE_Project&gt\TA\TAPython\Python\ChameleonSketch\ChameleonSketch.json file is modified, the content of the ui will be updated immediately(see below gif). This can be very useful when writing tool interfaces, and will save a lot of time when tweaking the interface layout or parameters.
+The **Sketch Tool** is a live UI-design tool. When you save changes to `<Your_UE_Project>\TA\TAPython\Python\ChameleonSketch\ChameleonSketch.json`, its UI updates immediately (see the GIF below). Use it to rapidly prototype tool interfaces and refine their layout and parameters.
 
 ![G000_SketchEditing](Images/G000_SketchEditing.gif)
 
-The default sketch tool looks like below. Try to modify the content of ChameleonSketch.json with any text editor, and save it. Don't worry about the json keywords and syntax, it's easy to learn and has lots of examples, will be described below.
+The default Sketch Tool is shown below. Edit `ChameleonSketch.json` in any text editor and save it to see your changes. The JSON syntax is straightforward, and the examples below provide a useful starting point.
 
 ![012_default_sketch](Images/012_default_sketch.png)
 
@@ -121,7 +119,7 @@ The default sketch tool looks like below. Try to modify the content of Chameleon
 
 ### Example Tools
 
-All the 4 Example tools, are written with python, **without** any single line of c++ code.
+All four example tools are written entirely in Python, without a single line of C++ code.
 
 ![013_Chameleon_menu](Images/013_Chameleon_menu.png)
 
@@ -129,13 +127,13 @@ All the 4 Example tools, are written with python, **without** any single line of
 
 ![MinimalExample](Images/G001_MinimalExample.gif)
 
-This is a tool demonstrating the creation of a standard UE Slate UI with python and a json file. The Button calls Python code, then the python code sends the results(click count) back to the UI.
+This tool demonstrates how to create a native Slate UI from a JSON file and Python code. Clicking the button invokes Python, which sends the click count back to the UI.
 
-The tool includes a 30-lines Json file and a 15-lines Python file. In fact, it can be shorter.
+The example consists of a 30-line JSON file and a 15-line Python file, and it can be made even smaller.
 
-I will call this kind of tool which creates Slate interfaces in this way "Chameleon Tools"
+Tools built this way are called **Chameleon Tools**.
 
-MinimalExample.json：
+`MinimalExample.json`
 
 ```
     {
@@ -170,7 +168,7 @@ MinimalExample.json：
     }
 ```
 
-MinimalExample.py
+`MinimalExample.py`
 
 ```
     # -*- coding: utf-8 -*-
@@ -192,65 +190,66 @@ MinimalExample.py
 
 ---
 
-#### Tools 2 Shelf
+#### Tool 2: Shelf
 
-Shelf is a Maya-like shortcut shelf tool, showing how to set visibility of widget and the usage of SDropTarget widget.
+Shelf is a Maya-style shortcut shelf. It demonstrates changing widget visibility and using `SDropTarget`.
 
-Users can drag and drop items to the shelf, and execute custom Python Code, launch Chameleon tool when clicking the item on the shelf.
+Users can drag items onto the shelf, then click an item to run custom Python code or open a Chameleon Tool.
 
 ![shelf gif](Images/G002_shelf.gif)
 
-| Type                    | Action                                |
-| ----------------------- | ------------------------------------- |
-| assets                  | select saved assets in content Brower |
-| folder                  | enter saved folder in Content Brower  |
-| actors                  | select saved actors in level          |
-| text（python snippet）  | execute as python code                |
-| chamelon tool json file | launch the Chameleon tool             |
+| Item type | Action |
+| --- | --- |
+| Assets | Select the saved assets in the Content Browser. |
+| Folder | Open the saved folder in the Content Browser. |
+| Actors | Select the saved actors in the level. |
+| Text (Python snippet) | Run it as Python code. |
+| Chameleon Tool JSON file | Launch the Chameleon Tool. |
 
-You can modify the python code, and make it better.
+You can customize the Python code to fit your workflow.
 
 ---
 
-#### Tool 2 Object Detail Viewer
+#### Tool 3: Object Detail Viewer
 
 ![Object Detail Viewer](Images/014_object_viewer.png)
 
-Object Detail Viewer is an inspector Tool for UE object. It shows all the functions and property in any UObject. Double click the property will query the child property. The image above shows the detail values of Floor_14(actor).static_mesh_component.static_mesh.static_materials[0].
+Object Detail Viewer is an inspector for Unreal Engine objects. It shows the functions and properties of any `UObject`. Double-click a property to inspect its child properties. The screenshot above shows the value of `Floor_14(actor).static_mesh_component.static_mesh.static_materials[0]`.
 
-In compare mode, the differences of two UObjects will be highlighted. It's very useful for being familiar with all kinds of UObject.
+In comparison mode, differences between two `UObject`s are highlighted. This is useful for exploring unfamiliar Unreal object types.
 
 ![Object Detail Viewer use](Images/G003_ObjectDetailViewer.gif)
 
-#### Tool 3 Chameleon Gallery
+#### Tool 4: Chameleon Gallery
 
-Chameleon Gallery shows the most common widgets, and how to describe them in a json file. All the supported widgets and API documents can be found [here]({filename}ChameleonGallery.md)
+Chameleon Gallery demonstrates common Slate widgets and their JSON descriptions. See the [Chameleon Gallery](https://www.tacolor.xyz/tapython/chameleon_gallery.html) for supported widgets and API documentation.
 
 ![Gallery Gif](Images/G004_gallery_preview.gif)
 
-## <a href="https://tacolor.xyz/pages/TAPython.html#documentation">TAPython How to Use</a>
+## Documentation
+
+See the [TAPython documentation](https://www.tacolor.xyz/tapython/welcome_to_tapython.html) for tutorials, setup guidance, and API references.
 
 ## FAQ
 
-### Q0. Can UE4 use this plugin?
+### Q. Does TAPython support UE4?
 
-A: Yes, at the beginning this plugin was developed with UE 4.21. We have released this plugin for UE 4.26, 4.27, UE5.0EA, UE5.0Preview1.
+**A:** Yes. TAPython was first developed for UE 4.21, and historical releases are available for UE 4.26 and 4.27. This release supports UE 5.8; choose the release that matches your engine version.
 
-### <a href="https://tacolor.xyz/pages/TAPython.html#faq">More FAQ</a>
+### [More FAQs](https://www.tacolor.xyz/pages/TAPython.html#faq)
 
 ## Links
 
-- <a href="https://tacolor.xyz/pages/TAPython_Howto.html">How to</a>
-- <a href="https://tacolor.xyz/pages/ChameleonGallery.html">Widget Gallery</a>
-- <a href="https://tacolor.xyz/pages/ChameleonDataAPI.html">ChameleonData API</a>
-- <a href="https://tacolor.xyz/pages/SupportedSlates.html">Supported Slates</a>
-- <a href="https://tacolor.xyz/pages/PythonEditorLib.html">Extended Python Editor Lib</a>
+- [How-to guides](https://www.tacolor.xyz/category/howto.html)
+- [Chameleon Gallery](https://www.tacolor.xyz/tapython/chameleon_gallery.html)
+- [ChameleonData API](https://www.tacolor.xyz/pages/ChameleonDataAPI.html)
+- [Supported Slate widgets](https://www.tacolor.xyz/pages/SupportedSlates.html)
+- [Extended Python API](https://www.tacolor.xyz/pages/PythonEditorLib.html)
 
 ## Contributing and feedback
 
-This Plugin: TAPython is **Free** for use. The [PythonDefaultResource](https://github.com/cgerchenhp/TAPython_DefaultResources)
-is under MIT license.
+TAPython is free software licensed under the [GNU Affero General Public License v3.0](LICENSE). The separately distributed [TAPython DefaultResources](https://github.com/cgerchenhp/TAPython_DefaultResources) are licensed under the MIT License.
 
-- Any suggestions and comments are welcome. Please don't hesitate to leave your message.
-- If you encounter difficulties or problems. <a href="mailto:chpsemail@gmail.com">EMail me</a> with the problem description, screenshot and the log.
-- If you find any English ambiguities or language errors on this page, please feel free to contact me as well.
+- Suggestions and feedback are welcome.
+- If you encounter a problem, [email the maintainer](mailto:chpsemail@gmail.com) with a clear description, screenshots, and relevant log output.
+- Please also report unclear wording or documentation errors.
