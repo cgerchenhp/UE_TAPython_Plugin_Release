@@ -246,9 +246,13 @@ See the [TAPython documentation](https://www.tacolor.xyz/tapython/welcome_to_tap
 - [Supported Slate widgets](https://www.tacolor.xyz/pages/SupportedSlates.html)
 - [Extended Python API](https://www.tacolor.xyz/pages/PythonEditorLib.html)
 
-## Contributing and feedback
+## License and source availability
 
-TAPython is free software licensed under the [GNU Affero General Public License v3.0](LICENSE). The separately distributed [TAPython DefaultResources](https://github.com/cgerchenhp/TAPython_DefaultResources) are licensed under the MIT License.
+The precompiled TAPython release artifacts published in [GitHub Releases](https://github.com/cgerchenhp/UE_TAPython_Plugin_Release/releases) are licensed under the [MIT License](LICENSE). This permission applies only to the artifacts for which cgerchenhp owns or controls the copyright. Unreal Engine and third-party components remain subject to their own licenses and notices.
+
+The original TAPython source code is not included in this repository and is not currently available. No source release date is promised. Because these releases are precompiled, a plugin built for a different Unreal Engine version or a customized engine may report build-ID, module, or ABI compatibility errors; use the release that matches the target engine version.
+
+## Contributing and feedback
 
 - Suggestions and feedback are welcome.
 - If you encounter a problem, [email the maintainer](mailto:chpsemail@gmail.com) with a clear description, screenshots, and relevant log output.
